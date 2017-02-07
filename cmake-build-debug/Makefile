@@ -123,32 +123,32 @@ projet_dbf/fast:
 	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/build
 .PHONY : projet_dbf/fast
 
-main.o: main.cpp.o
+DBFsrc/main.o: DBFsrc/main.cpp.o
 
-.PHONY : main.o
+.PHONY : DBFsrc/main.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/main.cpp.o
-.PHONY : main.cpp.o
+DBFsrc/main.cpp.o:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.o
+.PHONY : DBFsrc/main.cpp.o
 
-main.i: main.cpp.i
+DBFsrc/main.i: DBFsrc/main.cpp.i
 
-.PHONY : main.i
+.PHONY : DBFsrc/main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/main.cpp.i
-.PHONY : main.cpp.i
+DBFsrc/main.cpp.i:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.i
+.PHONY : DBFsrc/main.cpp.i
 
-main.s: main.cpp.s
+DBFsrc/main.s: DBFsrc/main.cpp.s
 
-.PHONY : main.s
+.PHONY : DBFsrc/main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/main.cpp.s
-.PHONY : main.cpp.s
+DBFsrc/main.cpp.s:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.s
+.PHONY : DBFsrc/main.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... projet_dbf"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... DBFsrc/main.o"
+	@echo "... DBFsrc/main.i"
+	@echo "... DBFsrc/main.s"
 .PHONY : help
 
 

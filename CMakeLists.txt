@@ -3,5 +3,5 @@ project(projet_dbf)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES DBFsrc/main.cpp DBFsrc/errno_dbf.h)
 add_executable(projet_dbf ${SOURCE_FILES})

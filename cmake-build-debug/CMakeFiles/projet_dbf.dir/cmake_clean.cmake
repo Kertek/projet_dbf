@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/projet_dbf.dir/main.cpp.o"
+  "CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.o"
   "projet_dbf.pdb"
   "projet_dbf"
 )
