@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.o"
+  "CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.o"
+  "CMakeFiles/projet_dbf.dir/DBFsrc/SocketDbf.cpp.o"
   "projet_dbf.pdb"
   "projet_dbf"
 )

@@ -84,6 +84,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.cpp">
+			<Option target="projet_dbf"/>
+		</Unit>
+		<Unit filename="/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.h">
+			<Option target="projet_dbf"/>
+		</Unit>
+		<Unit filename="/home/baptiste/Cours/projet_dbf/DBFsrc/SocketFactory.cpp">
+			<Option target="projet_dbf"/>
+		</Unit>
+		<Unit filename="/home/baptiste/Cours/projet_dbf/DBFsrc/SocketFactory.h">
+			<Option target="projet_dbf"/>
+		</Unit>
 		<Unit filename="/home/baptiste/Cours/projet_dbf/DBFsrc/errno_dbf.h">
 			<Option target="projet_dbf"/>
 		</Unit>

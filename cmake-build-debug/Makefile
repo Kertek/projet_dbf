@@ -123,6 +123,60 @@ projet_dbf/fast:
 	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/build
 .PHONY : projet_dbf/fast
 
+DBFsrc/SocketDbf.o: DBFsrc/SocketDbf.cpp.o
+
+.PHONY : DBFsrc/SocketDbf.o
+
+# target to build an object file
+DBFsrc/SocketDbf.cpp.o:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/SocketDbf.cpp.o
+.PHONY : DBFsrc/SocketDbf.cpp.o
+
+DBFsrc/SocketDbf.i: DBFsrc/SocketDbf.cpp.i
+
+.PHONY : DBFsrc/SocketDbf.i
+
+# target to preprocess a source file
+DBFsrc/SocketDbf.cpp.i:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/SocketDbf.cpp.i
+.PHONY : DBFsrc/SocketDbf.cpp.i
+
+DBFsrc/SocketDbf.s: DBFsrc/SocketDbf.cpp.s
+
+.PHONY : DBFsrc/SocketDbf.s
+
+# target to generate assembly for a file
+DBFsrc/SocketDbf.cpp.s:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/SocketDbf.cpp.s
+.PHONY : DBFsrc/SocketDbf.cpp.s
+
+DBFsrc/SocketFactory.o: DBFsrc/SocketFactory.cpp.o
+
+.PHONY : DBFsrc/SocketFactory.o
+
+# target to build an object file
+DBFsrc/SocketFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.o
+.PHONY : DBFsrc/SocketFactory.cpp.o
+
+DBFsrc/SocketFactory.i: DBFsrc/SocketFactory.cpp.i
+
+.PHONY : DBFsrc/SocketFactory.i
+
+# target to preprocess a source file
+DBFsrc/SocketFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.i
+.PHONY : DBFsrc/SocketFactory.cpp.i
+
+DBFsrc/SocketFactory.s: DBFsrc/SocketFactory.cpp.s
+
+.PHONY : DBFsrc/SocketFactory.s
+
+# target to generate assembly for a file
+DBFsrc/SocketFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/projet_dbf.dir/build.make CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.s
+.PHONY : DBFsrc/SocketFactory.cpp.s
+
 DBFsrc/main.o: DBFsrc/main.cpp.o
 
 .PHONY : DBFsrc/main.o
@@ -159,6 +213,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... projet_dbf"
+	@echo "... DBFsrc/SocketDbf.o"
+	@echo "... DBFsrc/SocketDbf.i"
+	@echo "... DBFsrc/SocketDbf.s"
+	@echo "... DBFsrc/SocketFactory.o"
+	@echo "... DBFsrc/SocketFactory.i"
+	@echo "... DBFsrc/SocketFactory.s"
 	@echo "... DBFsrc/main.o"
 	@echo "... DBFsrc/main.i"
 	@echo "... DBFsrc/main.s"
