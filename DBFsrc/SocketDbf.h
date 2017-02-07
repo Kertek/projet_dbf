@@ -9,7 +9,6 @@
 #include <string>
 #include <unistd.h>
 
-using namespace std;
 
 #include <mutex>
 #include <vector>
