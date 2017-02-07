@@ -2,8 +2,8 @@
  * Class where you can undestand our own errno
  */
 
-#ifndef ERRNO_DBF_H
-#define ERRNO_DBF_H
+#ifndef PROJET_DBF_ERRNO_DBF_H
+#define PROJET_DBF_ERRNO_DBF_H
 
 #define ERRNO_DBF_OK 0
 
@@ -12,4 +12,4 @@
 #define ERRNO_DBF_ERROR_TO_READ_MESSAGE -2
 #define ERRNO_DBF_ERROR_TO_SEND_MESSAGE -3
 
-#endif //ERRNO_DBF_H
+#endif //PROJET_DBF_ERRNO_DBF_H
