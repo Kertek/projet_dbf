@@ -6,13 +6,11 @@
 #define PROJET_DBF_SOCKETMULTI_H
 
 
-#include <string>
 #include <unistd.h>
-
-
 #include <mutex>
 #include <vector>
 
+using namespace std;
 /**
  * This class represent our Socket.
  * A client use this class to deal with socket.
@@ -48,6 +46,11 @@ public:
      * Close the socket and do everything link to that such as erase the SocketMulti in maps where it is
      */
     void closeSocketMulti();
+
+    /**
+     * Receive the message sent to the socket knowing that the end of the message will be on a special symbol
+     */
+    string receiveMessage();
 };
 
 #endif //PROJET_DBF_SOCKETMULTI_H

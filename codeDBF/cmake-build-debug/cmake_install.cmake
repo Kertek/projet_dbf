@@ -1,4 +1,4 @@
-# Install script for directory: /home/baptiste/Cours/projet_dbf
+# Install script for directory: /home/baptiste/Cours/projet_dbf/codeDBF
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/baptiste/Cours/projet_dbf/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/baptiste/Cours/projet_dbf/codeDBF/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

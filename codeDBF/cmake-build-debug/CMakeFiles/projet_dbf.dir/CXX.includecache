@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.cpp
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketDbf.cpp
 zconf.h
 -
 string.h
@@ -16,13 +16,11 @@ iostream
 sys/socket.h
 -
 SocketDbf.h
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketDbf.h
 SocketFactory.h
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketFactory.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketFactory.h
 
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.h
-string
--
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketDbf.h
 unistd.h
 -
 mutex
@@ -30,7 +28,7 @@ mutex
 vector
 -
 
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketFactory.cpp
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketFactory.cpp
 string.h
 -
 netinet/in.h
@@ -42,11 +40,11 @@ arpa/inet.h
 fcntl.h
 -
 SocketFactory.h
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketFactory.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketFactory.h
 SocketDbf.h
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketDbf.h
 
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketFactory.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketFactory.h
 set
 -
 map
@@ -54,9 +52,11 @@ map
 mutex
 -
 SocketDbf.h
-/home/baptiste/Cours/projet_dbf/DBFsrc/SocketDbf.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketDbf.h
 
-/home/baptiste/Cours/projet_dbf/DBFsrc/main.cpp
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/main.cpp
 iostream
 -
+SocketFactory.h
+/home/baptiste/Cours/projet_dbf/codeDBF/DBFsrc/SocketFactory.h
 

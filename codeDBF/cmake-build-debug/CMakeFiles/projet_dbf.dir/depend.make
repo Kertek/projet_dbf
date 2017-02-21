@@ -9,5 +9,7 @@ CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.o: ../DBFsrc/SocketDbf.h
 CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.o: ../DBFsrc/SocketFactory.cpp
 CMakeFiles/projet_dbf.dir/DBFsrc/SocketFactory.cpp.o: ../DBFsrc/SocketFactory.h
 
+CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.o: ../DBFsrc/SocketDbf.h
+CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.o: ../DBFsrc/SocketFactory.h
 CMakeFiles/projet_dbf.dir/DBFsrc/main.cpp.o: ../DBFsrc/main.cpp
 

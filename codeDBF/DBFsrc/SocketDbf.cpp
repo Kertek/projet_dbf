@@ -29,3 +29,15 @@ void SocketDbf::closeSocketMulti() {
     ::close(mSocket);
 
 }
+
+string SocketDbf::receiveMessage()
+{
+    int n;
+    //while there is not a DELIMITER in the buffer there is not an entire message so we stock into mBuffer what we read
+    char * buffer = (char*) malloc(sizeof(char)*1024);
+
+    n = recv(mSocket,buffer,1024,NULL);
+    cout << "n = " << n << endl;
+    string retour(buffer);
+    return retour;
+}
