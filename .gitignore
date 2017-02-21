@@ -28,5 +28,18 @@
 *.out
 *.app
 
+siteTests/README.md
+siteTests/app/AppCache.php
+siteTests/app/AppKernel.php
+siteTests/app/autoload.php
+siteTests/app/config/
+siteTests/bin/
+siteTests/composer.json
+siteTests/composer.lock
+siteTests/phpunit.xml.dist
+siteTests/tests/
+siteTests/var/
+siteTests/vendor/
+
 .idea/
 Supprimerait cmake-build-debug/CMakeFiles/CMakeTmp/
