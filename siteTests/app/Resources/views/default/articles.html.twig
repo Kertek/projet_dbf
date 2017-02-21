@@ -1,0 +1,26 @@
+{% extends 'myblog.base.html.twig' %}
+{% block title %}Articles{% endblock %}
+{% block body %}
+	<div class="text-center">
+	<div class="row-fluid text-blanc gras">
+	{{ form_start(form) }}
+    {{ form_widget(form, { 'attr': {'class': 'navbar-form navbar-center'}}) }}
+    {{ form_end(form) }}
+    </div>
+    <div class="row-fluid text-blanc gras">
+	{% if articles|length == 0 %}
+		Désolé, il n'y a aucun article correspondant à votre recherche.
+	{% else %}
+			<p class="nombre">{{ articles|length }} {{ articles|length==1? "article trouvé":"articles trouvés" }}.</p>
+    		<ul>
+        	{% for article in articles|reverse  %}
+        		<li>
+        		<a href="{{ path('show_article', { 'id': article.getId }) }}">article n°{{ article.getId }}: {{ article.getTitle }}</a>
+        		-- {{ article.getDate }}
+        		</li>
+        	{% endfor %}	
+        	</ul>
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

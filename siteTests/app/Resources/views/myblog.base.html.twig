@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+                  <li><a href="/presentation">Acous<br><u class="fin-header">acous.secure@gmail.com</u></a></li>
+			</ul>
+    		<!-- Collect the nav links, forms, and other content for toggling -->
+    		<div class="sd-nav" id="bs-example-navbar-collapse-1">
+				 <ul class="nav navbar-nav list">
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/articles">Articles</a></li>
+                      <li><a href="/">Games</a></li>
+    			</ul>
+   			</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+	</nav>
+	<div class="entry-text-cont">
+    {% block body %}{% endblock %}
+    </div>
+    {% block javascript %}{% endblock %}
+    {% block stylesheets %}
+    {#}<link rel="stylesheet" href="{{ asset('bundles/framework/css/front.css') }}" type="text/css" />{#}
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/bootstrap.css') }}" type="text/css" />
+    {% endblock %}
+    </body>
+
+
+
+
+
+
+
+
+</html>

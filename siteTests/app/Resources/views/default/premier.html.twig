@@ -1,0 +1,16 @@
+{% extends 'myblog.base.html.twig' %}
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="text-center">
+		<ul>
+        {% for article in articles %}
+        	<li class="actu">
+        	<h1><a href="{{ path('show_article', { 'id': article.getId }) }}">article n°{{ article.getId }}: {{ article.getTitle }}</a>
+            -- {{ article.getDate }}</h1>
+            <p class=article>{{ article.getBody|raw }}</p>
+            </li>
+        {% endfor %} 
+        </ul>
+</div>
+{% endblock %}
