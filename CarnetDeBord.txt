@@ -8,4 +8,9 @@ Problème: La connection TCP est bien instancié (SYN ACK ...)
 cependant pour que les requêtes SQL clientes soient envoyées,
 il faut d'abord que notre serveur envoit une requête mySQL pour 
 dire au client qu'il est prêt à recevoir la demande. 
--> On ne sait pas encore comment créer cette requête MySQL d'initialisation 
+-> On ne sait pas encore comment créer cette requête MySQL d'initialisation
+
+
+Nous avons trouvés un outil permettant de simuler du trafic réseaux: SimNet.
+Il existe aussi apache bench qui permet de simuler du traffic http.
+Ces outils nous permettront peut-être de réaliser l'évaluation de l'outil.
