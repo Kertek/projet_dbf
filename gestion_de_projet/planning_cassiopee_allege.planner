@@ -63,12 +63,12 @@
           <predecessor id="1" predecessor-id="1" type="FS"/>
         </predecessors>
       </task>
-      <task id="4" name="M&#xE9;thode de d&#xE9;tections d'intrusions" note="" work="72000" start="20170302T103000Z" end="20170314T093000Z" work-start="20170302T103000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="4" name="M&#xE9;thode de d&#xE9;tections d'intrusions" note="" work="72000" start="20170302T103000Z" end="20170314T093000Z" work-start="20170302T103000Z" percent-complete="50" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="3" type="FS"/>
         </predecessors>
       </task>
-      <task id="5" name="Fonctionnement des autres DBFs" note="" work="144000" start="20170208T090000Z" end="20170302T103000Z" work-start="20170208T090000Z" percent-complete="20" priority="0" type="normal" scheduling="fixed-work">
+      <task id="5" name="Fonctionnement des autres DBFs" note="" work="144000" start="20170208T090000Z" end="20170302T103000Z" work-start="20170208T090000Z" percent-complete="70" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="1" type="FS"/>
         </predecessors>
@@ -80,51 +80,51 @@
         <constraint type="must-start-on" time="20170317T000000Z"/>
       </task>
     </task>
-    <task id="8" name="Pr&#xE9;-&#xE9;tude de d&#xE9;veloppement" note="" work="162000" start="20170314T093000Z" end="20170405T110000Z" work-start="20170314T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="8" name="Pr&#xE9;-&#xE9;tude de d&#xE9;veloppement" note="" work="162000" start="20170314T093000Z" end="20170404T093000Z" work-start="20170314T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="2" type="FS"/>
       </predecessors>
       <task id="9" name="D&#xE9;finition format traitement/analyse" note="Cette tache a pour but de faire en sorte &#10;que l'on puisse coder le client/server et&#10;le parseur/analyseur parrall&#xE8;element." work="36000" start="20170314T093000Z" end="20170315T110000Z" work-start="20170314T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="10" name="Fonctionnement du protocole MySQL" note="" work="72000" start="20170315T110000Z" end="20170323T100000Z" work-start="20170315T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="10" name="Fonctionnement du protocole MySQL" note="" work="72000" start="20170314T093000Z" end="20170322T083000Z" work-start="20170314T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
-          <predecessor id="1" predecessor-id="9" type="FS"/>
+          <predecessor id="1" predecessor-id="5" type="FS"/>
         </predecessors>
       </task>
-      <task id="11" name="Fonctionnement et mise en oeuvre d'un proxy " note="" work="54000" start="20170323T100000Z" end="20170405T110000Z" work-start="20170323T100000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="11" name="Fonctionnement et mise en oeuvre d'un proxy " note="" work="54000" start="20170322T083000Z" end="20170404T093000Z" work-start="20170322T083000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="10" type="FS"/>
         </predecessors>
       </task>
     </task>
-    <task id="12" name="D&#xE9;veloppement de l'outil" note="" work="594000" start="20170405T110000Z" end="20170519T110000Z" work-start="20170405T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="12" name="D&#xE9;veloppement de l'outil" note="" work="594000" start="20170404T093000Z" end="20170518T093000Z" work-start="20170404T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="9" type="FS"/>
         <predecessor id="1" predecessor-id="8" type="FS"/>
       </predecessors>
-      <task id="13" name="Dev client/serveur int&#xE9;grant &#xE9;changes SQL" note="" work="108000" start="20170405T110000Z" end="20170425T093000Z" work-start="20170405T110000Z" percent-complete="5" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="14" name="Dev parseur" note="" work="108000" start="20170405T110000Z" end="20170425T093000Z" work-start="20170405T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="13" name="Dev client/serveur int&#xE9;grant &#xE9;changes SQL" note="" work="108000" start="20170404T093000Z" end="20170421T113000Z" work-start="20170404T093000Z" percent-complete="5" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="14" name="Dev parseur" note="" work="108000" start="20170404T093000Z" end="20170421T113000Z" work-start="20170404T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="start-no-earlier-than" time="20170223T000000Z"/>
       </task>
-      <task id="15" name="Dev analyseur" note="" work="252000" start="20170405T110000Z" end="20170512T110000Z" work-start="20170405T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="16" name="Tests Unitaires" note="" work="54000" start="20170512T110000Z" end="20170516T113000Z" work-start="20170512T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="15" name="Dev analyseur" note="" work="252000" start="20170404T093000Z" end="20170511T093000Z" work-start="20170404T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="16" name="Tests Unitaires" note="" work="54000" start="20170511T093000Z" end="20170515T100000Z" work-start="20170511T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="14" type="FS"/>
           <predecessor id="1" predecessor-id="15" type="FS"/>
           <predecessor id="1" predecessor-id="13" type="FS"/>
         </predecessors>
       </task>
-      <task id="17" name="Tests d'int&#xE9;grations" note="" work="72000" start="20170516T113000Z" end="20170519T110000Z" work-start="20170517T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="17" name="Tests d'int&#xE9;grations" note="" work="72000" start="20170515T100000Z" end="20170518T093000Z" work-start="20170515T100000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
           <predecessor id="1" predecessor-id="16" type="FS"/>
         </predecessors>
       </task>
     </task>
-    <task id="18" name="Evaluation de l'outil" note="" work="46800" start="20170519T110000Z" end="20170522T113000Z" work-start="20170519T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="18" name="Evaluation de l'outil" note="" work="46800" start="20170518T093000Z" end="20170519T100000Z" work-start="20170518T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <predecessors>
         <predecessor id="1" predecessor-id="12" type="FS"/>
       </predecessors>
-      <task id="19" name="Test performance en temps" note="" work="18000" start="20170519T110000Z" end="20170522T100000Z" work-start="20170519T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="20" name="Test performance s&#xE9;curit&#xE9;" note="" work="28800" start="20170519T110000Z" end="20170522T113000Z" work-start="20170519T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="19" name="Test performance en temps" note="" work="18000" start="20170518T093000Z" end="20170519T083000Z" work-start="20170518T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="20" name="Test performance s&#xE9;curit&#xE9;" note="" work="28800" start="20170518T093000Z" end="20170519T100000Z" work-start="20170518T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
     <task id="21" name="Revu de projet 2" note="" work="21600" start="20170531T000000Z" end="20170531T110000Z" work-start="20170531T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <constraint type="must-start-on" time="20170531T000000Z"/>
@@ -152,13 +152,13 @@
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="El&#xE8;ve" admin-name="Aucun" admin-phone="/" admin-email="/"/>
-    <group id="2" name="Client" admin-name="Gr&#xE9;gory Blanc" admin-phone="/" admin-email=""/>
+    <group id="1" name="Client" admin-name="Gr&#xE9;gory Blanc" admin-phone="/" admin-email=""/>
+    <group id="2" name="El&#xE8;ve" admin-name="Aucun" admin-phone="/" admin-email="/"/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Gr&#xE9;goire Menguy" short-name="Gr&#xE9;goire" type="1" units="0" email="gregoire.menguy@telecom-sudparis.eu" note="" std-rate="1" calendar="2"/>
-    <resource group="1" id="2" name="Baptiste Polv&#xE9;" short-name="Baptiste" type="1" units="0" email="baptiste.polve@telecom-sudparis.eu" note="" std-rate="1" calendar="2"/>
-    <resource group="2" id="3" name="Gr&#xE9;gory Blanc" short-name="Client" type="1" units="0" email="gregory.blanc@telecom-sudparis.eu" note="" std-rate="0" calendar="2"/>
+    <resource group="2" id="1" name="Gr&#xE9;goire Menguy" short-name="Gr&#xE9;goire" type="1" units="0" email="gregoire.menguy@telecom-sudparis.eu" note="" std-rate="1" calendar="2"/>
+    <resource group="2" id="2" name="Baptiste Polv&#xE9;" short-name="Baptiste" type="1" units="0" email="baptiste.polve@telecom-sudparis.eu" note="" std-rate="1" calendar="2"/>
+    <resource group="1" id="3" name="Gr&#xE9;gory Blanc" short-name="Client" type="1" units="0" email="gregory.blanc@telecom-sudparis.eu" note="" std-rate="0" calendar="2"/>
   </resources>
   <allocations>
     <allocation task-id="14" resource-id="1" units="100"/>
