@@ -61,7 +61,7 @@ SocketDbf *SocketFactory::accept(int nPort) {
         cout << "socket < 0 ""errno " << errno << endl;
         return nullptr;
     }
-    fcntl(newSocket->mSocket, F_SETFL, O_NONBLOCK); //socket to deal with client so not a blocked one
+    //fcntl(newSocket->mSocket, F_SETFL, O_NONBLOCK); //socket to deal with client so not a blocked one
 
     mOpenSocketsMutex.lock();
     openSockets.insert(newSocket);

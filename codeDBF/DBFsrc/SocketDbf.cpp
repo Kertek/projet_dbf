@@ -37,7 +37,9 @@ string SocketDbf::receiveMessage()
     char * buffer = (char*) malloc(sizeof(char)*1024);
 
     n = recv(mSocket,buffer,1024,NULL);
-    cout << "n = " << n << endl;
+    cout << "errno = " << errno << endl;
+    cout << "buffer = " << buffer << endl;
     string retour(buffer);
+    free(buffer);
     return retour;
 }

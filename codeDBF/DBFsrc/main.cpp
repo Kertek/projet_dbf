@@ -24,11 +24,13 @@ int main() {
     while (1) {
         SocketDbf *newSocketMulti = (SocketDbf *) SocketFactory::getInstance().accept(1025);
         cout << "someone call the server" << endl;
-        while (1) {
+        while(1){
             cout << newSocketMulti->receiveMessage() << endl;
             cout << endl;
-            cout << "message reçu" << endl;
+            sleep(1);
         }
+
+
     } /* end of while */
 
     return 0; /* we never get here */
