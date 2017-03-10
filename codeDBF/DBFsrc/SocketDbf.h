@@ -46,12 +46,8 @@ public:
      * Close the socket and do everything link to that such as erase the SocketMulti in maps where it is
      */
     void closeSocketMulti();
-
-    /**
-     * Receive the message sent to the socket knowing that the end of the message will be on a special symbol
-     */
-    string receiveMessage();
-    bool sendMessage();
+    int sendMessage(char *message, unsigned int messageLength);
+    int receiveMessage(vector<char> &msg);
 };
 
 #endif //PROJET_DBF_SOCKETMULTI_H
