@@ -43,3 +43,17 @@ string SocketDbf::receiveMessage()
     free(buffer);
     return retour;
 }
+
+bool SocketDbf::sendMessage()
+{
+    int n;
+    //while there is not a DELIMITER in the buffer there is not an entire message so we stock into mBuffer what we read
+    char * buffer = (char*) malloc(sizeof(char)*1024);
+
+    n = send(mSocket,buffer,1024,NULL);
+    cout << "errno = " << errno << endl;
+    cout << "buffer = " << buffer << endl;
+    string retour(buffer);
+    free(buffer);
+    return true;
+}

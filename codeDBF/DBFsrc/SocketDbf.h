@@ -51,6 +51,7 @@ public:
      * Receive the message sent to the socket knowing that the end of the message will be on a special symbol
      */
     string receiveMessage();
+    bool sendMessage();
 };
 
 #endif //PROJET_DBF_SOCKETMULTI_H

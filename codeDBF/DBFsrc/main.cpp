@@ -25,6 +25,7 @@ int main() {
         SocketDbf *newSocketMulti = (SocketDbf *) SocketFactory::getInstance().accept(1025);
         cout << "someone call the server" << endl;
         while(1){
+            newSocketMulti->sendMessage();
             cout << newSocketMulti->receiveMessage() << endl;
             cout << endl;
             sleep(1);
