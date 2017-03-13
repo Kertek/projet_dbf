@@ -40,7 +40,7 @@ siteTests/phpunit.xml.dist
 siteTests/tests/
 siteTests/var/
 siteTests/vendor/
-codeDBF/cmake-build-debug/
+codeDBF/cmake-build-debug/*
 
 .idea/
 Supprimerait cmake-build-debug/CMakeFiles/CMakeTmp/
