@@ -12,9 +12,8 @@ void error(const char *msg) {
 }
 
 int main() {
-    cout << "running ok" << endl;
-    SocketDbf * mSocketClient = SocketFactory::getInstance().clientConnect("127.0.0.1",3306);
-    cout << "client ok" << endl;
+    cout << "Programm launched" << endl;
+
     bool n = SocketFactory::getInstance().startServer(3305);
     if (n == false) {
         cout << "ERROR can't start the server" << endl;
@@ -22,23 +21,46 @@ int main() {
     } else {
         cout << "SERVER is running" << endl;
     }
-    SocketDbf *newSocketMulti = (SocketDbf *) SocketFactory::getInstance().accept(3305);
-    cout << "someone call the server" << endl;
+    SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(3305);
+    cout << "Une application vient de se connecter" << endl;
+    SocketDbf * socketBdd = SocketFactory::getInstance().clientConnect("127.0.0.1",3306);
+    cout << "Connexion avec la base de données: OK" << endl;
     while(1){
-        cout << "je rentre là" << endl;
 
+        cout << "premier echange" << endl;
         vector<char> msg;
         msg.resize(0, 0);
         msg.clear();
-        int n = mSocketClient->receiveMessage(msg);
-        cout << "message reçu" <<endl;
-        newSocketMulti->sendMessage((char *) msg.data(), msg.size());
+        int n = socketBdd->receiveMessage(msg);
+        socketApllication->sendMessage((unsigned char *) msg.data());
+        cout << "deuxieme echange" << endl;
         msg.resize(0, 0);
         msg.clear();
-        newSocketMulti->receiveMessage(msg);
-        mSocketClient->sendMessage((char *) msg.data(), msg.size());
-        cout << "message envoyé" <<endl;
-        sleep(60);
+        socketApllication->receiveMessage(msg);
+        socketBdd->sendMessage((unsigned char *) msg.data());
+        cout << "troisième échange" << endl;
+        msg.resize(0, 0);
+        msg.clear();
+        n = socketBdd->receiveMessage(msg);
+        socketApllication->sendMessage((unsigned char *) msg.data());
+        cout << "quatrième echange" << endl;
+        msg.resize(0, 0);
+        msg.clear();
+        socketApllication->receiveMessage(msg);
+        socketBdd->sendMessage((unsigned char *) msg.data());
+        cout << "cinquième échange" << endl;
+        msg.resize(0, 0);
+        msg.clear();
+        n = socketBdd->receiveMessage(msg);
+        socketApllication->sendMessage((unsigned char *) msg.data());
+        cout << "sizième echange" << endl;
+        msg.resize(0, 0);
+        msg.clear();
+        socketApllication->receiveMessage(msg);
+        socketBdd->sendMessage((unsigned char *) msg.data());
+
+
+        abort();
     }
 
     /*bool n = SocketFactory::getInstance().startServer(1025);
@@ -51,11 +73,11 @@ int main() {
 
 
     while (1) {
-        SocketDbf *newSocketMulti = (SocketDbf *) SocketFactory::getInstance().accept(1025);
+        SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(1025);
         cout << "someone call the server" << endl;
         while(1){
-            newSocketMulti->sendMessage();
-            cout << newSocketMulti->receiveMessage() << endl;
+            socketApllication->sendMessage();
+            cout << socketApllication->receiveMessage() << endl;
             cout << endl;
             sleep(1);
         }

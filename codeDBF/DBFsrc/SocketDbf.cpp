@@ -30,69 +30,83 @@ void SocketDbf::closeSocketMulti() {
 
 }
 
-int SocketDbf::sendMessage(char *message, unsigned int messageLength) {
+int SocketDbf::sendMessage(unsigned char *message) {
     //if the message is so much long, it can't be send
 
+    int octetNecessaireLength = 3;
+
     if (!isClosed) {
+        unsigned int size = (unsigned int) message[2];
+        size = size * 256 + (unsigned int) message[1];
+        size = size * 256 + (unsigned int) message[0];
 
+        cout << "message[2]" << (unsigned int) message[2];
+        cout << "message[1]" << (unsigned int) message[1];
+        cout << "message[0]" << (unsigned int) message[0];
 
-        int n = write(mSocket, message , message[0]+3+1);
+        cout << "sizesend: " << size << endl;
+
+        int n = write(mSocket, message, size + 1 + octetNecessaireLength);
 
         if (n < 0) {
             this->closeSocketMulti();
-            cout << "message aborted" <<endl;
+            cout << "message aborted: problem to sendMessage / socket close" << endl;
             abort();
-        } else {
-            cout << "j'envoi  " << message << endl;
         }
+
         return 0;
+    } else {
+        cout << "socket already closed" << endl;
     }
 
 }
 
 int SocketDbf::receiveMessage(vector<char> &msg) {
 
+
     msg.resize(3, 0);
     int n = 0;
-    int size = 0;
+    unsigned int size = 0;
     unsigned char header[3];
     while (n < 3) {
-        int m= read(mSocket, header + n, 3 - n);
-        if (m >= 0 ){
+        int m = read(mSocket, header + n, 3 - n);
+        if (m >= 0) {
             n += m;
+        }else{
+            return -1;
         }
-        cout << "n: " << n << endl;
+
     }
-    size = (int) header[2];
-    size = size * 256 + (int) header[1];
-    size = size * 256 + (int) header[0];
-
-    cout << "header0" << (int) header[0] << endl;
-    cout << "header1" << (int) header[1] << endl;
-    cout << "header2" << (int) header[2] << endl;
-
-    cout << "size: " << size << endl;
+    size = (unsigned int) header[2];
+    size = size * 256 + (unsigned int) header[1];
+    size = size * 256 + (unsigned int) header[0];
 
     unsigned char buffer[size];
+    n = 0;
 
-    n=0;
-
-    while (n < size) {
-        int m= read(mSocket, buffer+n, size-n);
-        if (m >= 0 ){
+    while (n < size + 1) {
+        int m = read(mSocket, buffer + n, size - n + 1);
+        if (m >= 0) {
             n += m;
+        } else{
+            return -1;
         }
-        cout << "n2: " << n << endl;
     }
 
 
-    msg.resize(size+3,0);
+
+    msg.resize(size + 3 + 1, 0);
     for (int i = 0; i < 3; ++i)msg[i] = header[i];
-    for (int i = 0; i < size; ++i)msg[i+3] = buffer[i];
-    for (int i = 0 ; i < size + 3; ++i){
+    for (int i = 0; i < size + 1; ++i)msg[i + 3] = buffer[i];
+
+    //affichage debug
+    cout << "je reçois: ";
+    for (int i = 0; i < size + 3; ++i) {
         cout << msg[i];
     }
     cout << endl;
+
+    cout << "nreceive: " << n + 3 << endl;
 
     return 0;
 }

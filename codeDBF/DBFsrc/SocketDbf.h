@@ -46,7 +46,7 @@ public:
      * Close the socket and do everything link to that such as erase the SocketMulti in maps where it is
      */
     void closeSocketMulti();
-    int sendMessage(char *message, unsigned int messageLength);
+    int sendMessage(unsigned char *message);
     int receiveMessage(vector<char> &msg);
 };
 
