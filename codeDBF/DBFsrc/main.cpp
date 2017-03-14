@@ -11,6 +11,7 @@ void error(const char *msg) {
     exit(1);
 }
 
+
 int main() {
     cout << "Programm launched" << endl;
 
@@ -23,42 +24,51 @@ int main() {
     }
     SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(3305);
     cout << "Une application vient de se connecter" << endl;
-    SocketDbf * socketBdd = SocketFactory::getInstance().clientConnect("127.0.0.1",3306);
+    mutex *mSuperMutex = new mutex();
+    SocketDbf *socketBdd = SocketFactory::getInstance().clientConnect("127.0.0.1", 3306);
     cout << "Connexion avec la base de données: OK" << endl;
-    while(1){
-        sleep(5);
+    while (1) {
+
         cout << "premier echange: Récupération bdd + renvoi application" << endl;
         vector<char> msg;
         msg.resize(0, 0);
         msg.clear();
         int n = socketBdd->receiveMessage(msg);
+
         socketApllication->sendMessage((unsigned char *) msg.data());
-        sleep(5);
+
         cout << "deuxieme echange" << endl;
         msg.resize(0, 0);
         msg.clear();
+
         socketApllication->receiveMessage(msg);
+
         socketBdd->sendMessage((unsigned char *) msg.data());
-        sleep(5);
+
         cout << "troisième échange" << endl;
         msg.resize(0, 0);
         msg.clear();
+
         n = socketBdd->receiveMessage(msg);
+
         socketApllication->sendMessage((unsigned char *) msg.data());
-        sleep(5);
+        mSuperMutex->unlock();
         cout << "quatrième echange" << endl;
         msg.resize(0, 0);
         msg.clear();
+
         socketApllication->receiveMessage(msg);
+
         socketBdd->sendMessage((unsigned char *) msg.data());
-        sleep(5);
+
         cout << "cinquième échange" << endl;
         msg.resize(0, 0);
         msg.clear();
+
         n = socketBdd->receiveMessage(msg);
         socketApllication->sendMessage((unsigned char *) msg.data());
         cout << "sizième echange" << endl;
-        sleep(5);
+        mSuperMutex->unlock();
         msg.resize(0, 0);
         msg.clear();
         socketApllication->receiveMessage(msg);

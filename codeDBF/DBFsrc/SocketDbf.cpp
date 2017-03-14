@@ -40,12 +40,6 @@ int SocketDbf::sendMessage(unsigned char *message) {
         size = size * 256 + (unsigned int) message[1];
         size = size * 256 + (unsigned int) message[0];
 
-        cout << "message[2]" << (unsigned int) message[2];
-        cout << "message[1]" << (unsigned int) message[1];
-        cout << "message[0]" << (unsigned int) message[0];
-
-        cout << "sizesend: " << size << endl;
-
         int n = write(mSocket, message, size + 1 + octetNecessaireLength);
 
         if (n < 0) {
@@ -72,8 +66,6 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
         int m = read(mSocket, header + n, 3 - n);
         if (m >= 0) {
             n += m;
-        }else{
-            return -1;
         }
 
     }
@@ -88,8 +80,6 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
         int m = read(mSocket, buffer + n, size - n + 1);
         if (m >= 0) {
             n += m;
-        } else{
-            return -1;
         }
     }
 
@@ -105,8 +95,6 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
         cout << msg[i];
     }
     cout << endl;
-
-    cout << "nreceive: " << n + 3 << endl;
 
     return 0;
 }
