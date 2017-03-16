@@ -18,6 +18,8 @@ bool SocketFactory::startServer(int nPort) {
         return false;
     }
     SocketDbf *mSocketDbf = new SocketDbf();
+    int enable = 1;
+    setsockopt(mSocketDbf->mSocket,SOL_SOCKET,SO_REUSEADDR,&enable,sizeof(int));
     openServers.insert(pair<int, SocketDbf *>(nPort, mSocketDbf));
 
     struct sockaddr_in serv_addr;
@@ -38,6 +40,7 @@ bool SocketFactory::startServer(int nPort) {
             return false;
         }
     }
+
     mOpenServersMutex.unlock();
     return true;
 }
