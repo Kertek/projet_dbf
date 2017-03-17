@@ -3,6 +3,8 @@
 #include <string.h>
 #include "y.tab.h"
 
+void comment();
+
 %}
 
 %%
@@ -20,11 +22,30 @@
 ","							{return *yytext;}
 "("							{return *yytext;}
 ")"							{return *yytext;}
+"--"						{/* Commentaire */
+								comment();
+								/*
+								 * On retourne NEWLINE pour dire 
+								 * que la suite ne compte pas.
+								 * */
+								return NEWLINE; 
+							}
 
-"==" 	|
+"=" 	|
 "<=" 	|
 ">="	| 
 "<" 	|
 ">"							{return COMPARAISON;}
+[\n]						{
+								/*
+								 * NEWLINE signifie la fin de la requete.
+								 * */
+								return NEWLINE;
+							}
 
 %%
+
+
+void comment(){
+	printf("Il y a un commentaire\n");
+}
