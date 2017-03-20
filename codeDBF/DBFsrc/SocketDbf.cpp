@@ -75,7 +75,6 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
     for (int i = octetNecessaireLength; i > 0; i--) {
         size = size * 256 + (unsigned int) bufferLength[i - 1];
     }
-    cout << "size: " << size << endl;
     unsigned char bufferPacket[1];
     while (read(mSocket, bufferPacket, 1) != 1) {}
     int numberOfPacket = (unsigned int) bufferPacket[0];
@@ -100,7 +99,6 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
 
         unsigned char bufferLength[octetNecessaireLength];
         if (read(mSocket, bufferLength, 1) == 1) {
-            cout << "je rentre car c'est une complexe" << endl;
             n = 1;
             size = 0;
 
@@ -113,11 +111,7 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
             }
             for (int i = octetNecessaireLength; i > 0; i--) {
                 size = size * 256 + (unsigned int) bufferLength[i - 1];
-                cout << "size: " << size << "bufferLength[" << i - 1 << "]" << (int) bufferLength[i - 1] << endl;
             }
-
-
-            cout << "on passe ici avec size : " << size << endl;
 
             unsigned char bufferPacket[1];
             while (read(mSocket, bufferPacket, 1) != 1) {}
@@ -132,7 +126,6 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
                 }
             }
 
-            cout << "on est débloqué" << endl;
             int previousSizeGlobal = sizeGlobal;
             sizeGlobal = sizeGlobal + size + octetNecessaireLength + 1;
 
@@ -140,13 +133,13 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
             for (int i = 0; i < 3; ++i)msg[i + previousSizeGlobal] = bufferLength[i];
             msg[3 + previousSizeGlobal] = bufferPacket[0];
             for (int i = 0; i < size; ++i)msg[i + previousSizeGlobal + octetNecessaireLength + 1] = bufferData[i];
-            cout << "on passe là" << endl;
         } else {
 
+/*            //Affichage message: Debug
             for (int i = 0; i < sizeGlobal + 1; i++) {
                 cout << msg[i];
             }
-            cout << endl;
+            cout << endl;*/
 
 
             return 0;
