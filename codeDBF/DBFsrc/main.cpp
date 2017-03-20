@@ -5,6 +5,7 @@
 */
 #include <iostream>
 #include "SocketFactory.h"
+#include "Config.h"
 
 void error(const char *msg) {
     perror(msg);
@@ -15,7 +16,7 @@ void error(const char *msg) {
 int main() {
     cout << "Programm launched" << endl;
 
-    bool n = SocketFactory::getInstance().startServer(3305);
+    bool n = SocketFactory::getInstance().startServer(Config::portDBF);
     if (n == false) {
         cout << "ERROR can't start the server" << endl;
         abort();
@@ -24,9 +25,8 @@ int main() {
     }
 
     while (1) {
-        SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(3305);
+        SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(Config::portDBF);
         cout << "Une application vient de se connecter" << endl;
-        mutex *mSuperMutex = new mutex();
         SocketDbf *socketBdd = SocketFactory::getInstance().clientConnect("127.0.0.1", 3306);
         cout << "Connexion avec la base de données: OK" << endl;
         cout << "premier echange: Récupération bdd + renvoi application" << endl;
@@ -52,7 +52,6 @@ int main() {
         result = socketBdd->receiveMessage(msg);
 
         socketApllication->sendMessage(&msg);
-        mSuperMutex->unlock();
         cout << "quatrième echange" << endl;
         msg.resize(0, 0);
         msg.clear();
@@ -68,7 +67,6 @@ int main() {
         result = socketBdd->receiveMessage(msg);
         socketApllication->sendMessage(&msg);
         cout << "sizième echange" << endl;
-        mSuperMutex->unlock();
         msg.resize(0, 0);
         msg.clear();
         socketApllication->receiveMessage(msg);
