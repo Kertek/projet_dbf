@@ -6,6 +6,7 @@
 #include <iostream>
 #include "SocketFactory.h"
 #include "Config.h"
+#include "Connection.h"
 
 void error(const char *msg) {
     perror(msg);
@@ -27,53 +28,52 @@ int main() {
     while (1) {
         SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(Config::portDBF);
         cout << "Une application vient de se connecter" << endl;
-        SocketDbf *socketBdd = SocketFactory::getInstance().clientConnect("127.0.0.1", 3306);
-        cout << "Connexion avec la base de données: OK" << endl;
+        Connection* newConnection = new Connection(socketApllication);
         cout << "premier echange: Récupération bdd + renvoi application" << endl;
         vector<char> msg;
         msg.resize(0, 0);
         msg.clear();
-        int result = socketBdd->receiveMessage(msg);
+        int result = newConnection->getMSocketBdd()->receiveMessage(msg);
 
-        socketApllication->sendMessage(&msg);
+       newConnection->getMSocketApplication()->sendMessage(&msg);
 
         cout << "deuxieme echange" << endl;
         msg.resize(0, 0);
         msg.clear();
 
-        socketApllication->receiveMessage(msg);
+        newConnection->getMSocketApplication()->receiveMessage(msg);
 
-        socketBdd->sendMessage(&msg);
+        newConnection->getMSocketBdd()->sendMessage(&msg);
 
         cout << "troisième échange" << endl;
         msg.resize(0, 0);
         msg.clear();
 
-        result = socketBdd->receiveMessage(msg);
+        result = newConnection->getMSocketBdd()->receiveMessage(msg);
 
-        socketApllication->sendMessage(&msg);
+        newConnection->getMSocketApplication()->sendMessage(&msg);
         cout << "quatrième echange" << endl;
         msg.resize(0, 0);
         msg.clear();
 
-        socketApllication->receiveMessage(msg);
+        newConnection->getMSocketApplication()->receiveMessage(msg);
 
-        socketBdd->sendMessage(&msg);
+        newConnection->getMSocketBdd()->sendMessage(&msg);
 
         cout << "cinquième échange" << endl;
         msg.resize(0, 0);
         msg.clear();
 
-        result = socketBdd->receiveMessage(msg);
-        socketApllication->sendMessage(&msg);
+        result = newConnection->getMSocketBdd()->receiveMessage(msg);
+        newConnection->getMSocketApplication()->sendMessage(&msg);
         cout << "sizième echange" << endl;
         msg.resize(0, 0);
         msg.clear();
-        socketApllication->receiveMessage(msg);
-        socketBdd->sendMessage(&msg);
+        newConnection->getMSocketApplication()->receiveMessage(msg);
+        newConnection->getMSocketBdd()->sendMessage(&msg);
 
-        socketApllication->closeSocketMulti();
-        socketBdd->closeSocketMulti();
+        newConnection->getMSocketApplication()->closeSocketMulti();
+        newConnection->getMSocketBdd()->closeSocketMulti();
     }
     return 0; /* we never get here */
 }
