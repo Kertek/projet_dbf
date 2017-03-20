@@ -51,10 +51,11 @@ extern int yydebug;
     FROM = 261,
     WHERE = 262,
     COMPARAISON = 263,
-    AS = 264,
-    END = 265,
-    COMMENT = 266,
-    NEWLINE = 267
+    LOGIQUE = 264,
+    AS = 265,
+    END = 266,
+    COMMENT = 267,
+    NEWLINE = 268
   };
 #endif
 /* Tokens.  */
@@ -64,10 +65,11 @@ extern int yydebug;
 #define FROM 261
 #define WHERE 262
 #define COMPARAISON 263
-#define AS 264
-#define END 265
-#define COMMENT 266
-#define NEWLINE 267
+#define LOGIQUE 264
+#define AS 265
+#define END 266
+#define COMMENT 267
+#define NEWLINE 268
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

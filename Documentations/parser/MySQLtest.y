@@ -10,7 +10,7 @@
  * */
 %}
 
-%token SELECT FIELD CHAR FROM WHERE COMPARAISON AS END COMMENT NEWLINE
+%token SELECT FIELD CHAR FROM WHERE COMPARAISON LOGIQUE AS END COMMENT NEWLINE
 
 %%
 commands:  | command END commands NEWLINE
@@ -20,7 +20,7 @@ commands:  | command END commands NEWLINE
 		}
 		;
 
-command: SELECT selection FROM provenance condition | SELECT CHAR
+command: SELECT selection FROM provenance condition_close | SELECT CHAR
 		;
 
 selection: ssrecherche ',' selection | ssrecherche
@@ -36,8 +36,12 @@ provenance:	'(' command ')' AS FIELD
 		| FIELD
 		;
 		
-condition: 
-		| WHERE field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
+condition_close: 
+		| WHERE condition
+		;
+
+condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE condition
+		| field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
 		;
 
 field_ou_char: FIELD 

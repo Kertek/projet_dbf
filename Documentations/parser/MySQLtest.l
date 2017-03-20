@@ -16,6 +16,10 @@ void comment();
 "where"						{return WHERE;}
 "AS"     |
 "as"						{return AS;}
+"and"	 |
+"AND"	 |
+"or"	 |
+"OR"	 					{return LOGIQUE;}
 [a-zA-Z1-9]+				{return FIELD;}
 "\'"[a-zA-Z1-9]+"\'"		{return CHAR;}
 ";"							{return END;} 
