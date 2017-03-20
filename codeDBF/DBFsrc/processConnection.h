@@ -6,11 +6,18 @@
 #define PROJET_DBF_PROCESSCONNECTION_H
 
 
+#include "Connection.h"
 
 class processConnection {
 
-};
+private:
+    Connection * mConnection;
 
+public:
+    processConnection(Connection * connection);
+    void operator()();
+
+};
 
 
 #endif //PROJET_DBF_PROCESSCONNECTION_H
