@@ -3,5 +3,5 @@ project(projet_dbf)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES DBFsrc/main.cpp DBFsrc/errno_dbf.h DBFsrc/SocketFactory.cpp DBFsrc/SocketFactory.h DBFsrc/SocketDbf.cpp DBFsrc/SocketDbf.h)
+set(SOURCE_FILES DBFsrc/main.cpp DBFsrc/errno_dbf.h DBFsrc/SocketFactory.cpp DBFsrc/SocketFactory.h DBFsrc/SocketDbf.cpp DBFsrc/SocketDbf.h DBFsrc/Connection.cpp DBFsrc/Connection.h DBFsrc/Config.h)
 add_executable(projet_dbf ${SOURCE_FILES})
