@@ -4,9 +4,11 @@
    process for each connection
 */
 #include <iostream>
+#include <thread>
 #include "SocketFactory.h"
 #include "Config.h"
 #include "Connection.h"
+#include "processConnection.h"
 
 void error(const char *msg) {
     perror(msg);
@@ -29,7 +31,15 @@ int main() {
         SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(Config::portDBF);
         cout << "Une application vient de se connecter" << endl;
         Connection* newConnection = new Connection(socketApllication);
-        cout << "premier echange: Récupération bdd + renvoi application" << endl;
+
+        processConnection * prrocessConnection = new processConnection(newConnection);
+        thread threadConnection(*prrocessConnection);
+        threadConnection.detach();
+
+
+
+
+        /* cout << "premier echange: Récupération bdd + renvoi application" << endl;
         vector<char> msg;
         msg.resize(0, 0);
         msg.clear();
@@ -73,7 +83,7 @@ int main() {
         newConnection->getMSocketBdd()->sendMessage(&msg);
 
         newConnection->getMSocketApplication()->closeSocketMulti();
-        newConnection->getMSocketBdd()->closeSocketMulti();
+        newConnection->getMSocketBdd()->closeSocketMulti();*/
     }
     return 0; /* we never get here */
 }
