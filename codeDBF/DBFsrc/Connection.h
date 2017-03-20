@@ -28,6 +28,10 @@ public:
      * Free the connection
      */
     ~Connection();
+
+    SocketDbf *getMSocketApplication() const;
+
+    SocketDbf *getMSocketBdd() const;
 };
 
 

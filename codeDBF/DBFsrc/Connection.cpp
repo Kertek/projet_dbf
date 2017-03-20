@@ -16,3 +16,11 @@ Connection::~Connection() {
     this->mSocketApplication->closeSocketMulti();
     this->mSocketBdd->closeSocketMulti();
 }
+
+SocketDbf *Connection::getMSocketApplication() const {
+    return mSocketApplication;
+}
+
+SocketDbf *Connection::getMSocketBdd() const {
+    return mSocketBdd;
+}
