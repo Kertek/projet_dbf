@@ -33,7 +33,7 @@ int main() {
         vector<char> msg;
         msg.resize(0, 0);
         msg.clear();
-        int n = socketBdd->receiveMessage(msg);
+        int result = socketBdd->receiveMessage(msg);
 
         socketApllication->sendMessage(&msg);
 
@@ -49,7 +49,7 @@ int main() {
         msg.resize(0, 0);
         msg.clear();
 
-        n = socketBdd->receiveMessage(msg);
+        result = socketBdd->receiveMessage(msg);
 
         socketApllication->sendMessage(&msg);
         mSuperMutex->unlock();
@@ -65,7 +65,7 @@ int main() {
         msg.resize(0, 0);
         msg.clear();
 
-        n = socketBdd->receiveMessage(msg);
+        result = socketBdd->receiveMessage(msg);
         socketApllication->sendMessage(&msg);
         cout << "sizième echange" << endl;
         mSuperMutex->unlock();
@@ -77,29 +77,6 @@ int main() {
         socketApllication->closeSocketMulti();
         socketBdd->closeSocketMulti();
     }
-
-    /*bool n = SocketFactory::getInstance().startServer(1025);
-    if (n == false) {
-        cout << "ERROR can't start the server" << endl;
-        abort();
-    } else {
-        cout << "SERVER is running" << endl;
-    }
-
-
-    while (1) {
-        SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(1025);
-        cout << "someone call the server" << endl;
-        while(1){
-            socketApllication->sendMessage();
-            cout << socketApllication->receiveMessage() << endl;
-            cout << endl;
-            sleep(1);
-        }
-
-
-    } *//* end of while */
-
     return 0; /* we never get here */
 }
 

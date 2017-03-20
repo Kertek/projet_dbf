@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 #include "SocketDbf.h"
 #include "SocketFactory.h"
+#include "errno_dbf.h"
 
 SocketDbf::SocketDbf() {
     this->mSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -31,30 +32,15 @@ void SocketDbf::closeSocketMulti() {
 }
 
 int SocketDbf::sendMessage(vector<char> *message) {
-    //if the message is so much long, it can't be send
 
+    int result;
+    result = write(mSocket, message->data(), message->size());
+    if (result <= 0){
+        return ERRNO_DBF_ERROR_TO_SEND_MESSAGE -3;
+    }else{
+        return ERRNO_DBF_OK;
+    }
 
-    int octetNecessaireLength = 3;
-
-//    if (!isClosed) {
-//        unsigned int size = (unsigned int) message[2];
-//        size = size * 256 + (unsigned int) message[1];
-//        size = size * 256 + (unsigned int) message[0];
-//
-//        int n = write(mSocket, message, size + 1 + octetNecessaireLength);
-//
-//        if (n < 0) {
-//            this->closeSocketMulti();
-//            cout << "message aborted: problem to sendMessage / socket close" << endl;
-//            abort();
-//        }
-//
-//        return 0;
-//    } else {
-//        cout << "socket already closed" << endl;
-//    }
-
-    write(mSocket, message->data(), message->size());
 
 }
 
@@ -62,14 +48,14 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
 
     int sizeGlobal = 0;
     int octetNecessaireLength = 3;
-    int n = 0;
+    int result = 0;
 
     unsigned int size = 0;
     unsigned char bufferLength[octetNecessaireLength];
-    while (n < octetNecessaireLength) {
-        int m = read(mSocket, bufferLength + n, octetNecessaireLength - n);
+    while (result < octetNecessaireLength) {
+        int m = read(mSocket, bufferLength + result, octetNecessaireLength - result);
         if (m >= 0) {
-            n += m;
+            result += m;
         }
     }
     for (int i = octetNecessaireLength; i > 0; i--) {
@@ -80,12 +66,11 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
     int numberOfPacket = (unsigned int) bufferPacket[0];
 
     unsigned char bufferData[size];
-    n = 0;
-    while (n < size) {
-
-        int m = read(mSocket, bufferData + n, size - n);
+    result = 0;
+    while (result < size) {
+        int m = read(mSocket, bufferData + result, size - result);
         if (m >= 0) {
-            n += m;
+            result += m;
         }
     }
     sizeGlobal = sizeGlobal + size + octetNecessaireLength + 1;
@@ -99,13 +84,13 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
 
         unsigned char bufferLength[octetNecessaireLength];
         if (read(mSocket, bufferLength, 1) == 1) {
-            n = 1;
+            result = 1;
             size = 0;
 
-            while (n < octetNecessaireLength) {
-                int m = read(mSocket, bufferLength + n, octetNecessaireLength - n);
+            while (result < octetNecessaireLength) {
+                int m = read(mSocket, bufferLength + result, octetNecessaireLength - result);
                 if (m >= 0) {
-                    n += m;
+                    result += m;
                 }
 
             }
@@ -118,11 +103,11 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
             int numberOfPacket = (unsigned int) bufferPacket[0];
 
             unsigned char bufferData[size];
-            n = 0;
-            while (n < size) {
-                int m = read(mSocket, bufferData + n, size - n);
+            result = 0;
+            while (result < size) {
+                int m = read(mSocket, bufferData + result, size - result);
                 if (m >= 0) {
-                    n += m;
+                    result += m;
                 }
             }
 
@@ -142,7 +127,7 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
             cout << endl;*/
 
 
-            return 0;
+            return ERRNO_DBF_OK;
         }
 
     }

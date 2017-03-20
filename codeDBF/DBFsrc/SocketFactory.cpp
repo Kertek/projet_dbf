@@ -6,9 +6,6 @@
 #include<arpa/inet.h>
 #include <fcntl.h>
 #include "SocketFactory.h"
-#include "SocketDbf.h"
-
-
 
 
 bool SocketFactory::startServer(int nPort) {
@@ -19,7 +16,7 @@ bool SocketFactory::startServer(int nPort) {
     }
     SocketDbf *mSocketDbf = new SocketDbf();
     int enable = 1;
-    setsockopt(mSocketDbf->mSocket,SOL_SOCKET,SO_REUSEADDR,&enable,sizeof(int));
+    setsockopt(mSocketDbf->mSocket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
     openServers.insert(pair<int, SocketDbf *>(nPort, mSocketDbf));
 
     struct sockaddr_in serv_addr;
@@ -90,7 +87,6 @@ SocketDbf *SocketFactory::clientConnect(string serverAddress, int nPort) {
         mOpenSocketsMutex.lock();
         openSockets.insert(mSocketMulti);
         mOpenSocketsMutex.unlock();
-        cout << "Hello your Socket have been created, have a nice exchange." << endl;
         return mSocketMulti;
     }
 }
