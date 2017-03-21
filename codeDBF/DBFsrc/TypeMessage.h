@@ -8,6 +8,7 @@
 
 enum class TypeMessage {
     None,
+    OK_Packet,
     ExtractedData,
     Connection,
     Query,
