@@ -6,6 +6,7 @@
 #define PROJET_DBF_CONNECTION_H
 
 #include "SocketDbf.h"
+#include "Message.h"
 
 /**
  * This class represent a connection.
@@ -17,6 +18,8 @@ class Connection {
 private:
     SocketDbf *mSocketApplication;
     SocketDbf *mSocketBdd;
+    Message * mMessage;
+
 
 public:
     /**
@@ -32,6 +35,8 @@ public:
     SocketDbf *getSocketApplication() const;
 
     SocketDbf *getSocketBdd() const;
+
+    Message *getMessage() const;
 };
 
 

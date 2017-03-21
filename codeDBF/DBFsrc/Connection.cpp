@@ -8,13 +8,15 @@
 #include "Config.h"
 
 Connection::Connection(SocketDbf *mSocketApplication) : mSocketApplication(mSocketApplication) {
-    mSocketBdd = SocketFactory::getInstance().clientConnect(addressBdd, Config::portBdd);
+    this->mSocketBdd = SocketFactory::getInstance().clientConnect(addressBdd, Config::portBdd);
+    this->mMessage = new Message();
     cout << "Connexion avec la base de données: OK" << endl;
 }
 
 Connection::~Connection() {
     this->mSocketApplication->closeSocketMulti();
     this->mSocketBdd->closeSocketMulti();
+    this->mMessage->~Message();
 }
 
 SocketDbf *Connection::getSocketApplication() const {
@@ -23,4 +25,8 @@ SocketDbf *Connection::getSocketApplication() const {
 
 SocketDbf *Connection::getSocketBdd() const {
     return mSocketBdd;
+}
+
+Message *Connection::getMessage() const {
+    return mMessage;
 }
