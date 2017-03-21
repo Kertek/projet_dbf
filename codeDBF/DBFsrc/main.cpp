@@ -32,59 +32,10 @@ int main() {
         cout << "Une application vient de se connecter" << endl;
         Connection* newConnection = new Connection(socketApllication);
 
-        processConnection * prrocessConnection = new processConnection(newConnection);
-        thread threadConnection(*prrocessConnection);
+        processConnection * newProcessConnection = new processConnection(newConnection);
+        thread threadConnection(*newProcessConnection);
         threadConnection.detach();
-
-
-
-
-        /* cout << "premier echange: Récupération bdd + renvoi application" << endl;
-        vector<char> msg;
-        msg.resize(0, 0);
-        msg.clear();
-        int result = newConnection->getMSocketBdd()->receiveMessage(msg);
-
-       newConnection->getMSocketApplication()->sendMessage(&msg);
-
-        cout << "deuxieme echange" << endl;
-        msg.resize(0, 0);
-        msg.clear();
-
-        newConnection->getMSocketApplication()->receiveMessage(msg);
-
-        newConnection->getMSocketBdd()->sendMessage(&msg);
-
-        cout << "troisième échange" << endl;
-        msg.resize(0, 0);
-        msg.clear();
-
-        result = newConnection->getMSocketBdd()->receiveMessage(msg);
-
-        newConnection->getMSocketApplication()->sendMessage(&msg);
-        cout << "quatrième echange" << endl;
-        msg.resize(0, 0);
-        msg.clear();
-
-        newConnection->getMSocketApplication()->receiveMessage(msg);
-
-        newConnection->getMSocketBdd()->sendMessage(&msg);
-
-        cout << "cinquième échange" << endl;
-        msg.resize(0, 0);
-        msg.clear();
-
-        result = newConnection->getMSocketBdd()->receiveMessage(msg);
-        newConnection->getMSocketApplication()->sendMessage(&msg);
-        cout << "sizième echange" << endl;
-        msg.resize(0, 0);
-        msg.clear();
-        newConnection->getMSocketApplication()->receiveMessage(msg);
-        newConnection->getMSocketBdd()->sendMessage(&msg);
-
-        newConnection->getMSocketApplication()->closeSocketMulti();
-        newConnection->getMSocketBdd()->closeSocketMulti();*/
-    }
+}
     return 0; /* we never get here */
 }
 
