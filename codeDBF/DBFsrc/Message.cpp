@@ -26,3 +26,9 @@ TypeMessage Message::getTypeMessage() const {
 void Message::setTypeMessage(TypeMessage typeMessage) {
     Message::mTypeMessage = typeMessage;
 }
+
+void Message::initMessage() {
+    this->mContent->resize(0);
+    this->mContent->clear();
+    this->mTypeMessage = TypeMessage::None;
+}

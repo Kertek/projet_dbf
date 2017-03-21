@@ -27,6 +27,8 @@ public:
     TypeMessage getTypeMessage() const;
 
     void setTypeMessage(TypeMessage mTypeMessage);
+
+    void initMessage();
 };
 
 
