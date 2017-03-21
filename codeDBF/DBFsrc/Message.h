@@ -26,7 +26,7 @@ public:
 
     TypeMessage getTypeMessage() const;
 
-    void setTypeMessage(TypeMessage mTypeMessage);
+    void determineTypeMessage(int packetLength,int fourthComponentHeader);
 
     void initMessage();
 };

@@ -23,12 +23,14 @@ TypeMessage Message::getTypeMessage() const {
     return mTypeMessage;
 }
 
-void Message::setTypeMessage(TypeMessage typeMessage) {
-    Message::mTypeMessage = typeMessage;
-}
-
 void Message::initMessage() {
     this->mContent->clear();
     this->mContent->resize(0);
     this->mTypeMessage = TypeMessage::None;
 }
+
+void Message::determineTypeMessage(int packetLength, int fourthComponentHeader) {
+    //TODO
+    this->mTypeMessage = TypeMessage::None;
+}
+
