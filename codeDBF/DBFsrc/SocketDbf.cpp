@@ -65,7 +65,9 @@ int SocketDbf::receiveMessage(Message *msg) {
     }
     unsigned char bufferPacket[1];
     while (read(mSocket, bufferPacket, 1) != 1) {}
-    int numberOfPacket = (unsigned int) bufferPacket[0];
+    unsigned int numberOfPacket = (unsigned int) bufferPacket[0];
+    //Determine the type of the message
+    msg->determineTypeMessage(size,numberOfPacket);
 
     unsigned char bufferData[size];
     result = 0;
