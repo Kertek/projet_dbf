@@ -12,7 +12,7 @@
 
 class Message {
 private:
-    std::vector *mContent;
+    std::vector<char> *mContent;
     TypeMessage mTypeMessage;
 
 public:
@@ -20,9 +20,9 @@ public:
 
     ~Message() {};
 
-    std::vector *getContent() const;
+    std::vector<char> * getContent() const;
 
-    void setContent(std::vector *content);
+    void setContent(std::vector<char> *content);
 
     TypeMessage getTypeMessage() const;
 

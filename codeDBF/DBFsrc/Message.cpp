@@ -6,15 +6,16 @@
 
 
 Message::Message() {
-    this->mContent = new std::vector;
+    this->mContent = new std::vector<char>;
     this->mTypeMessage = TypeMessage ::None;
 }
 
-std::vector *Message::getContent() const {
+std::vector<char> * Message::getContent() const {
     return mContent;
 }
 
-void Message::setContent(std::vector *content) {
+
+void Message::setContent(std::vector<char> *content) {
     Message::mContent = content;
 }
 
@@ -22,6 +23,6 @@ TypeMessage Message::getTypeMessage() const {
     return mTypeMessage;
 }
 
-void Message::setMTypeMessage(TypeMessage typeMessage) {
+void Message::setTypeMessage(TypeMessage typeMessage) {
     Message::mTypeMessage = typeMessage;
 }
