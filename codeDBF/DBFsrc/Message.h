@@ -7,8 +7,26 @@
 #define PROJET_DBF_MESSAGE_H
 
 
-class Message {
+#include <vector>
+#include "TypeMessage.h"
 
+class Message {
+private:
+    std::vector *mContent;
+    TypeMessage mTypeMessage;
+
+public:
+    Message();
+
+    ~Message() {};
+
+    std::vector *getContent() const;
+
+    void setContent(std::vector *content);
+
+    TypeMessage getTypeMessage() const;
+
+    void setTypeMessage(TypeMessage mTypeMessage);
 };
 
 
