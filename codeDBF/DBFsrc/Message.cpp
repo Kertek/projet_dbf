@@ -28,7 +28,7 @@ void Message::setTypeMessage(TypeMessage typeMessage) {
 }
 
 void Message::initMessage() {
-    this->mContent->resize(0);
     this->mContent->clear();
+    this->mContent->resize(0);
     this->mTypeMessage = TypeMessage::None;
 }
