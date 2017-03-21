@@ -8,6 +8,7 @@
 
 enum class TypeMessage {
     None,
+    ExtractedData,
     Connection,
     Query,
     Response,
