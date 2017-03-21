@@ -17,15 +17,11 @@ public:
    virtual ~CALC_Driver();
    
    /** 
-    * parse - parse from a file
-    * @param filename - valid string with input file
+    * parse - parse from a std::string
+    * @param String - A std::string
     */
-   void parse( const char * const filename );
-   /** 
-    * parse - parse from a c++ input stream
-    * @param is - std::istream&, valid input stream
-    */
-   void parse( std::istream &iss );
+   
+   void parse(std::string string);
 
    std::ostream& print(std::ostream &stream);
 private:

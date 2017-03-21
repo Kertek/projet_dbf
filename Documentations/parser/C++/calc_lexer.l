@@ -57,7 +57,7 @@ void comment();
 								 * On retourne NEWLINE pour dire 
 								 * que la suite ne compte pas.
 								 * */
-								return token::NEWLINE; 
+								return token::COMMENT; 
 							}
 
 "=" 	|
@@ -65,12 +65,6 @@ void comment();
 ">="	| 
 "<" 	|
 ">"							{return token::COMPARAISON;}
-[\n]						{
-								/*
-								 * NEWLINE signifie la fin de la requete.
-								 * */
-								return token::NEWLINE;
-							}
 							
 [ ]						 {;}
 .					     {/* Used for all the other characters */

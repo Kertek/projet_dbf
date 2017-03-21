@@ -49,14 +49,18 @@
 %token LOGIQUE 
 %token AS 
 %token END 
-%token COMMENT 
-%token NEWLINE
+%token COMMENT
 %token FORBBIDEN
 
 %locations
 
 %%
-commands:  | command END commands NEWLINE
+commands: command END
+		{
+			printf("commande valide\n");
+			YYACCEPT;
+		}
+		| command END COMMENT
 		{
 			printf("commande valide\n");
 			YYACCEPT;

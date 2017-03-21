@@ -1,6 +1,7 @@
 #include <cctype>
 #include <fstream>
 #include <cassert>
+#include <sstream>
 
 #include "calc_driver.hpp"
 
@@ -13,30 +14,15 @@ CALC::CALC_Driver::~CALC_Driver()
 }
 
 void 
-CALC::CALC_Driver::parse( const char * const filename )
+CALC::CALC_Driver::parse(std::string String)
 {
-   assert( filename != nullptr );
-   std::ifstream in_file( filename );
-   if( ! in_file.good() )
-   {
-       exit( EXIT_FAILURE );
-   }
-   parse_helper( in_file );
-   return;
+	std::istringstream in(String);
+	if( ! in.good() )
+    {
+		exit( EXIT_FAILURE );
+    }
+    parse_helper(in);
 }
-
-void
-CALC::CALC_Driver::parse( std::istream &stream )
-{
-   if( ! stream.good()  && stream.eof() )
-   {
-       return;
-   }
-   //else
-   parse_helper( stream ); 
-   return;
-}
-
 
 void 
 CALC::CALC_Driver::parse_helper( std::istream &stream )
