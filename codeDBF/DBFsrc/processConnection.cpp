@@ -12,44 +12,43 @@ void processConnection::operator()() {
     vector<char> msg;
     msg.resize(0, 0);
     msg.clear();
-    int result = this->mConnection->getMSocketBdd()->receiveMessage(msg);
+    int result = this->mConnection->getSocketBdd()->receiveMessage(msg);
 
-    this->mConnection->getMSocketApplication()->sendMessage(&msg);
+    this->mConnection->getSocketApplication()->sendMessage(&msg);
 
     cout << "deuxieme echange" << endl;
     msg.resize(0, 0);
     msg.clear();
 
-    this->mConnection->getMSocketApplication()->receiveMessage(msg);
+    this->mConnection->getSocketApplication()->receiveMessage(msg);
 
-    this->mConnection->getMSocketBdd()->sendMessage(&msg);
+    this->mConnection->getSocketBdd()->sendMessage(&msg);
 
     cout << "troisième échange" << endl;
     msg.resize(0, 0);
     msg.clear();
 
-    result = this->mConnection->getMSocketBdd()->receiveMessage(msg);
+    result = this->mConnection->getSocketBdd()->receiveMessage(msg);
 
-    this->mConnection->getMSocketApplication()->sendMessage(&msg);
+    this->mConnection->getSocketApplication()->sendMessage(&msg);
     cout << "quatrième echange" << endl;
     msg.resize(0, 0);
     msg.clear();
 
-    this->mConnection->getMSocketApplication()->receiveMessage(msg);
+    this->mConnection->getSocketApplication()->receiveMessage(msg);
 
-    this->mConnection->getMSocketBdd()->sendMessage(&msg);
+    this->mConnection->getSocketBdd()->sendMessage(&msg);
 
     cout << "cinquième échange" << endl;
     msg.resize(0, 0);
     msg.clear();
-
-    result = this->mConnection->getMSocketBdd()->receiveMessage(msg);
-    this->mConnection->getMSocketApplication()->sendMessage(&msg);
+    result = this->mConnection->getSocketBdd()->receiveMessage(msg);
+    this->mConnection->getSocketApplication()->sendMessage(&msg);
     cout << "sizième echange" << endl;
     msg.resize(0, 0);
     msg.clear();
-    this->mConnection->getMSocketApplication()->receiveMessage(msg);
-    this->mConnection->getMSocketBdd()->sendMessage(&msg);
+    this->mConnection->getSocketApplication()->receiveMessage(msg);
+    this->mConnection->getSocketBdd()->sendMessage(&msg);
 
     this->mConnection->~Connection();
 

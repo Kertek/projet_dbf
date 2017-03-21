@@ -29,9 +29,9 @@ public:
      */
     ~Connection();
 
-    SocketDbf *getMSocketApplication() const;
+    SocketDbf *getSocketApplication() const;
 
-    SocketDbf *getMSocketBdd() const;
+    SocketDbf *getSocketBdd() const;
 };
 
 
