@@ -31,20 +31,22 @@ void SocketDbf::closeSocketMulti() {
 
 }
 
-int SocketDbf::sendMessage(vector<char> *message) {
-
+int SocketDbf::sendMessage(Message *message) {
     int result;
-    result = write(mSocket, message->data(), message->size());
-    if (result <= 0){
-        return ERRNO_DBF_ERROR_TO_SEND_MESSAGE -3;
-    }else{
+    result = write(mSocket, message->getContent()->data(), message->getContent()->size());
+
+    if (result <= 0) {
+        return ERRNO_DBF_ERROR_TO_SEND_MESSAGE - 3;
+    } else {
         return ERRNO_DBF_OK;
     }
 
 
 }
 
-int SocketDbf::receiveMessage(vector<char> &msg) {
+int SocketDbf::receiveMessage(Message *msg) {
+
+    msg->initMessage();
 
     int sizeGlobal = 0;
     int octetNecessaireLength = 3;
@@ -74,10 +76,11 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
         }
     }
     sizeGlobal = sizeGlobal + size + octetNecessaireLength + 1;
-    msg.resize(sizeGlobal, 0);
-    for (int i = 0; i < 3; ++i)msg[i] = bufferLength[i];
-    msg[3] = bufferPacket[0];
-    for (int i = 0; i < size; ++i)msg[i + octetNecessaireLength + 1] = bufferData[i];
+
+    msg->getContent()->resize(sizeGlobal, 0);
+    for (int i = 0; i < 3; ++i)msg->getContent()->data()[i] = bufferLength[i];
+    msg->getContent()->data()[3] = bufferPacket[0];
+    for (int i = 0; i < size; ++i)msg->getContent()->data()[i + octetNecessaireLength + 1] = bufferData[i];
 
     while (1) {
 
@@ -114,15 +117,15 @@ int SocketDbf::receiveMessage(vector<char> &msg) {
             int previousSizeGlobal = sizeGlobal;
             sizeGlobal = sizeGlobal + size + octetNecessaireLength + 1;
 
-            msg.resize(sizeGlobal);
-            for (int i = 0; i < 3; ++i)msg[i + previousSizeGlobal] = bufferLength[i];
-            msg[3 + previousSizeGlobal] = bufferPacket[0];
-            for (int i = 0; i < size; ++i)msg[i + previousSizeGlobal + octetNecessaireLength + 1] = bufferData[i];
+            msg->getContent()->resize(sizeGlobal);
+            for (int i = 0; i < 3; ++i)msg->getContent()->data()[i + previousSizeGlobal] = bufferLength[i];
+            msg->getContent()->data()[3 + previousSizeGlobal] = bufferPacket[0];
+            for (int i = 0; i < size; ++i)
+                msg->getContent()->data()[i + previousSizeGlobal + octetNecessaireLength + 1] = bufferData[i];
         } else {
-
-/*            //Affichage message: Debug
+            /*//Affichage message: Debug
             for (int i = 0; i < sizeGlobal + 1; i++) {
-                cout << msg[i];
+                cout << msg->getContent()->data()[i];
             }
             cout << endl;*/
 

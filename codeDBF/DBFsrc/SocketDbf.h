@@ -8,6 +8,7 @@
 
 #include <unistd.h>
 #include <vector>
+#include "Message.h"
 
 using namespace std;
 /**
@@ -45,8 +46,8 @@ public:
      * Close the socket and do everything link to that such as erase the SocketMulti in maps where it is
      */
     void closeSocketMulti();
-    int sendMessage(vector<char> *message);
-    int receiveMessage(vector<char> &msg);
+    int sendMessage(Message * message);
+    int receiveMessage(Message * msg);
 };
 
 #endif //PROJET_DBF_SOCKETMULTI_H
