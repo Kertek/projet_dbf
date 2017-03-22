@@ -63,16 +63,20 @@ int SocketDbf::receiveMessage(Message *msg) {
     for (int i = octetNecessaireLength; i > 0; i--) {
         size = size * 256 + (unsigned int) bufferLength[i - 1];
     }
-    unsigned char bufferPacket[1];
-    while (read(mSocket, bufferPacket, 1) != 1) {}
-    unsigned int numberOfPacket = (unsigned int) bufferPacket[0];
+    unsigned char bufferSeqId[1];
+    while (read(mSocket, bufferSeqId, 1) != 1) {}
+    unsigned int sequenceid = (unsigned int) bufferSeqId[0];
+
+    unsigned char bufferHeader[1];
+    while (read(mSocket, bufferHeader, 1) != 1) {}
+    unsigned int headerValue = (unsigned int) bufferHeader[0];
     //Determine the type of the message
-    msg->determineTypeMessage(size,numberOfPacket);
+    msg->determineTypeMessage(size,sequenceid,headerValue);
 
     unsigned char bufferData[size];
     result = 0;
-    while (result < size) {
-        int m = read(mSocket, bufferData + result, size - result);
+    while (result < size - 1) {
+        int m = read(mSocket, bufferData + result, size - result - 1);
         if (m >= 0) {
             result += m;
         }
@@ -81,8 +85,9 @@ int SocketDbf::receiveMessage(Message *msg) {
 
     msg->getContent()->resize(sizeGlobal, 0);
     for (int i = 0; i < 3; ++i)msg->getContent()->data()[i] = bufferLength[i];
-    msg->getContent()->data()[3] = bufferPacket[0];
-    for (int i = 0; i < size; ++i)msg->getContent()->data()[i + octetNecessaireLength + 1] = bufferData[i];
+    msg->getContent()->data()[3] = bufferSeqId[0];
+    msg->getContent()->data()[4] = bufferHeader[0];
+    for (int i = 0; i < size - 1; ++i)msg->getContent()->data()[i + octetNecessaireLength + 1 + 1] = bufferData[i];
 
     while (1) {
 
@@ -103,9 +108,9 @@ int SocketDbf::receiveMessage(Message *msg) {
                 size = size * 256 + (unsigned int) bufferLength[i - 1];
             }
 
-            unsigned char bufferPacket[1];
-            while (read(mSocket, bufferPacket, 1) != 1) {}
-            int numberOfPacket = (unsigned int) bufferPacket[0];
+            unsigned char bufferSeqId[1];
+            while (read(mSocket, bufferSeqId, 1) != 1) {}
+            int numberOfPacket = (unsigned int) bufferSeqId[0];
 
             unsigned char bufferData[size];
             result = 0;
@@ -121,7 +126,7 @@ int SocketDbf::receiveMessage(Message *msg) {
 
             msg->getContent()->resize(sizeGlobal);
             for (int i = 0; i < 3; ++i)msg->getContent()->data()[i + previousSizeGlobal] = bufferLength[i];
-            msg->getContent()->data()[3 + previousSizeGlobal] = bufferPacket[0];
+            msg->getContent()->data()[3 + previousSizeGlobal] = bufferSeqId[0];
             for (int i = 0; i < size; ++i)
                 msg->getContent()->data()[i + previousSizeGlobal + octetNecessaireLength + 1] = bufferData[i];
         } else {
