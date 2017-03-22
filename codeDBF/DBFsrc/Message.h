@@ -9,11 +9,14 @@
 
 #include <vector>
 #include "TypeMessage.h"
+#include <map>
+
 using namespace std;
 class Message {
 private:
     std::vector<char> *mContent;
     TypeMessage mTypeMessage;
+    map<unsigned int,TypeMessage > *  mMap;
 
 public:
     Message();
@@ -29,6 +32,10 @@ public:
     void determineTypeMessage(unsigned int packetLength,unsigned int sequenceid, unsigned int packetHeader);
 
     void initMessage();
+
+    void initMap();
+
+
 };
 
 

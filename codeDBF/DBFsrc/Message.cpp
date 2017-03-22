@@ -8,6 +8,8 @@
 Message::Message() {
     this->mContent = new std::vector<char>;
     this->mTypeMessage = TypeMessage::None;
+    initMap();
+
 }
 
 std::vector<char> *Message::getContent() const {
@@ -29,29 +31,16 @@ void Message::initMessage() {
     this->mTypeMessage = TypeMessage::None;
 }
 
+void Message::initMap() {
+    this->mMap = new  map<unsigned int,TypeMessage >();
+    this->mMap->insert(pair<unsigned int, TypeMessage>(0x00, TypeMessage::OK_Packet));
+}
+
 void Message::determineTypeMessage(unsigned int packetLength, unsigned int sequenceid, unsigned int packetHeader) {
-    //TODO
-    if (packetHeader == 0x00 && packetLength >= 7) {
-        this->mTypeMessage = TypeMessage::OK_Packet;
-        cout << "paquet de type OK_Packet" << endl;
-        return;
-    } else if (packetHeader == 0xfe && packetLength <= 9) {
-        this->mTypeMessage = TypeMessage::EOF_Packet;
-        cout << "paquet de type EOF_Packet" << endl;
-        return;
-    } else if (packetHeader == 0xff) {
-        this->mTypeMessage = TypeMessage::ERR_Packet;
-        cout << "paquet de type ERR_Packet" << endl;
-        return;
-    } else if (packetHeader == 0x0a){
-        this->mTypeMessage = TypeMessage ::Handshake_Packet;
-        cout << "paquet de type Handshake_Packet - Server Greeting" <<endl;
-        return;
+    if (this->mMap->find(packetHeader) != this->mMap->end()) {
+        this->mTypeMessage = this->mMap->find(packetHeader)->second;
     } else {
         this->mTypeMessage = TypeMessage::Other;
-        cout << "paquet de type Other" << endl;
-        return;
     }
-
 }
 
