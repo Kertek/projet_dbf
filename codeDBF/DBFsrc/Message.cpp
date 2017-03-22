@@ -32,15 +32,40 @@ void Message::initMessage() {
 }
 
 void Message::initMap() {
-    this->mMap = new  map<unsigned int,TypeMessage >();
-    this->mMap->insert(pair<unsigned int, TypeMessage>(0x00, TypeMessage::OK_Packet));
+    this->mMapRequest = new  map<unsigned int,TypeMessage >();
+    this->mMapResponse = new  map<unsigned int,TypeMessage >();
+
+    //Request
+    this->mMapRequest->insert(pair<unsigned int, TypeMessage>(0x00, TypeMessage::COM_SLEEP));
+    this->mMapRequest->insert(pair<unsigned int, TypeMessage>(0x01, TypeMessage::COM_QUIT));
+    this->mMapRequest->insert(pair<unsigned int, TypeMessage>(0x03, TypeMessage::COM_QUERY));
+
+    //Response
+    this->mMapResponse->insert(pair<unsigned int, TypeMessage>(0x0a, TypeMessage::Handshake_Packet));
+    this->mMapResponse->insert(pair<unsigned int, TypeMessage>(0x00, TypeMessage::OK_Packet));
+    this->mMapResponse->insert(pair<unsigned int, TypeMessage>(0xff, TypeMessage::ERR_Packet));
+    this->mMapResponse->insert(pair<unsigned int, TypeMessage>(0xfe, TypeMessage::EOF_Packet));
+
 }
 
-void Message::determineTypeMessage(unsigned int packetHeader) {
-    if (this->mMap->find(packetHeader) != this->mMap->end()) {
-        this->mTypeMessage = this->mMap->find(packetHeader)->second;
-    } else {
-        this->mTypeMessage = TypeMessage::Other;
+void Message::determineTypeMessage(unsigned int packetHeader,bool isRequest) {
+    if (isRequest){
+        if (this->mMapRequest->find(packetHeader) != this->mMapRequest->end()) {
+            this->mTypeMessage = this->mMapRequest->find(packetHeader)->second;
+            cout << "paquet determiné " << endl;
+        } else {
+            this->mTypeMessage = TypeMessage::Other;
+            cout << "paquet indeterminé " << endl;
+        }
+    }else{
+        if (this->mMapResponse->find(packetHeader) != this->mMapResponse->end()) {
+            this->mTypeMessage = this->mMapResponse->find(packetHeader)->second;
+            cout << "paquet determiné " << endl;
+        } else {
+            this->mTypeMessage = TypeMessage::Other;
+            cout << "paquet indeterminé " << endl;
+        }
     }
+
 }
 

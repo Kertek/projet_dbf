@@ -16,7 +16,8 @@ class Message {
 private:
     std::vector<char> *mContent;
     TypeMessage mTypeMessage;
-    map<unsigned int,TypeMessage > *  mMap;
+    map<unsigned int,TypeMessage > *  mMapResponse;
+    map<unsigned int,TypeMessage > *  mMapRequest;
 
 public:
     Message();
@@ -29,7 +30,7 @@ public:
 
     TypeMessage getTypeMessage() const;
 
-    void determineTypeMessage(unsigned int packetHeader);
+    void determineTypeMessage(unsigned int packetHeader, bool isRequest); //either it is response
 
     void initMessage();
 
