@@ -36,7 +36,7 @@ void Message::initMap() {
     this->mMap->insert(pair<unsigned int, TypeMessage>(0x00, TypeMessage::OK_Packet));
 }
 
-void Message::determineTypeMessage(unsigned int packetLength, unsigned int sequenceid, unsigned int packetHeader) {
+void Message::determineTypeMessage(unsigned int packetHeader) {
     if (this->mMap->find(packetHeader) != this->mMap->end()) {
         this->mTypeMessage = this->mMap->find(packetHeader)->second;
     } else {

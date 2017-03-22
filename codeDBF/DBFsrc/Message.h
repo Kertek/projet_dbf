@@ -29,7 +29,7 @@ public:
 
     TypeMessage getTypeMessage() const;
 
-    void determineTypeMessage(unsigned int packetLength,unsigned int sequenceid, unsigned int packetHeader);
+    void determineTypeMessage(unsigned int packetHeader);
 
     void initMessage();
 
