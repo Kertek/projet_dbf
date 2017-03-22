@@ -9,7 +9,7 @@
 
 #include <vector>
 #include "TypeMessage.h"
-
+using namespace std;
 class Message {
 private:
     std::vector<char> *mContent;
@@ -26,7 +26,7 @@ public:
 
     TypeMessage getTypeMessage() const;
 
-    void determineTypeMessage(int packetLength,int fourthComponentHeader);
+    void determineTypeMessage(unsigned int packetLength,unsigned int sequenceid, unsigned int packetHeader);
 
     void initMessage();
 };
