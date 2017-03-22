@@ -10,36 +10,37 @@ processConnection::processConnection(Connection *connection) : mConnection(conne
 void processConnection::operator()() {
     cout << "premier echange: Récupération bdd + renvoi application" << endl;
 
-    int result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(),false);
+    int result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
 
     this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
 
     cout << "deuxieme echange" << endl;
 
 
-    this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(),true);
+    this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
 
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 
     cout << "troisième échange" << endl;
 
-    result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(),false);
+    result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
 
     this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
     cout << "quatrième echange" << endl;
 
 
-    this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(),true);
+    this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
 
+    cout <<  this->mConnection->getMessage()->extractContent(true) << endl;
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 
     cout << "cinquième échange" << endl;
 
-    result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(),false);
+    result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
     this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
     cout << "sizième echange" << endl;
 
-    this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(),true);
+    this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 
     this->mConnection->~Connection();
