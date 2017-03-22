@@ -44,7 +44,7 @@ int SocketDbf::sendMessage(Message *message) {
 
 }
 
-int SocketDbf::receiveMessage(Message *msg) {
+int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
 
     msg->initMessage();
 
@@ -70,8 +70,9 @@ int SocketDbf::receiveMessage(Message *msg) {
     unsigned char bufferHeader[1];
     while (read(mSocket, bufferHeader, 1) != 1) {}
     unsigned int headerValue = (unsigned int) bufferHeader[0];
+
     //Determine the type of the message
-    msg->determineTypeMessage(headerValue);
+    msg->determineTypeMessage(headerValue,isFromApplication);
 
     unsigned char bufferData[size];
     result = 0;
