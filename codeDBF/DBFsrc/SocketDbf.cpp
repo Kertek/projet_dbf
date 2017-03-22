@@ -71,7 +71,7 @@ int SocketDbf::receiveMessage(Message *msg) {
     while (read(mSocket, bufferHeader, 1) != 1) {}
     unsigned int headerValue = (unsigned int) bufferHeader[0];
     //Determine the type of the message
-    msg->determineTypeMessage(size,sequenceid,headerValue);
+    msg->determineTypeMessage(headerValue);
 
     unsigned char bufferData[size];
     result = 0;
