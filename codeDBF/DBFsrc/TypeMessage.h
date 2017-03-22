@@ -7,8 +7,10 @@
 
 
 enum class TypeMessage {
-    None,
+    None,//initial type
     OK_Packet,
+    EOF_Packet,
+    ERR_Packet,
     ExtractedData,
     Connection,
     Query,
