@@ -31,16 +31,23 @@ void Message::initMessage() {
 
 void Message::determineTypeMessage(unsigned int packetLength, unsigned int sequenceid, unsigned int packetHeader) {
     //TODO
-    if (packetHeader == 0x00 && packetLength > 7) {
+    cout << "packetHeader " << packetHeader << "packetLength" << packetLength << endl;
+    if (packetHeader == 0x00 && packetLength >= 7) {
         this->mTypeMessage = TypeMessage::OK_Packet;
+        cout << "paquet de type OK_Packet" <<endl;
         return;
-    } else if (packetHeader == 0xfe && packetLength < 9) {
+    } else if (packetHeader == 0xfe && packetLength <= 9) {
         this->mTypeMessage = TypeMessage::EOF_Packet;
+        cout << "paquet de type EOF_Packet" <<endl;
         return;
     } else if (packetHeader == 0xff) {
         this->mTypeMessage = TypeMessage::ERR_Packet;
+        cout << "paquet de type ERR_Packet" <<endl;
+        return;
     } else {
         this->mTypeMessage = TypeMessage::Other;
+        cout << "paquet de type Other" <<endl;
+        return;
     }
 
 }
