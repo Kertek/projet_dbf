@@ -11,6 +11,7 @@ enum class TypeMessage {
     OK_Packet,
     EOF_Packet,
     ERR_Packet,
+    Handshake_Packet,//equivalent to Server Greating for wireshark
     ExtractedData,
     Connection,
     Query,
