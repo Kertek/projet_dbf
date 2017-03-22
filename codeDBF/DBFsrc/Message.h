@@ -28,13 +28,19 @@ public:
 
     void setContent(std::vector<char> *content);
 
+    void initMessage();
+
+    void initMap();
+
     TypeMessage getTypeMessage() const;
 
     void determineTypeMessage(unsigned int packetHeader, bool isRequest); //either it is response
 
-    void initMessage();
-
-    void initMap();
+    /**
+     * Extract the content from a COM_QUERY
+     * @return
+     */
+    string extractContent(bool isRequest);
 
 
 };

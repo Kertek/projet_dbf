@@ -32,8 +32,8 @@ void Message::initMessage() {
 }
 
 void Message::initMap() {
-    this->mMapRequest = new  map<unsigned int,TypeMessage >();
-    this->mMapResponse = new  map<unsigned int,TypeMessage >();
+    this->mMapRequest = new map<unsigned int, TypeMessage>();
+    this->mMapResponse = new map<unsigned int, TypeMessage>();
 
     //Request
     this->mMapRequest->insert(pair<unsigned int, TypeMessage>(0x00, TypeMessage::COM_SLEEP));
@@ -48,8 +48,8 @@ void Message::initMap() {
 
 }
 
-void Message::determineTypeMessage(unsigned int packetHeader,bool isRequest) {
-    if (isRequest){
+void Message::determineTypeMessage(unsigned int packetHeader, bool isRequest) {
+    if (isRequest) {
         if (this->mMapRequest->find(packetHeader) != this->mMapRequest->end()) {
             this->mTypeMessage = this->mMapRequest->find(packetHeader)->second;
             cout << "paquet determiné " << endl;
@@ -57,7 +57,7 @@ void Message::determineTypeMessage(unsigned int packetHeader,bool isRequest) {
             this->mTypeMessage = TypeMessage::OtherRequest;
             cout << "paquet indeterminé " << endl;
         }
-    }else{
+    } else {
         if (this->mMapResponse->find(packetHeader) != this->mMapResponse->end()) {
             this->mTypeMessage = this->mMapResponse->find(packetHeader)->second;
             cout << "paquet determiné " << endl;
@@ -69,3 +69,13 @@ void Message::determineTypeMessage(unsigned int packetHeader,bool isRequest) {
 
 }
 
+string Message::extractContent(bool isRequest) {
+    this->determineTypeMessage(this->mContent->data()[4], isRequest);
+    if (this->mTypeMessage == TypeMessage::COM_QUERY) {
+        return std::string(&this->mContent->data()[5],this->mContent->size() - 5);
+    } else {
+        return "";
+    }
+
+    return std::__cxx11::string();
+}
