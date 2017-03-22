@@ -12,10 +12,10 @@ enum class TypeMessage {
     EOF_Packet,
     ERR_Packet,
     Handshake_Packet,//equivalent to Server Greating for wireshark
-    ExtractedData,
-    Connection,
-    Query,
-    Response,
+
+    COM_SLEEP,
+    COM_QUIT,
+    COM_QUERY,
     Other
 };
 
