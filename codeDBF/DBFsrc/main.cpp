@@ -30,8 +30,7 @@ int main() {
     while (1) {
         SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(Config::portDBF);
         cout << "Une application vient de se connecter" << endl;
-        Connection* newConnection = new Connection(socketApllication);
-
+        Connection * newConnection = new Connection(socketApllication);
         processConnection * newProcessConnection = new processConnection(newConnection);
         thread threadConnection(*newProcessConnection);
         threadConnection.detach();
