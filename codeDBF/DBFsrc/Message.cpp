@@ -54,7 +54,7 @@ void Message::determineTypeMessage(unsigned int packetHeader,bool isRequest) {
             this->mTypeMessage = this->mMapRequest->find(packetHeader)->second;
             cout << "paquet determiné " << endl;
         } else {
-            this->mTypeMessage = TypeMessage::Other;
+            this->mTypeMessage = TypeMessage::OtherRequest;
             cout << "paquet indeterminé " << endl;
         }
     }else{
@@ -62,7 +62,7 @@ void Message::determineTypeMessage(unsigned int packetHeader,bool isRequest) {
             this->mTypeMessage = this->mMapResponse->find(packetHeader)->second;
             cout << "paquet determiné " << endl;
         } else {
-            this->mTypeMessage = TypeMessage::Other;
+            this->mTypeMessage = TypeMessage::OtherResponse;
             cout << "paquet indeterminé " << endl;
         }
     }
