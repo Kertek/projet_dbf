@@ -19,9 +19,8 @@ void comment();
 %option debug
 %option nodefault
 %option yyclass="CALC::CALC_Scanner"
-                %option noyywrap
+%option noyywrap
 %option c++
-extern "C" int yyex();
 
 
 %%

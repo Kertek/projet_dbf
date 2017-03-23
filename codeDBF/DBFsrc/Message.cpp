@@ -76,6 +76,4 @@ string Message::extractContent(bool isRequest) {
     } else {
         return "";
     }
-
-    return std::__cxx11::string();
 }

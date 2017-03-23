@@ -382,6 +382,7 @@ void yyfree (void *  );
 
 /* %% [1.0] yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here */
 /* Begin user sect3 */
+#define YY_SKIP_YYWRAP
 
 #define FLEX_DEBUG
 
@@ -391,6 +392,8 @@ typedef unsigned char YY_CHAR;
 #define YY_INTERACTIVE
 
 #include <FlexLexer.h>
+
+int yyFlexLexer::yywrap() { return 1; }
 int yyFlexLexer::yylex()
 	{
 	LexerError( "yyFlexLexer::yylex invoked but %option yyclass used" );
@@ -538,9 +541,9 @@ static yyconst flex_int16_t yy_chk[123] =
 
 static yyconst flex_int16_t yy_rule_linenum[27] =
     {   0,
-       31,   32,   33,   34,   35,   36,   37,   38,   39,   40,
-       41,   42,   43,   44,   45,   46,   47,   48,   49,   58,
-       59,   60,   61,   62,   64,   65
+       30,   31,   32,   33,   34,   35,   36,   37,   38,   39,
+       40,   41,   42,   43,   44,   45,   46,   47,   48,   57,
+       58,   59,   60,   61,   63,   64
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -567,8 +570,7 @@ using token = CALC::CALC_Parser::token;
 /* update location on matching */
 #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
 void comment();
-%option noyywrap
-#line 572 "/home/menguy/Documents/Etudes/CASSIOPEE/projet_dbf/codeDBF/DBFsrc/Parser/calc_lexer.yy.cc"
+#line 574 "/home/menguy/Documents/Etudes/CASSIOPEE/projet_dbf/codeDBF/DBFsrc/Parser/calc_lexer.yy.cc"
 
 #define INITIAL 0
 
@@ -765,12 +767,12 @@ YY_DECL
 
 	{
 /* %% [7.0] user's declarations go here */
-#line 27 "DBFsrc/Parser/calc_lexer.l"
+#line 26 "DBFsrc/Parser/calc_lexer.l"
 
           /** Code executed at the beginning of yylex **/
 yylval = lval;
 
-#line 774 "/home/menguy/Documents/Etudes/CASSIOPEE/projet_dbf/codeDBF/DBFsrc/Parser/calc_lexer.yy.cc"
+#line 776 "/home/menguy/Documents/Etudes/CASSIOPEE/projet_dbf/codeDBF/DBFsrc/Parser/calc_lexer.yy.cc"
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -850,77 +852,77 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-#line 32 "DBFsrc/Parser/calc_lexer.l"
+#line 31 "DBFsrc/Parser/calc_lexer.l"
 case 2:
 YY_RULE_SETUP
-#line 32 "DBFsrc/Parser/calc_lexer.l"
+#line 31 "DBFsrc/Parser/calc_lexer.l"
 {return token::SELECT;}
 	YY_BREAK
 case 3:
-#line 34 "DBFsrc/Parser/calc_lexer.l"
+#line 33 "DBFsrc/Parser/calc_lexer.l"
 case 4:
 YY_RULE_SETUP
-#line 34 "DBFsrc/Parser/calc_lexer.l"
+#line 33 "DBFsrc/Parser/calc_lexer.l"
 {return token::FROM;}
 	YY_BREAK
 case 5:
-#line 36 "DBFsrc/Parser/calc_lexer.l"
+#line 35 "DBFsrc/Parser/calc_lexer.l"
 case 6:
 YY_RULE_SETUP
-#line 36 "DBFsrc/Parser/calc_lexer.l"
+#line 35 "DBFsrc/Parser/calc_lexer.l"
 {return token::WHERE;}
 	YY_BREAK
 case 7:
-#line 38 "DBFsrc/Parser/calc_lexer.l"
+#line 37 "DBFsrc/Parser/calc_lexer.l"
 case 8:
 YY_RULE_SETUP
-#line 38 "DBFsrc/Parser/calc_lexer.l"
+#line 37 "DBFsrc/Parser/calc_lexer.l"
 {return token::AS;}
 	YY_BREAK
 case 9:
-#line 40 "DBFsrc/Parser/calc_lexer.l"
+#line 39 "DBFsrc/Parser/calc_lexer.l"
 case 10:
-#line 41 "DBFsrc/Parser/calc_lexer.l"
+#line 40 "DBFsrc/Parser/calc_lexer.l"
 case 11:
-#line 42 "DBFsrc/Parser/calc_lexer.l"
+#line 41 "DBFsrc/Parser/calc_lexer.l"
 case 12:
 YY_RULE_SETUP
-#line 42 "DBFsrc/Parser/calc_lexer.l"
+#line 41 "DBFsrc/Parser/calc_lexer.l"
 {return token::LOGIQUE;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 43 "DBFsrc/Parser/calc_lexer.l"
+#line 42 "DBFsrc/Parser/calc_lexer.l"
 {return token::FIELD;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 44 "DBFsrc/Parser/calc_lexer.l"
+#line 43 "DBFsrc/Parser/calc_lexer.l"
 {return token::CHAR;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 45 "DBFsrc/Parser/calc_lexer.l"
+#line 44 "DBFsrc/Parser/calc_lexer.l"
 {return token::END;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 46 "DBFsrc/Parser/calc_lexer.l"
+#line 45 "DBFsrc/Parser/calc_lexer.l"
 {return *yytext;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 47 "DBFsrc/Parser/calc_lexer.l"
+#line 46 "DBFsrc/Parser/calc_lexer.l"
 {return *yytext;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 48 "DBFsrc/Parser/calc_lexer.l"
+#line 47 "DBFsrc/Parser/calc_lexer.l"
 {return *yytext;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 49 "DBFsrc/Parser/calc_lexer.l"
+#line 48 "DBFsrc/Parser/calc_lexer.l"
 {/* Commentaire */
                                 comment();
                                 /*
@@ -931,26 +933,26 @@ YY_RULE_SETUP
                             }
 	YY_BREAK
 case 20:
-#line 59 "DBFsrc/Parser/calc_lexer.l"
+#line 58 "DBFsrc/Parser/calc_lexer.l"
 case 21:
-#line 60 "DBFsrc/Parser/calc_lexer.l"
+#line 59 "DBFsrc/Parser/calc_lexer.l"
 case 22:
-#line 61 "DBFsrc/Parser/calc_lexer.l"
+#line 60 "DBFsrc/Parser/calc_lexer.l"
 case 23:
-#line 62 "DBFsrc/Parser/calc_lexer.l"
+#line 61 "DBFsrc/Parser/calc_lexer.l"
 case 24:
 YY_RULE_SETUP
-#line 62 "DBFsrc/Parser/calc_lexer.l"
+#line 61 "DBFsrc/Parser/calc_lexer.l"
 {return token::COMPARAISON;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 64 "DBFsrc/Parser/calc_lexer.l"
+#line 63 "DBFsrc/Parser/calc_lexer.l"
 {;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 65 "DBFsrc/Parser/calc_lexer.l"
+#line 64 "DBFsrc/Parser/calc_lexer.l"
 {/* Used for all the other characters */
 std::cout << "Forbbiden char" << std::endl;
 return token::FORBBIDEN;
@@ -958,10 +960,10 @@ return token::FORBBIDEN;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 70 "DBFsrc/Parser/calc_lexer.l"
+#line 69 "DBFsrc/Parser/calc_lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 965 "/home/menguy/Documents/Etudes/CASSIOPEE/projet_dbf/codeDBF/DBFsrc/Parser/calc_lexer.yy.cc"
+#line 967 "/home/menguy/Documents/Etudes/CASSIOPEE/projet_dbf/codeDBF/DBFsrc/Parser/calc_lexer.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2001,7 +2003,7 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 69 "DBFsrc/Parser/calc_lexer.l"
+#line 68 "DBFsrc/Parser/calc_lexer.l"
 
 
 
