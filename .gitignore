@@ -42,5 +42,14 @@ siteTests/var/
 siteTests/vendor/
 codeDBF/cmake-build-debug/*
 
+codeDBF/DBFsrc/Parser/calc_lexer.yy.cc
+codeDBF/DBFsrc/Parser/calc_parser.tab.cc
+codeDBF/DBFsrc/Parser/calc_parser.tab.hh
+codeDBF/DBFsrc/Parser/location.hh
+codeDBF/DBFsrc/Parser/position.hh
+codeDBF/DBFsrc/Parser/stack.hh
+
+
+
 .idea/
 Supprimerait cmake-build-debug/CMakeFiles/CMakeTmp/
