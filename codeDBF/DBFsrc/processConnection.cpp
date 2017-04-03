@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "processConnection.h"
+#include "Monitoring/LoggerFile.h"
 
 processConnection::processConnection(Connection *connection) : mConnection(connection) {}
 
@@ -31,7 +32,11 @@ void processConnection::operator()() {
 
     this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
 
-    cout <<  this->mConnection->getMessage()->extractContent(true) << endl;
+    LoggerFile *mLogger = new LoggerFile();
+
+
+    mLogger->write(this->mConnection->getMessage()->extractContent(true));
+    delete mLogger;
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 
     cout << "cinquième échange" << endl;
