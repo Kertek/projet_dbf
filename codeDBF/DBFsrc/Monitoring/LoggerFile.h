@@ -7,46 +7,57 @@
 
 #include <string>
 #include <fstream>
+#include <iostream>
 
 #include "Logger.h"
+#include "../SocketDbf.h"
 
-class LoggerFile : public Logger
-{
+class LoggerFile : public Logger {
 public:
-    LoggerFile()
-    {
-        mFile.open( mFileName, std::ios::app );
-        mFile.seekp( std::ios::beg );
+    LoggerFile() {
+        mFile.open(mFileName, std::ios::app);
+        mFile.seekp(std::ios::end);
 
         if (!mFile.good()) return;
         mFile << "  ===============================================\n"
               << "    Begin Output log ( "
-              << time(0)
+              << currentDateTime()
+              << " ): "
               << "\n  ===============================================\n\n";
         mFile.flush();
     }
 
-    virtual ~LoggerFile()
-    {
+    virtual ~LoggerFile() {
         if (!mFile.good()) return;
         mFile << "\n  ===============================================\n"
               << "    End   Output log ( "
-              << time(0)
+              << currentDateTime()
               << " ): "
               << "\n  ===============================================\n\n";
         mFile.flush();
         mFile.close();
     }
 
-    virtual void write( const std::string& msg )
-    {
-        mFile << msg;
+    // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+    const std::string currentDateTime() {
+        time_t now = time(0);
+        struct tm tstruct;
+        char buf[80];
+        tstruct = *localtime(&now);
+        strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+        return buf;
+    }
+
+    virtual void write(const std::string &msg) {
+        mFile << msg
+              << std::endl;
         mFile.flush();
     }
 
 private:
     std::ofstream mFile;
-    static std::string mFileName = "dbf.log";
+    std::string mFileName = "../DBFsrc/Monitoring/dbf.log";
 };
 
 #endif //PROJET_DBF_LOGGERFILE_H
