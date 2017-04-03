@@ -49,6 +49,7 @@ codeDBF/DBFsrc/Parser/location.hh
 codeDBF/DBFsrc/Parser/position.hh
 codeDBF/DBFsrc/Parser/stack.hh
 
+codeDBF/DBFsrc/Monitoring/dbf.log
 
 
 .idea/
