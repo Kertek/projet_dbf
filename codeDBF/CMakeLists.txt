@@ -25,3 +25,5 @@ add_executable(projet_dbf ${SOURCE_FILES}
 target_link_libraries(projet_dbf
         pthread
         )
+
+add_subdirectory(tests)
