@@ -62,7 +62,9 @@ yylval = lval;
 "<=" 	|
 ">="	|
 "<" 	|
-">"							{return token::COMPARAISON;}
+">"		|
+"!="    |
+"<>"    {return token::COMPARAISON;}
 
 [ ]						 {;}
 .					     {/* Used for all the other characters */

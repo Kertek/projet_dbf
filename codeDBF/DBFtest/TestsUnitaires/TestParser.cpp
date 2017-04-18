@@ -66,15 +66,6 @@ TEST( TestParserSelectFromWhere , PositiveSelectFromWhere2){
     EXPECT_TRUE(driver.parse("select id from Articles where id='1'"));
 }
 
-TEST( TestParserSelectFromWhere , PositiveSelectFromWhere3){
-    CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("select id from Articles where 1=1"));
-}
-
-TEST( TestParserSelectFromWhere , PositiveSelectFromWhere4){
-    CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("select id from Articles where 'l'='l'"));
-}
 
 TEST( TestParserComplexRequest , PositiveComplexRequest1){
     CALC::CALC_Driver driver;
