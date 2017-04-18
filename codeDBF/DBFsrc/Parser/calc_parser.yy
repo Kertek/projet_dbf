@@ -57,12 +57,10 @@
 %%
 commands: command END
         {
-        printf("commande valide\n");
         YYACCEPT;
         }
-        | command END COMMENT
+        | command COMMENT END
         {
-        printf("commande valide\n");
         YYACCEPT;
         }
         ;

@@ -18,5 +18,4 @@ TEST(test2,testParse){
     CALC::CALC_Driver driver;
     ASSERT_TRUE(driver.parse("SELECT lala FROM toto"));
 
-    EXPECT_EQ(0,0);
 }

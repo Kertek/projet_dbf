@@ -41,7 +41,10 @@ yylval = lval;
 "OR"	 					{return token::LOGIQUE;}
 [a-zA-Z1-9]+				{return token::FIELD;}
 "\'"[a-zA-Z1-9]+"\'"		{return token::CHAR;}
-";"							{return token::END;}
+'\0'                        {
+                                /*Il faudra verifier que cela n'introduit pas une faille injection Null byte*/
+                                return token::END;
+                            }
 ","							{return *yytext;}
 "("							{return *yytext;}
 ")"							{return *yytext;}
