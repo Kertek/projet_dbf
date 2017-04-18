@@ -101,7 +101,7 @@ TEST( TestParserComplexRequest , PositiveComplexRequest5){
     EXPECT_TRUE(driver.parse("select id from Articles where id=(select id from Articles where id=1)"));
 }
 
-TEST( TestParserCommentary , PositiveCommentary){
+TEST( TestParserCommentary , PositiveCommentary1){
     CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("select id from Articles -- nimporte quoi après"));
 }
@@ -116,4 +116,39 @@ TEST( TestParserCommentary , PositiveCommentary){
 TEST( TestParserSimpleSelect , simpleNegativeSelect1){
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("SELECT *"));
+}
+
+TEST( TestParserSelectFromAs , NegativeSelectFromAs1){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles as 'a'"));
+}
+
+TEST( TestParserComplexRequest , NegativeComplexRequest1){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from (select * from Articles)"));
+}
+
+TEST( TestParserComplexRequest , NegativeComplexRequest2){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles where ((select id from Articles where id=1) as l)=1"));
+}
+
+TEST( TestParserComplexRequest , NegativeComplexRequest3){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles where ((select id from Articles where id=1) as 'l')=1"));
+}
+
+TEST( TestParserComplexRequest , NegativeComplexRequest4){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles where id=((select id from Articles where id=1) as l)"));
+}
+
+TEST( TestParserComplexRequest , NegativeComplexRequest5){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles where id=((select id from Articles where id=1) as 'l')"));
+}
+
+TEST( TestParserCommentary, NegativeCommentary1){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select -- id from Articles"));
 }
