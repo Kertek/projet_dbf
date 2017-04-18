@@ -9,10 +9,13 @@
 TEST( test1 , testFonction ){
     Message * m = new Message();
     ASSERT_STREQ(m->getContent()->data(), nullptr);
+
 }
 
 TEST(test2,testParse){
+
     CALC::CALC_Driver driver;
-    driver.parse("SELECT");
+    driver.parse("SELECT lala FROM toto");
+
     EXPECT_EQ(0,0);
 }
