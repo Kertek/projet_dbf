@@ -36,5 +36,5 @@ target_link_libraries(projet_dbf
         DBFsrc
         )
 
-add_subdirectory(tests)
+add_subdirectory(DBFtest)
 
