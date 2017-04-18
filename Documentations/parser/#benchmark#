@@ -1,0 +1,42 @@
+################
+# Doit marcher #
+################
+
+select 'coucou';
+
+select id from Articles; select id from Articles;
+
+;
+select id,date from Articles;
+
+select id as i from Articles;
+select id as 'i' from Articles;
+select id as i,date from Articles;
+select id from Articles as a;
+
+select id from Articles where id=1;
+select id from Articles where id='1';
+select id from Articles where 1=1;
+select id from Articles where 'l'='l'; 
+
+select (select id from Articles where id=1) from Articles;
+select (select id from Articles where id=1) as l from Articles;
+select id from (select * from Articles) as l;
+select id from Articles where (select id from Articles where id=1)=1;
+select id from Articles where id=(select id from Articles where id=1);
+
+select id from Articles; -- N'importe quoi après
+
+#######################
+# Ne doit pas marcher #
+#######################
+
+select id from Articles as 'a';
+select id from (select * from Articles);
+
+select id from Articles where ((select id from Articles where id=1) as l)=1;
+select id from Articles where ((select id from Articles where id=1) as 'l')=1;
+select id from Articles where id=((select id from Articles where id=1) as l);
+select id from Articles where id=((select id from Articles where id=1) as 'l');
+
+select -- id from Articles;
