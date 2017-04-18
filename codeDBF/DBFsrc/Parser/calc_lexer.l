@@ -40,6 +40,7 @@ yylval = lval;
 "or"	 |
 "OR"	 					{return token::LOGIQUE;}
 [a-zA-Z1-9]+				{return token::FIELD;}
+"*"                         {return token::WILD;}
 "\'"[a-zA-Z1-9]+"\'"		{return token::CHAR;}
 '\0'                        {
                                 /*Il faudra verifier que cela n'introduit pas une faille injection Null byte*/
@@ -54,7 +55,7 @@ yylval = lval;
                                  * On retourne NEWLINE pour dire
                                  * que la suite ne compte pas.
                                  * */
-                                return token::COMMENT;
+                                return token::END;
                             }
 
 "=" 	|

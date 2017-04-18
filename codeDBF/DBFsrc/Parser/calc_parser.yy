@@ -41,6 +41,7 @@
 %define parse.assert
 
 %token SELECT
+%token WILD
 %token FIELD
 %token CHAR
 %token FROM
@@ -59,10 +60,6 @@ commands: command END
         {
         YYACCEPT;
         }
-        | command COMMENT END
-        {
-        YYACCEPT;
-        }
         ;
 
 command: SELECT selection FROM provenance condition_close | SELECT CHAR
@@ -71,9 +68,11 @@ command: SELECT selection FROM provenance condition_close | SELECT CHAR
 selection: ssrecherche ',' selection | ssrecherche
         ;
 
-ssrecherche: '(' command ')'
+ssrecherche: '(' command ')' AS field_ou_char
+        | '(' command ')'
         | FIELD AS field_ou_char
         | FIELD
+        | WILD
         ;
 
 provenance:	'(' command ')' AS FIELD

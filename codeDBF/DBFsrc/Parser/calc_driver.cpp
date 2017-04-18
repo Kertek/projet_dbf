@@ -58,7 +58,7 @@ CALC::CALC_Driver::parse_helper( std::istream &stream )
     const int accept( 0 );
     if( parser->parse() != accept )
     {
-        std::cerr << "Parse failed!!\n";
+        //std::cerr << "Parse failed!!\n";
         return false;
     }
     return true;

@@ -103,7 +103,7 @@ TEST( TestParserComplexRequest , PositiveComplexRequest5){
 
 TEST( TestParserCommentary , PositiveCommentary1){
     CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("select id from Articles -- nimporte quoi après"));
+    EXPECT_TRUE(driver.parse("select id from Articles -- nimporte quoi apres"));
 }
 
 /*
