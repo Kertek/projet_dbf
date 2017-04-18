@@ -3,8 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "../../DBFsrc/Message.h"
 #include "../../DBFsrc/Parser/calc_driver.h"
+#include "../../DBFsrc/Message.h"
 
 TEST( test1 , testFonction ){
     Message * m = new Message();
