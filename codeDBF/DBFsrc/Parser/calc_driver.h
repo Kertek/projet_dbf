@@ -25,12 +25,12 @@ namespace CALC{
          * @param String - A std::string
          */
 
-        void parse(std::string string);
+        bool parse(std::string string);
 
         //std::ostream& print(std::ostream &stream);
     private:
 
-        void parse_helper( std::istream &stream );
+        bool parse_helper( std::istream &stream );
 
         CALC::CALC_Parser  *parser  = nullptr;
         CALC::CALC_Scanner *scanner = nullptr;

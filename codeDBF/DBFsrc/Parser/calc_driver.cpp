@@ -16,7 +16,7 @@ CALC::CALC_Driver::~CALC_Driver()
     parser = nullptr;
 }
 
-void
+bool
 CALC::CALC_Driver::parse(std::string String)
 {
     std::istringstream in(String);
@@ -24,10 +24,10 @@ CALC::CALC_Driver::parse(std::string String)
     {
         exit( EXIT_FAILURE );
     }
-    parse_helper(in);
+    return parse_helper(in);
 }
 
-void
+bool
 CALC::CALC_Driver::parse_helper( std::istream &stream )
 {
 
@@ -59,7 +59,8 @@ CALC::CALC_Driver::parse_helper( std::istream &stream )
     if( parser->parse() != accept )
     {
         std::cerr << "Parse failed!!\n";
+        return false;
     }
-    return;
+    return true;
 }
 
