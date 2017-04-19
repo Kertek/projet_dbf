@@ -39,24 +39,32 @@ yylval = lval;
 "AND"	 |
 "or"	 |
 "OR"	 					{return token::LOGIQUE;}
-[a-zA-Z1-9]+				{return token::FIELD;}
+"information_schema.tables"	|
+"create function"			|
+"CREATE FUNCTION"			|
+"into dumpfile"				|
+"INTO DUMPFILE"				{return token::FORBIDDEN;}
+"--"						{/* Commentaire */
+                                comment();
+                                /*
+                                 * On retourne END pour dire
+                                 * que la suite ne compte pas.
+                                 * */
+                                return token::END;
+                            }
+[a-zA-Z1-9$_]+				{return token::FIELD;}
+"`"[a-zA-Z1-9]+"`"			{; /** pour les charset etendu **/}
 "*"                         {return token::WILD;}
 "\'"[a-zA-Z1-9]+"\'"		{return token::CHAR;}
 '\0'                        {
-                                /*Il faudra verifier que cela n'introduit pas une faille injection Null byte*/
+                                /*Il faudra verifier que cela 
+                                 * n'introduit pas une faille injection 
+                                 * Null byte*/
                                 return token::END;
                             }
 ","							{return *yytext;}
 "("							{return *yytext;}
 ")"							{return *yytext;}
-"--"						{/* Commentaire */
-                                comment();
-                                /*
-                                 * On retourne NEWLINE pour dire
-                                 * que la suite ne compte pas.
-                                 * */
-                                return token::END;
-                            }
 
 "=" 	|
 "<=" 	|
@@ -65,12 +73,13 @@ yylval = lval;
 ">"		|
 "!="    |
 "<>"    {return token::COMPARAISON;}
-
+"''"	{return token::FORBIDDEN;}
 [ ]						 {;}
-.					     {/* Used for all the other characters */
-std::cout << "Forbbiden char" << std::endl;
-return token::FORBBIDEN;
-}
+
+.		{/* Used for all the other characters */
+			std::cout << "Forbbiden char" << std::endl;
+			return token::FORBIDDEN;
+		}
 
 %%
 

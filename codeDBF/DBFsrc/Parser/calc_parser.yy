@@ -51,7 +51,7 @@
 %token AS
 %token END
 %token COMMENT
-%token FORBBIDEN
+%token FORBIDDEN
 
 %locations
 
