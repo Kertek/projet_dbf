@@ -53,7 +53,7 @@ yylval = lval;
                                 return token::END;
                             }
 [a-zA-Z1-9$_]+				{return token::FIELD;}
-"`"[a-zA-Z1-9]+"`"			{; /** pour les charset etendu **/}
+"`"[\x01-\x7F]+"`"			{return token::FIELD; /** pour les charset etendu **/}
 "*"                         {return token::WILD;}
 "\'"[a-zA-Z1-9]+"\'"		{return token::CHAR;}
 '\0'                        {

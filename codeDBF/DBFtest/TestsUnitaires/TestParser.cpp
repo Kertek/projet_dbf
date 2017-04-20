@@ -31,6 +31,11 @@ TEST( TestParserSimpleSelectFrom , simplePositiveSelectFrom2){
     EXPECT_TRUE(driver.parse("SELECT id FROM Articles"));
 }
 
+TEST( TestParserSimpleSelectFrom , simplePositiveSelectFromWithExtendedCharset1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select `id+-*/()@` from Articles"));
+}
+
 TEST( TestParserSelectAsFrom , PositiveSelectAsFrom1){
     CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("select id as i from Articles"));
