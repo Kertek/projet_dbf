@@ -48,6 +48,7 @@ public:
     void closeSocketMulti();
     int sendMessage(Message * message);
     int receiveMessage(Message * msg,bool isFromApplication);
+    int getSocketNumber();
 };
 
 #endif //PROJET_DBF_SOCKETMULTI_H
