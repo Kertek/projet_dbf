@@ -15,7 +15,7 @@ class LoggerSocket {
     friend class LogManager;
 
 public:
-    void write(TypeError type,const std::string &msg);
+
 
 private:
     std::ofstream mFile;
@@ -29,10 +29,7 @@ private:
     ~LoggerSocket() {
     }
 
-    // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-    const std::string currentDateTime();
 
-    std::string linkTypeErrorString(TypeError type);
 };
 
 

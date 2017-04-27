@@ -13,7 +13,12 @@ processLogger::processLogger(LogManager *logManager) : mLogManager(logManager) {
 void processLogger::operator()() {
 
     while (mLogManager->isItRunning()) {
-        
+        if (!mLogManager->mBuffer.empty()) {
+
+            mLogManager->write(mLogManager->mBuffer[0]);
+            mLogManager->mBuffer.erase(mLogManager->mBuffer.begin());
+
+        }
     }
 
 }

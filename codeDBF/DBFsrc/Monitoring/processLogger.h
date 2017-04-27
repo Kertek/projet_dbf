@@ -9,7 +9,7 @@
 #include "LogManager.h"
 
 class processLogger {
-
+    friend class LogManager;
 private:
     LogManager * mLogManager;
 

@@ -32,9 +32,7 @@ void processConnection::operator()() {
 
     this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
 
-    LoggerSocket *mLogger = LogManager::getInstance().get(this->mConnection->getSocketApplication()->getSocketNumber());
-
-    mLogger->write(TypeError::INFO,this->mConnection->getMessage()->extractContent(true));
+    LogManager::getInstance().addLogMessage(TypeError::INFO,this->mConnection->getMessage()->extractContent(true));
 
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 

@@ -43,3 +43,42 @@ LogManager::~LogManager() {
 void LogManager::doneWithSocketLogger(int i) {
 
 }
+
+void LogManager::write(const std::string &msg) {
+    mFile.open(this->mFileName, std::ios::app);
+    mFile.seekp(std::ios::end);
+    if (!mFile.good()) return;
+    mFile << msg
+          << std::endl;
+    mFile.flush();
+    mFile.close();
+}
+
+
+const std::string LogManager::currentDateTime() {
+    time_t now = time(0);
+    struct tm tstruct;
+    char buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
+}
+
+
+std::string LogManager::linkTypeErrorString(TypeError type) {
+    if (type==TypeError::INFO){
+        return "INFO";
+    }else if(type==TypeError::ERROR){
+        return "ERROR";
+    }else if(type==TypeError::WARNING){
+        return "WARNING";
+    }else{
+        return "UNKNOWN";
+    }
+}
+
+void LogManager::addLogMessage(TypeError type, const std::string &msg) {
+    string fullMessage = currentDateTime() + ':' + linkTypeErrorString(type) + ':' + msg + '\0';
+    mBuffer.push_back(fullMessage);
+}
