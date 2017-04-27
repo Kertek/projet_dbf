@@ -35,6 +35,7 @@ public:
 
     void doneWithSocketLogger(int i);
 
+    bool isItRunning() const;
 
 
 };

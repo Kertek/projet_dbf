@@ -23,9 +23,11 @@ set(SOURCE_FILES DBFsrc/errno_dbf.h
         DBFsrc/Monitoring/LoggerSocket.cpp
         DBFsrc/Monitoring/LoggerSocket.h
         DBFsrc/Monitoring/TypeError.h
+        DBFsrc/Monitoring/processLogger.cpp
+        DBFsrc/Monitoring/processLogger.h
         DBFsrc/Parser/calc_driver.cpp
         ${FLEX_calc_lexer_OUTPUTS}
-        ${BISON_calc_parser_OUTPUTS} )
+        ${BISON_calc_parser_OUTPUTS} DBFsrc/Monitoring/processLogger.cpp)
 
 add_library(DBFsrc ${SOURCE_FILES})
 add_executable(projet_dbf

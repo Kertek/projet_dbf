@@ -1,8 +1,9 @@
 //
 // Created by baptiste on 25/04/17.
 //
+#include <thread>
 #include "LogManager.h"
-
+#include "processLogger.h"
 
 
 LoggerSocket *LogManager::get(int i) {
@@ -16,11 +17,19 @@ LoggerSocket *LogManager::get(int i) {
 }
 
 void LogManager::run() {
+
+    processLogger * newProcessLogger = new processLogger(&this->getInstance());
+    thread threadLogger(*newProcessLogger);
+    threadLogger.detach();
     this->isRunning = true;
 }
 
 void LogManager::stop() {
     this->isRunning = false;
+}
+
+bool LogManager::isItRunning() const {
+    return isRunning;
 }
 
 LogManager::LogManager() {

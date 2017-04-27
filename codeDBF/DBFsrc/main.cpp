@@ -9,6 +9,7 @@
 #include "Config.h"
 #include "Connection.h"
 #include "processConnection.h"
+#include "Monitoring/LogManager.h"
 
 void error(const char *msg) {
     perror(msg);
@@ -27,14 +28,16 @@ int main() {
         cout << "SERVER is running" << endl;
     }
 
+    LogManager::getInstance().run();
+
     while (1) {
         SocketDbf *socketApllication = (SocketDbf *) SocketFactory::getInstance().accept(Config::portDBF);
         cout << "Une application vient de se connecter" << endl;
-        Connection * newConnection = new Connection(socketApllication);
-        processConnection * newProcessConnection = new processConnection(newConnection);
+        Connection *newConnection = new Connection(socketApllication);
+        processConnection *newProcessConnection = new processConnection(newConnection);
         thread threadConnection(*newProcessConnection);
         threadConnection.detach();
-}
+    }
     return 0; /* we never get here */
 }
 
