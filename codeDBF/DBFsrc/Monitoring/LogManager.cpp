@@ -59,6 +59,8 @@ std::string LogManager::linkTypeErrorString(TypeError type) {
         return "ERROR";
     }else if(type==TypeError::WARNING){
         return "WARNING";
+    }else if(type==TypeError::DANGER){
+        return "DANGER";
     }else{
         return "UNKNOWN";
     }

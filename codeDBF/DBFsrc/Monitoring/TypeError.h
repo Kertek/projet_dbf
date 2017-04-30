@@ -9,6 +9,7 @@
 enum class TypeError {
     ERROR,
     WARNING,
+    DANGER,
     INFO,
 };
 
