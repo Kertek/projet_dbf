@@ -20,8 +20,6 @@ set(SOURCE_FILES DBFsrc/errno_dbf.h
         DBFsrc/Connection.h DBFsrc/Config.h DBFsrc/processConnection.cpp DBFsrc/processConnection.h
         DBFsrc/Message.cpp DBFsrc/Message.h DBFsrc/TypeMessage.h DBFsrc/Monitoring/LogManager.cpp
         DBFsrc/Monitoring/LogManager.h
-        DBFsrc/Monitoring/LoggerSocket.cpp
-        DBFsrc/Monitoring/LoggerSocket.h
         DBFsrc/Monitoring/TypeError.h
         DBFsrc/Monitoring/processLogger.cpp
         DBFsrc/Monitoring/processLogger.h

@@ -6,20 +6,10 @@
 #include "processLogger.h"
 
 
-LoggerSocket *LogManager::get(int i) {
-    if (openLoggerSocket.count(i) == 0) {
-        LoggerSocket *loggerSocket = new LoggerSocket(i);
-        openLoggerSocket.insert(std::pair<int, LoggerSocket *>(i, loggerSocket));
-        return loggerSocket;
-    } else {
-        return openLoggerSocket[i];
-    }
-}
-
 void LogManager::run() {
 
     processLogger * newProcessLogger = new processLogger(&this->getInstance());
-    thread threadLogger(*newProcessLogger);
+    std::thread threadLogger(*newProcessLogger);
     threadLogger.detach();
     this->isRunning = true;
 }
@@ -37,10 +27,6 @@ LogManager::LogManager() {
 }
 
 LogManager::~LogManager() {
-
-}
-
-void LogManager::doneWithSocketLogger(int i) {
 
 }
 
@@ -79,6 +65,6 @@ std::string LogManager::linkTypeErrorString(TypeError type) {
 }
 
 void LogManager::addLogMessage(TypeError type, const std::string &msg) {
-    string fullMessage = currentDateTime() + ':' + linkTypeErrorString(type) + ':' + msg + '\0';
+    std::string fullMessage = currentDateTime() + ':' + linkTypeErrorString(type) + ':' + msg + '\0';
     mBuffer.push_back(fullMessage);
 }

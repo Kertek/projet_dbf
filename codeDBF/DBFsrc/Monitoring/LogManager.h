@@ -8,7 +8,9 @@
 #include <string>
 #include <mutex>
 #include <map>
-#include "LoggerSocket.h"
+#include <fstream>
+#include <vector>
+#include "TypeError.h"
 
 class LogManager {
     friend class processLogger;
@@ -19,12 +21,11 @@ private:
     ~LogManager();
 
     bool isRunning;
-    std::map<int, LoggerSocket *> openLoggerSocket;
 
     std::ofstream mFile;
-    string mFileName = "../DBFsrc/Monitoring/dbf.log";
+    std::string mFileName = "../DBFsrc/Monitoring/dbf.log";
 
-    vector<string> mBuffer;
+    std::vector<std::string> mBuffer;
 public:
     static LogManager &getInstance() {
         static LogManager instance;
@@ -34,10 +35,6 @@ public:
     void run();
 
     void stop();
-
-    LoggerSocket *get(int i);
-
-    void doneWithSocketLogger(int i);
 
     bool isItRunning() const;
 
