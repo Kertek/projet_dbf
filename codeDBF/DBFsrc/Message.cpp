@@ -52,18 +52,14 @@ void Message::determineTypeMessage(unsigned int packetHeader, bool isRequest) {
     if (isRequest) {
         if (this->mMapRequest->find(packetHeader) != this->mMapRequest->end()) {
             this->mTypeMessage = this->mMapRequest->find(packetHeader)->second;
-            cout << "paquet determiné " << endl;
         } else {
             this->mTypeMessage = TypeMessage::OtherRequest;
-            cout << "paquet indeterminé " << endl;
         }
     } else {
         if (this->mMapResponse->find(packetHeader) != this->mMapResponse->end()) {
             this->mTypeMessage = this->mMapResponse->find(packetHeader)->second;
-            cout << "paquet determiné " << endl;
         } else {
             this->mTypeMessage = TypeMessage::OtherResponse;
-            cout << "paquet indeterminé " << endl;
         }
     }
 
