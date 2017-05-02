@@ -9,7 +9,7 @@
 processConnection::processConnection(Connection *connection) : mConnection(connection) {}
 
 void processConnection::operator()() {
-/*
+/* previous version
     cout << "premier echange: Récupération bdd + renvoi application" << endl;
 
     int result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
@@ -49,22 +49,15 @@ void processConnection::operator()() {
 */
 
 
-    while(this->mConnection->getMessage()->getTypeMessage() != TypeMessage::COM_QUIT){
+    while (this->mConnection->getMessage()->getTypeMessage() != TypeMessage::COM_QUIT) {
         int result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
 
         this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
-
-        cout << "deuxieme echange" << endl;
-
 
         this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
 
         this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
     }
-
-
-
-
 
 
     this->mConnection->~Connection();
