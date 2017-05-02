@@ -63,6 +63,7 @@ int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
     for (int i = octetNecessaireLength; i > 0; i--) {
         size = size * 256 + (unsigned int) bufferLength[i - 1];
     }
+    cout << "size = " << size << endl;
     unsigned char bufferSeqId[1];
     while (read(mSocket, bufferSeqId, 1) != 1) {}
     unsigned int sequenceid = (unsigned int) bufferSeqId[0];
