@@ -31,8 +31,8 @@ void processConnection::operator()() {
 
 
     this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
-
-    LogManager::getInstance().addLogMessage(TypeError::INFO,this->mConnection->getMessage()->extractContent(true));
+    cout << "je bugg ici ?" << endl;
+    LogManager::getInstance().addLogMessage(TypeError::INFO, this->mConnection->getMessage()->extractContent(true));
 
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 

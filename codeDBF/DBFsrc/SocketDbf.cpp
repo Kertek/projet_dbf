@@ -63,7 +63,6 @@ int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
     for (int i = octetNecessaireLength; i > 0; i--) {
         size = size * 256 + (unsigned int) bufferLength[i - 1];
     }
-    cout << "size = " << size << endl;
     unsigned char bufferSeqId[1];
     while (read(mSocket, bufferSeqId, 1) != 1) {}
     unsigned int sequenceid = (unsigned int) bufferSeqId[0];
@@ -72,7 +71,7 @@ int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
     while (read(mSocket, bufferHeader, 1) != 1) {}
     unsigned int headerValue = (unsigned int) bufferHeader[0];
 
-    //Determine the type of the message
+    //Determine the taype of the message
     msg->determineTypeMessage(headerValue, isFromApplication);
 
     unsigned char bufferData[size];
