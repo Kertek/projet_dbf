@@ -68,10 +68,14 @@ int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
     unsigned int sequenceid = (unsigned int) bufferSeqId[0];
 
     unsigned char bufferHeader[1];
-    read(mSocket, bufferHeader, 1);
+    if (size != 0){
+        while(read(mSocket, bufferHeader, 1) != 1){}
+    }else{//some kind of message do not have this header
+        return ERRNO_DBF_OK;
+    }
     unsigned int headerValue = (unsigned int) bufferHeader[0];
-    cout << "header value" << headerValue << endl;
-    //Determine the taype of the message
+
+    //Determine the type of the message
     msg->determineTypeMessage(headerValue, isFromApplication);
 
     unsigned char bufferData[size];
@@ -83,7 +87,6 @@ int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
         }
     }
     sizeGlobal = sizeGlobal + size + octetNecessaireLength + 1;
-    cout << "data" << bufferData << endl;
     msg->getContent()->resize(sizeGlobal, 0);
     for (int i = 0; i < 3; ++i)msg->getContent()->data()[i] = bufferLength[i];
     msg->getContent()->data()[3] = bufferSeqId[0];
