@@ -29,6 +29,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
+#include <vector>
 
 /* include for all driver functions */
 #include "calc_driver.h"
@@ -86,6 +87,9 @@ condition_close:
         ;
 
 condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE condition
+		{
+			std::vector<int> test(3,3);
+		}
         | field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
         ;
 
