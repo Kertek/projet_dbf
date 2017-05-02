@@ -70,7 +70,11 @@ int SocketDbf::receiveMessage(Message *msg, bool isFromApplication) {
     unsigned char bufferHeader[1];
     if (size != 0){
         while(read(mSocket, bufferHeader, 1) != 1){}
-    }else{//some kind of message do not have this header
+    }else{//some kind of message do not have this header empty ones
+        sizeGlobal = sizeGlobal + size + octetNecessaireLength + 1;
+        msg->getContent()->resize(sizeGlobal, 0);
+        for (int i = 0; i < 3; ++i)msg->getContent()->data()[i] = bufferLength[i];
+        msg->getContent()->data()[3] = bufferSeqId[0];
         return ERRNO_DBF_OK;
     }
     unsigned int headerValue = (unsigned int) bufferHeader[0];
