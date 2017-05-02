@@ -40,15 +40,16 @@
 %define api.value.type variant
 %define parse.assert
 
-%token SELECT
-%token WILD
-%token FIELD
-%token CHAR
-%token FROM
-%token WHERE
-%token COMPARAISON
-%token LOGIQUE
-%token AS
+
+%token <std::string> SELECT
+%token <std::string> WILD
+%token <std::string> FIELD
+%token <std::string> CHAR
+%token <std::string> FROM
+%token <std::string> WHERE
+%token <std::string> COMPARAISON
+%token <std::string> LOGIQUE
+%token <std::string> AS
 %token END
 %token COMMENT
 %token FORBIDDEN

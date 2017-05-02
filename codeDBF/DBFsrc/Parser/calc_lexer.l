@@ -28,17 +28,17 @@ void comment();
 yylval = lval;
 %}
 "SELECT" |
-"select"					{return token::SELECT;}
+"select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
-"from" 						{return token::FROM;}
+"from" 						{yylval->build<std::string>( yytext );return token::FROM;}
 "WHERE"  |
-"where"						{return token::WHERE;}
+"where"						{yylval->build<std::string>( yytext );return token::WHERE;}
 "AS"     |
-"as"						{return token::AS;}
+"as"						{yylval->build<std::string>( yytext );return token::AS;}
 "and"	 |
 "AND"	 |
 "or"	 |
-"OR"	 					{return token::LOGIQUE;}
+"OR"	 					{yylval->build<std::string>( yytext );return token::LOGIQUE;}
 "information_schema.tables"	|
 "create function"			|
 "CREATE FUNCTION"			|
@@ -52,10 +52,10 @@ yylval = lval;
                                  * */
                                 return token::END;
                             }
-[a-zA-Z1-9$_]+				{return token::FIELD;}
-"`"[\x01-\x7F]+"`"			{return token::FIELD; /** pour les charset etendu **/}
-"*"                         {return token::WILD;}
-"\'"[a-zA-Z1-9]+"\'"		{return token::CHAR;}
+[a-zA-Z1-9$_]+				{yylval->build<std::string>( yytext );return token::FIELD;}
+"`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
+"*"                         {yylval->build<std::string>( yytext );return token::WILD;}
+"\'"[a-zA-Z1-9]+"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
 '\0'                        {
                                 /*Il faudra verifier que cela 
                                  * n'introduit pas une faille injection 
@@ -72,7 +72,7 @@ yylval = lval;
 "<" 	|
 ">"		|
 "!="    |
-"<>"    {return token::COMPARAISON;}
+"<>"    {yylval->build<std::string>( yytext );return token::COMPARAISON;}
 "''"	{return token::FORBIDDEN;}
 [ ]						 {;}
 
