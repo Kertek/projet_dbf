@@ -51,6 +51,9 @@ void processConnection::operator()() {
 
     while (this->mConnection->getMessage()->getTypeMessage() != TypeMessage::COM_QUIT) {
         int result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
+        if (this->mConnection->getMessage()->getTypeMessage() == TypeMessage::ERR_Packet){
+            cout << "alert error based injection !" << endl;
+        }
 
         this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
 
