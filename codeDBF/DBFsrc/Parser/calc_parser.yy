@@ -37,6 +37,8 @@
 
 #undef yylex
 #define yylex scanner.yylex
+
+bool find_tautologies(std::vector<std::string> var);
 }
 
 %define api.value.type variant
@@ -50,7 +52,7 @@
 %token <std::string> FROM
 %token <std::string> WHERE
 %token <std::string> COMPARAISON
-%token <int> LOGIQUE
+%token <std::string> LOGIQUE
 %token <std::string> AS
 %token END
 %token COMMENT
@@ -137,51 +139,22 @@ condition_close:
         | WHERE condition
         {
 			$$ = $1 + $2;
-			//std::cout << $2 << std::endl;
 		}
         ;
 
 condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE condition
 		{
-			if( $4 == 0){
-				$$ = $1 + $2 + $3 + "OR" + $5;
+			$$ = $1 + $2 + $3 + $4 + $5;
+			if(!find_tautologies({$1,$2,$3,$4})){
+				YYABORT;
 			}
-			else{
-				$$ = $1 + $2 + $3 + "AND" + $5;
-			}
-			
-			std::vector<std::vector<std::string>> DB;
-			std::string buffer;
-			std::vector<std::string> T;
-			std::cout << "coucou" << std::endl;
-			for(int i =0 ; i < DB.size(); i++){
-				if(std::find(DB[i].begin(), DB[i].end(), $1+$2+$3) != DB[i].end()){
-					YYABORT;
-				}
-			}
-			if($4 == 0){ // LOGIQUE == OR
-				T.push_back(buffer+$1+$2+$3);
-				buffer = "";
-			}
-			else{ // LOGIQUE == AND
-				 buffer = buffer + $1 + $2 + $3 + " AND ";
-			}
-			for(int i=0; i< DB.size(); i++){
-				bool notOrTautologie=false;
-				for(int j =0; j< DB[i].size(); j++){
-					if(std::find(T.begin(), T.end(), DB[i][j]) == T.end()){
-						notOrTautologie=true;
-					}
-				}
-				if(!notOrTautologie){
-					YYABORT;
-				}
-			}
-			// ok
 		}
         | field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
         {
 			$$ = $1 + $2 + $3;
+			if(!find_tautologies({$1,$2,$3,""})){
+				YYABORT;
+			}
 		}
         ;
 
@@ -200,6 +173,43 @@ field_ou_char_ou_command: field_ou_char
         ;
 %%
 
+
+bool find_tautologies(std::vector<std::string> var){
+	std::vector<std::vector<std::string>> DB;
+	std::string buffer;
+	std::vector<std::string> T;
+	std::cout << "coucou" << std::endl;
+	if(var.size()!=4){
+		return false;
+	}
+	for(int i =0 ; i < DB.size(); i++){
+		if(std::find(DB[i].begin(), DB[i].end(), var[0]+var[1]+var[2]) != DB[i].end()){
+			return false;
+		}
+	}
+	if(var[3] == "OR"){ // LOGIQUE == OR
+		T.push_back(buffer+var[0]+var[1]+var[2]);
+		buffer = "";
+	}
+	else if(var[3] == "AND" || var[3] == ""){ // LOGIQUE == AND ou vide
+		 buffer = buffer + var[0]+var[1]+var[2] + var[3];
+	}
+	else{
+		return false;
+	}
+	for(int i=0; i< DB.size(); i++){
+		bool notOrTautologie=false;
+		for(int j =0; j< DB[i].size(); j++){
+			if(std::find(T.begin(), T.end(), DB[i][j]) == T.end()){
+				notOrTautologie=true;
+			}
+		}
+		if(!notOrTautologie){
+			return false;
+		}
+	}
+	return true;
+}
 
 void
 CALC::CALC_Parser::error( const location_type &l, const std::string &err_message )

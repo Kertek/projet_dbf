@@ -36,9 +36,9 @@ yylval = lval;
 "AS"     |
 "as"						{yylval->build<std::string>( yytext );return token::AS;}
 "and"	 |
-"AND"	 					{yylval->build<int>( 1 );return token::LOGIQUE;}
+"AND"	 					{yylval->build<std::string>( "AND" );return token::LOGIQUE;}
 "or"	 |
-"OR"	 					{yylval->build<int>( 0 );return token::LOGIQUE;}
+"OR"	 					{yylval->build<std::string>( "OR" );return token::LOGIQUE;}
 "information_schema.tables"	|
 "create function"			|
 "CREATE FUNCTION"			|
