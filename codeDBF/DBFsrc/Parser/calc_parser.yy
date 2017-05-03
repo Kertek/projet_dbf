@@ -56,6 +56,15 @@
 %token COMMENT
 %token FORBIDDEN
 
+%type <std::string> command
+%type <std::string> selection
+%type <std::string> ssrecherche
+%type <std::string> provenance
+%type <std::string> condition_close
+%type <std::string> condition
+%type <std::string> field_ou_char
+%type <std::string> field_ou_char_ou_command
+
 %locations
 
 %%
@@ -65,31 +74,82 @@ commands: command END
         }
         ;
 
-command: SELECT selection FROM provenance condition_close 
+command: SELECT selection FROM provenance condition_close
+		{
+			$$ = $1 + $2 + $3 + $4 + $5;
+		}
 		| SELECT CHAR
+		{
+			$$ = $1 + $2;
+		}
         ;
 
-selection: ssrecherche ',' selection | ssrecherche
+selection: ssrecherche ',' selection 
+		{
+			$$ = $1 + "," + $3;
+		}
+		| ssrecherche
+		{
+			$$ = $1;
+		}
         ;
 
 ssrecherche: '(' command ')' AS field_ou_char
+		{
+			$$ = "(" + $2 + ")" + $4 + $5;
+		}
         | '(' command ')'
+        {
+			$$ = "(" + $2 + ")";
+		}
         | FIELD AS field_ou_char
+        {
+			$$ = $1 + $2 + $3;
+		}
         | FIELD
+        {
+			$$ = $1;
+		}
         | WILD
+        {
+			$$ = $1;
+		}
         ;
 
 provenance:	'(' command ')' AS FIELD
+		{
+			$$ = "(" + $2 + ")" + $4 + $5;
+		}
         | FIELD AS FIELD
+        {
+			$$ = $1 + $2 + $3;
+		}
         | FIELD
+        {
+			$$ = $1;
+		}
         ;
 
 condition_close:
+		{
+			$$ = "";
+		}
         | WHERE condition
+        {
+			$$ = $1 + $2;
+			std::cout << $2 << std::endl;
+		}
         ;
 
 condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE condition
 		{
+			if( $4 == 0){
+				$$ = $1 + $2 + $3 + "OR" + $5;
+			}
+			else{
+				$$ = $1 + $2 + $3 + "AND" + $5;
+			}
+			/*
 			std::vector<std::vector<std::string>> DB;
 			std::string buffer;
 			std::verctor<std::string> T;
@@ -117,8 +177,12 @@ condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE
 				}
 			}
 			// ok
+			*/
 		}
         | field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
+        {
+			$$ = $1 + $2 + $3;
+		}
         ;
 
 field_ou_char: FIELD {$$ = $1;}
@@ -126,7 +190,13 @@ field_ou_char: FIELD {$$ = $1;}
         ;
 
 field_ou_char_ou_command: field_ou_char
+		{
+			$$ = $1;
+		}
         | '(' command ')'
+        {
+			$$ = "(" + $2 + ")";
+		}
         ;
 %%
 
