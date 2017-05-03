@@ -30,6 +30,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 /* include for all driver functions */
 #include "calc_driver.h"
@@ -49,7 +50,7 @@
 %token <std::string> FROM
 %token <std::string> WHERE
 %token <std::string> COMPARAISON
-%token <std::string> LOGIQUE
+%token <int> LOGIQUE
 %token <std::string> AS
 %token END
 %token COMMENT
@@ -64,7 +65,8 @@ commands: command END
         }
         ;
 
-command: SELECT selection FROM provenance condition_close | SELECT CHAR
+command: SELECT selection FROM provenance condition_close 
+		| SELECT CHAR
         ;
 
 selection: ssrecherche ',' selection | ssrecherche
@@ -88,13 +90,39 @@ condition_close:
 
 condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE condition
 		{
-			std::vector<int> test(3,3);
+			std::vector<std::vector<std::string>> DB;
+			std::string buffer;
+			std::verctor<std::string> T;
+			for(int i =0 ; i < DB.size(); i++){
+				if(std::find(DB[i].begin(), DB[i].end(), $1+$2+$3) != DB[i].end()){
+					YYABORT;
+				}
+			}
+			if($4 == 0){ // LOGIQUE == OR
+				T.push_back(buffer+$1+$2+$3);
+				buffer = "";
+			}
+			else{ // LOGIQUE == AND
+				 buffer = buffer + $1 + $2 + $3 + " AND ";
+			}
+			for(int i=0; i< DB.size(); i++){
+				bool notOrTautologie=false;
+				for(int j =0; j< DB[i].size(); j++){
+					if(std::find(T.begin(), T.end(), DB[i][j]) == T.end()){
+						notOrTautologie=true;
+					}
+				}
+				if(!notOrTautologie){
+					YYABORT;
+				}
+			}
+			// ok
 		}
         | field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
         ;
 
-field_ou_char: FIELD
-        | CHAR
+field_ou_char: FIELD {$$ = $1;}
+        | CHAR {$$ = $1;}
         ;
 
 field_ou_char_ou_command: field_ou_char
