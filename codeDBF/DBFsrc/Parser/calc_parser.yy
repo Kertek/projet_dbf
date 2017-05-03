@@ -137,7 +137,7 @@ condition_close:
         | WHERE condition
         {
 			$$ = $1 + $2;
-			std::cout << $2 << std::endl;
+			//std::cout << $2 << std::endl;
 		}
         ;
 
@@ -149,10 +149,11 @@ condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE
 			else{
 				$$ = $1 + $2 + $3 + "AND" + $5;
 			}
-			/*
+			
 			std::vector<std::vector<std::string>> DB;
 			std::string buffer;
-			std::verctor<std::string> T;
+			std::vector<std::string> T;
+			std::cout << "coucou" << std::endl;
 			for(int i =0 ; i < DB.size(); i++){
 				if(std::find(DB[i].begin(), DB[i].end(), $1+$2+$3) != DB[i].end()){
 					YYABORT;
@@ -177,7 +178,6 @@ condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE
 				}
 			}
 			// ok
-			*/
 		}
         | field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
         {
