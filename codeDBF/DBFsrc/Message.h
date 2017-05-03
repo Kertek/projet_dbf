@@ -36,6 +36,8 @@ public:
 
     void determineTypeMessage(unsigned int packetHeader, bool isRequest); //either it is response
 
+    void transformMessageDefaultError();
+
     /**
      * Extract the content from a COM_QUERY
      * @return

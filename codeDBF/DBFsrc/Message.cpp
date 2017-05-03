@@ -68,8 +68,25 @@ void Message::determineTypeMessage(unsigned int packetHeader, bool isRequest) {
 string Message::extractContent(bool isRequest) {
     this->determineTypeMessage(this->mContent->data()[4], isRequest);
     if (this->mTypeMessage == TypeMessage::COM_QUERY) {
-        return std::string(&this->mContent->data()[5],this->mContent->size() - 5);
+        return std::string(&this->mContent->data()[5], this->mContent->size() - 5);
     } else {
         return "";
     }
+}
+
+void Message::transformMessageDefaultError() {
+    this->initMessage();
+    this->getContent()->push_back(0x07);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x02);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x02);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x00);
+
+
 }
