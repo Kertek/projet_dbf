@@ -175,7 +175,7 @@ field_ou_char_ou_command: field_ou_char
 
 
 bool find_tautologies(std::vector<std::string> var){
-	std::vector<std::vector<std::string>> DB;
+	std::vector<std::vector<std::string>> DB = {{"1=1"},{"'l'='l'"}} ;
 	std::string buffer;
 	std::vector<std::string> T;
 	std::cout << "coucou" << std::endl;
