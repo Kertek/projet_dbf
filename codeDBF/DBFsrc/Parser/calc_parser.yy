@@ -39,6 +39,9 @@
 #define yylex scanner.yylex
 
 bool find_tautologies(std::vector<std::string> var);
+
+std::map<std::string , std::string> dic_field_used;
+char abstraction = 'A';
 }
 
 %define api.value.type variant
@@ -158,7 +161,10 @@ condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE
 		}
         ;
 
-field_ou_char: FIELD {$$ = $1;}
+field_ou_char: FIELD 
+		{
+			$$ = $1;
+		}
         | CHAR {$$ = $1;}
         ;
 
@@ -209,6 +215,15 @@ bool find_tautologies(std::vector<std::string> var){
 		}
 	}
 	return true;
+}
+
+std::string normalize_field(std::string field){
+	if(dic.find(field) == dic.end()){
+		/* Si mot pas déjà vu. */
+		dic[field] = abstraction;
+		abstraction++;
+	}
+	return dic[field];
 }
 
 void
