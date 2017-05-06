@@ -78,18 +78,16 @@ void Message::transformMessageDefaultError() {
     this->initMessage();
     string buffer = "An error happened. Please contact the administrator.";
 
-    this->getContent()->push_back(buffer.size()+2);
+    this->getContent()->push_back(buffer.size() + 2 + 1);
     this->getContent()->push_back(0x00);
     this->getContent()->push_back(0x00);
     this->getContent()->push_back(0x01);
     this->getContent()->push_back(0xff);
-    this->getContent()->push_back(0x00);
-    this->getContent()->push_back(0x00);
-    for (int i= 0; i < buffer.size(); i++){
+    this->getContent()->push_back(0x26);
+    this->getContent()->push_back(0x04);
+    for (int i = 0; i < buffer.size(); i++) {
         this->getContent()->push_back(buffer[i]);
     }
-
-
 
 
 }
