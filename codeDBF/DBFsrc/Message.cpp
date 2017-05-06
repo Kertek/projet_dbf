@@ -83,8 +83,8 @@ void Message::transformMessageDefaultError() {
     this->getContent()->push_back(0x00);
     this->getContent()->push_back(0x01);
     this->getContent()->push_back(0xff);
-    this->getContent()->push_back(0x26);
-    this->getContent()->push_back(0x04);
+    this->getContent()->push_back(0x6c);
+    this->getContent()->push_back(0x06);
     for (int i = 0; i < buffer.size(); i++) {
         this->getContent()->push_back(buffer[i]);
     }
