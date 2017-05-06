@@ -76,18 +76,15 @@ string Message::extractContent(bool isRequest) {
 
 void Message::transformMessageDefaultError() {
     this->initMessage();
-    this->getContent()->push_back(0x1c);
+    string buffer = "An error happened. Please contact the administrator.";
+
+    this->getContent()->push_back(buffer.size()+2);
     this->getContent()->push_back(0x00);
     this->getContent()->push_back(0x00);
     this->getContent()->push_back(0x01);
     this->getContent()->push_back(0xff);
-    this->getContent()->push_back(0x26);
-    this->getContent()->push_back(0x32);
-    this->getContent()->push_back(0x33);
-    this->getContent()->push_back(0x30);
-    this->getContent()->push_back(0x30);
-    this->getContent()->push_back(0x30);
-    string buffer = "Une erreur est survenue";
+    this->getContent()->push_back(0x00);
+    this->getContent()->push_back(0x00);
     for (int i= 0; i < buffer.size(); i++){
         this->getContent()->push_back(buffer[i]);
     }
