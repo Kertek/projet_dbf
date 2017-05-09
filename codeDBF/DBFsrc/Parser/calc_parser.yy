@@ -63,6 +63,7 @@ char abstraction = 'A';
 %token <std::string> COMPARAISON
 %token <std::string> LOGIQUE
 %token <std::string> AS
+%token <std::string> UNION
 %token END
 %token COMMENT
 %token FORBIDDEN
@@ -81,8 +82,13 @@ char abstraction = 'A';
 %%
 commands: command END
         {
-        YYACCEPT;
+			YYACCEPT;
         }
+        | command UNION commands
+		{
+			// niveau bareme
+			YYACCEPT;
+		}
         ;
 
 command: SELECT selection FROM provenance condition_close

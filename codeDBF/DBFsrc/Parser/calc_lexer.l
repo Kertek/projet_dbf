@@ -39,6 +39,8 @@ yylval = lval;
 "AND"	 					{yylval->build<std::string>( "AND" );return token::LOGIQUE;}
 "or"	 |
 "OR"	 					{yylval->build<std::string>( "OR" );return token::LOGIQUE;}
+"UNION"	 |
+"union"  					{yylval->build<std::string>( "UNION" );return token::UNION;}
 "information_schema.tables"	|
 "create function"			|
 "CREATE FUNCTION"			|

@@ -97,6 +97,11 @@ TEST( TestParserCommentary , PositiveCommentary1){
     EXPECT_TRUE(driver.parse("select id from Articles -- nimporte quoi apres"));
 }
 
+TEST( TestParserUNION , PositiveUNION1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles UNION SELECT 'lala'"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
@@ -147,5 +152,10 @@ TEST( TestParserComplexRequest , NegativeComplexRequest6){ //Car on a décidé q
 TEST( TestParserCommentary, NegativeCommentary1){
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("select -- id from Articles"));
+}
+
+TEST( TestParserUNION , NegativeUNION1) {
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id ghfd UNION SELECT 'lala'"));
 }
 
