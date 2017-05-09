@@ -39,14 +39,88 @@
 #undef yylex
 #define yylex scanner.yylex
 
+#ifndef SEC_TOOLS
+#define SEC_TOOLS
+/**
+ * Fonction pour trouver les tautologies.
+ * */
 bool find_tautologies(std::vector<std::string> var);
+
+/**
+ * Fonction pour normaliser les field
+ * */
 std::string normalize_field(std::string field);
 
+/**
+ * Base de donnée de signatures pour les tautologies.
+ * */
 std::vector<std::vector<std::string>> DB = {
 	{"1=1"},{"'l'='l'"},{"A=A"},{"B=B"},{"C=C"},{"D=D"},{"E=E"},{"F=F"},{"I=I"},{"J=J"},{"K=K"},{"L=L"}
 };
+
+/**
+ * Dictionnaires des noms normaliés déjà utilisés.
+ * */
 std::map<std::string , std::string> dic_field_used;
-char abstraction = 'A';
+
+/**
+ * Premier nom normalisé a utiliser.
+ * */
+char abstraction;
+
+/**
+ * dictionnaire on l'on stocke le nombre de fois qu'un type de 
+ * barème est déjà utilisé.
+ * */
+std::map<std::string, int> dic_recurrence_bareme = {
+	{"commentaire",0},
+	{"union",0},
+	{"vide",0},
+	{"sous",0}
+	};
+	
+/**
+ * Notre barème.
+ * */
+std::map<std::string,std::map<int, int>> dic_bareme={
+	{"commentaire" , { 
+		{1,100},
+		{2,100},
+		{3,100},
+		{4,100},
+	}},
+	{"union" , { 
+		{1,30},
+		{2,50},
+		{3,100},
+		{4,100},
+	}},
+	{"vide" , { 
+		{1,10},
+		{2,20},
+		{3,35},
+		{4,50},
+	}},
+	{"sous" , { 
+		{1,50},
+		{2,80},
+		{3,100},
+		{4,100},
+	}}
+		
+};
+
+/**
+ * Variablre stockant notre niveau d'alerte au fur et a mesure 
+ * du parsing.
+ * */
+int level;
+
+/**
+ * Fonction utilisé pour incrémenter le niveau d'alerte. 
+ * */
+bool increase_level(std::string type);
+#endif
 }
 
 %define api.value.type variant
@@ -80,15 +154,24 @@ char abstraction = 'A';
 %locations
 
 %%
-commands: command END
+commands:
+		{
+			/**
+			 * It is an Action in Mid-Rule. We need it to reset variables.  
+			 * */
+			abstraction = 'A';
+			level =0;
+			dic_recurrence_bareme["commentaire"]=0;
+			dic_recurrence_bareme["union"]=0;
+			dic_recurrence_bareme["vide"]=0;
+			dic_recurrence_bareme["sous"]=0;
+			
+		} 
+		command END
         {
+			std::cout << "coucou" << std::endl;
 			YYACCEPT;
         }
-        | command UNION commands
-		{
-			// niveau bareme
-			YYACCEPT;
-		}
         ;
 
 command: SELECT selection FROM provenance condition_close
@@ -102,6 +185,12 @@ command: SELECT selection FROM provenance condition_close
 		| SELECT NB
 		{
 			$$ = $1 + $2;
+		}
+		| command UNION command
+		{
+			if(!increase_level("union")){
+				YYABORT;
+			}
 		}
         ;
 
@@ -117,10 +206,16 @@ selection: ssrecherche ',' selection
 
 ssrecherche: '(' command ')' AS field_ou_char
 		{
+			if(!increase_level("sous")){
+				YYABORT;
+			}
 			$$ = "(" + $2 + ")" + $4 + $5;
 		}
         | '(' command ')'
         {
+			if(!increase_level("sous")){
+				YYABORT;
+			}
 			$$ = "(" + $2 + ")";
 		}
         | FIELD AS field_ou_char
@@ -139,6 +234,9 @@ ssrecherche: '(' command ')' AS field_ou_char
 
 provenance:	'(' command ')' AS FIELD
 		{
+			if(!increase_level("sous")){
+				YYABORT;
+			}
 			$$ = "(" + $2 + ")" + $4 + $5;
 		}
         | FIELD AS FIELD
@@ -196,6 +294,9 @@ field_ou_char_ou_NB_ou_command: field_ou_char
 		}
         | '(' command ')'
         {
+			if(!increase_level("sous")){
+				YYABORT;
+			}
 			$$ = "(" + $2 + ")";
 		}
         ;
@@ -247,6 +348,29 @@ std::string normalize_field(std::string field){
 		abstraction++;
 	}
 	return dic_field_used[field];
+}
+
+bool increase_level(std::string type){
+	std::cout << "coucou" << std::endl;
+	if(dic_bareme.find(type) == dic_bareme.end()){
+		return false; // Cas impossible.
+	}
+	
+	if(dic_recurrence_bareme[type] < 4){
+		dic_recurrence_bareme[type] += 1;
+	}
+	
+	if(dic_recurrence_bareme.find(type) == dic_recurrence_bareme.end()){
+		return false;
+	}
+	std::cout << "coucou" << std::endl;
+	if(dic_bareme[type].find(dic_recurrence_bareme[type]) == dic_bareme[type].end()){
+		return false;
+	}
+	std::cout << "!!!" << level << "!!!" << std::endl;
+	level += dic_bareme[type][dic_recurrence_bareme[type]];
+	std::cout << "!!!" << level << "!!!" << std::endl;
+	return(level<100);
 }
 
 void
