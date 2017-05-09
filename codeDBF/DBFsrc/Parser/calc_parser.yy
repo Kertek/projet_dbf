@@ -40,6 +40,7 @@
 #define yylex scanner.yylex
 
 bool find_tautologies(std::vector<std::string> var);
+std::string normalize_field(std::string field);
 
 std::map<std::string , std::string> dic_field_used;
 char abstraction = 'A';
@@ -142,6 +143,7 @@ condition_close:
 		}
         | WHERE condition
         {
+			std::cout << $2 << std::endl;
 			$$ = $1 + $2;
 		}
         ;
@@ -164,7 +166,19 @@ condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE
 
 field_ou_char: FIELD 
 		{
-			$$ = $1;
+			if($1.empty()){
+				YYABORT;
+			}
+			std::string::const_iterator it = $1.begin();
+			while (it != $1.end() && std::isdigit(*it)){
+				it++;
+			}
+			if(it != $1.end()){ // ce n'est pas un entier
+				$$ = normalize_field($1);
+			}
+			else{
+				$$ = $1;
+			}
 		}
         | CHAR {$$ = $1;}
         ;
