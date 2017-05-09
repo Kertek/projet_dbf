@@ -202,6 +202,9 @@ bool find_tautologies(std::vector<std::string> var){
 	if(var.size()!=4){
 		return false;
 	}
+	if(var[0] == var[2]){
+		return false;
+	}
 	for(int i =0 ; i < DB.size(); i++){
 		if(std::find(DB[i].begin(), DB[i].end(), var[0]+var[1]+var[2]) != DB[i].end()){
 			return false;
