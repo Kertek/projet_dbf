@@ -42,6 +42,12 @@ yylval = lval;
 "UNION"	 |
 "union"  					{yylval->build<std::string>( "UNION" );return token::UNION;}
 "information_schema.tables"	|
+"user()"					|
+"version()"					|	
+"sleep()"					|
+"SLEEP()"					|
+"sleep("[1-9]+")"			|
+"SLEEP("[1-9]+")"			|
 "create function"			|
 "CREATE FUNCTION"			|
 "into dumpfile"				|
