@@ -31,6 +31,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <map>
 
 /* include for all driver functions */
 #include "calc_driver.h"
@@ -218,12 +219,12 @@ bool find_tautologies(std::vector<std::string> var){
 }
 
 std::string normalize_field(std::string field){
-	if(dic.find(field) == dic.end()){
+	if(dic_field_used.find(field) == dic_field_used.end()){
 		/* Si mot pas déjà vu. */
-		dic[field] = abstraction;
+		dic_field_used[field] = abstraction;
 		abstraction++;
 	}
-	return dic[field];
+	return dic_field_used[field];
 }
 
 void
