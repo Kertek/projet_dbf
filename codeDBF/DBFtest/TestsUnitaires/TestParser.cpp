@@ -89,11 +89,6 @@ TEST( TestParserComplexRequest , PositiveComplexRequest3){
 
 TEST( TestParserComplexRequest , PositiveComplexRequest4){
     CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("select id from Articles where (select id from Articles where id=1)=1"));
-}
-
-TEST( TestParserComplexRequest , PositiveComplexRequest5){
-    CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("select id from Articles where id=(select id from Articles where id=1)"));
 }
 
@@ -144,7 +139,13 @@ TEST( TestParserComplexRequest , NegativeComplexRequest5){
     EXPECT_FALSE(driver.parse("select id from Articles where id=((select id from Articles where id=1) as 'l')"));
 }
 
+TEST( TestParserComplexRequest , NegativeComplexRequest6){ //Car on a décidé qu'a gauche d'une comparaison il faut un FIELD
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles where (select id from Articles where id=1)=1"));
+}
+
 TEST( TestParserCommentary, NegativeCommentary1){
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("select -- id from Articles"));
 }
+

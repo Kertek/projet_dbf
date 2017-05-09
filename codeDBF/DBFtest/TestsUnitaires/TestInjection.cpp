@@ -60,6 +60,11 @@ TEST( TestInjectionTautologies , falseTautologie11){
     EXPECT_FALSE(driver.parse("select id from Articles where name='a' OR 125<>1"));
 }
 
+TEST( TestInjectionTautologies , falseTautologie12){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles where name=name"));
+}
+
 //Charactères vides
 TEST( TestInjectionVoidChar , falseVoidChar1){
     CALC::CALC_Driver driver;

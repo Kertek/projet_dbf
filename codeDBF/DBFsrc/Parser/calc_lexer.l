@@ -52,6 +52,8 @@ yylval = lval;
                                  * */
                                 return token::END;
                             }
+                        
+[1-9]+						{yylval->build<std::string>( yytext );return token::NB;}
 [a-zA-Z1-9$_]+				{yylval->build<std::string>( yytext );return token::FIELD;}
 "`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}

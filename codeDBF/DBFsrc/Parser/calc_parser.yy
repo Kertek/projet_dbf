@@ -42,6 +42,9 @@
 bool find_tautologies(std::vector<std::string> var);
 std::string normalize_field(std::string field);
 
+std::vector<std::vector<std::string>> DB = {
+	{"1=1"},{"'l'='l'"},{"A=A"},{"B=B"},{"C=C"},{"D=D"},{"E=E"},{"F=F"},{"I=I"},{"J=J"},{"K=K"},{"L=L"}
+};
 std::map<std::string , std::string> dic_field_used;
 char abstraction = 'A';
 }
@@ -52,6 +55,7 @@ char abstraction = 'A';
 
 %token <std::string> SELECT
 %token <std::string> WILD
+%token <std::string> NB
 %token <std::string> FIELD
 %token <std::string> CHAR
 %token <std::string> FROM
@@ -70,7 +74,7 @@ char abstraction = 'A';
 %type <std::string> condition_close
 %type <std::string> condition
 %type <std::string> field_ou_char
-%type <std::string> field_ou_char_ou_command
+%type <std::string> field_ou_char_ou_NB_ou_command
 
 %locations
 
@@ -86,6 +90,10 @@ command: SELECT selection FROM provenance condition_close
 			$$ = $1 + $2 + $3 + $4 + $5;
 		}
 		| SELECT CHAR
+		{
+			$$ = $1 + $2;
+		}
+		| SELECT NB
 		{
 			$$ = $1 + $2;
 		}
@@ -143,20 +151,21 @@ condition_close:
 		}
         | WHERE condition
         {
-			std::cout << $2 << std::endl;
 			$$ = $1 + $2;
 		}
         ;
 
-condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE condition
+condition: FIELD COMPARAISON field_ou_char_ou_NB_ou_command LOGIQUE condition
 		{
+			$1 = normalize_field($1); 
 			$$ = $1 + $2 + $3 + $4 + $5;
 			if(!find_tautologies({$1,$2,$3,$4})){
 				YYABORT;
 			}
 		}
-        | field_ou_char_ou_command COMPARAISON field_ou_char_ou_command
+        | FIELD COMPARAISON field_ou_char_ou_NB_ou_command
         {
+			$1 = normalize_field($1);
 			$$ = $1 + $2 + $3;
 			if(!find_tautologies({$1,$2,$3,""})){
 				YYABORT;
@@ -166,24 +175,16 @@ condition: field_ou_char_ou_command COMPARAISON field_ou_char_ou_command LOGIQUE
 
 field_ou_char: FIELD 
 		{
-			if($1.empty()){
-				YYABORT;
-			}
-			std::string::const_iterator it = $1.begin();
-			while (it != $1.end() && std::isdigit(*it)){
-				it++;
-			}
-			if(it != $1.end()){ // ce n'est pas un entier
-				$$ = normalize_field($1);
-			}
-			else{
-				$$ = $1;
-			}
+			$$ = normalize_field($1);
 		}
         | CHAR {$$ = $1;}
         ;
 
-field_ou_char_ou_command: field_ou_char
+field_ou_char_ou_NB_ou_command: field_ou_char
+		{
+			$$ = $1;
+		}
+		| NB
 		{
 			$$ = $1;
 		}
@@ -196,10 +197,8 @@ field_ou_char_ou_command: field_ou_char
 
 
 bool find_tautologies(std::vector<std::string> var){
-	std::vector<std::vector<std::string>> DB = {{"1=1"},{"'l'='l'"}} ;
 	std::string buffer;
 	std::vector<std::string> T;
-	std::cout << "coucou" << std::endl;
 	if(var.size()!=4){
 		return false;
 	}
