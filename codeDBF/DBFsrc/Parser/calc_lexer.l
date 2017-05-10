@@ -33,6 +33,12 @@ yylval = lval;
 "from" 						{yylval->build<std::string>( yytext );return token::FROM;}
 "WHERE"  |
 "where"						{yylval->build<std::string>( yytext );return token::WHERE;}
+"group by" |
+"GROUP BY"					{yylval->build<std::string>( "GROUP BY" );return token::GROUP;}
+"order by" |
+"ORDER BY" 					{yylval->build<std::string>( "ORDER BY" ); return token::ORDER;}
+"having" |
+"HAVING"					{yylval->build<std::string>( "HAVING" ); return token::HAVING;}
 "AS"     |
 "as"						{yylval->build<std::string>( yytext );return token::AS;}
 "and"	 |
@@ -41,9 +47,15 @@ yylval = lval;
 "OR"	 					{yylval->build<std::string>( "OR" );return token::LOGIQUE;}
 "UNION"	 |
 "union"  					{yylval->build<std::string>( "UNION" );return token::UNION;}
+"asc"	|
+"ASC"						{yylval->build<std::string>( "ASC" );return token::TRI;}
+"desc"	|
+"DESC"						{yylval->build<std::string>( "DESC" );return token::TRI;}
 "information_schema.tables"	|
 "user()"					|
-"version()"					|	
+"version()"					|
+"drop"						|
+"DROP"						|
 "sleep()"					|
 "SLEEP()"					|
 "sleep("[1-9]+")"			|
@@ -59,7 +71,7 @@ yylval = lval;
                                 return token::COMMENT;
                             }
                         
-[1-9]+						{yylval->build<std::string>( yytext );return token::NB;}
+[0-9]+						{yylval->build<std::string>( yytext );return token::NB;}
 [a-zA-Z1-9$_]+				{yylval->build<std::string>( yytext );return token::FIELD;}
 "`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}

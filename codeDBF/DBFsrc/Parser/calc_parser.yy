@@ -66,8 +66,7 @@ std::map<std::string , std::string> dic_field_used;
 /**
  * Premier nom normalisé a utiliser.
  * */
-char abstraction;
-
+char abstraction = 'A';
 /**
  * dictionnaire on l'on stocke le nombre de fois qu'un type de 
  * barème est déjà utilisé.
@@ -134,10 +133,14 @@ bool increase_level(std::string type);
 %token <std::string> CHAR
 %token <std::string> FROM
 %token <std::string> WHERE
+%token <std::string> GROUP
+%token <std::string> ORDER
 %token <std::string> COMPARAISON
 %token <std::string> LOGIQUE
 %token <std::string> AS
 %token <std::string> UNION
+%token <std::string> TRI
+%token <std::string> HAVING
 %token END
 %token COMMENT
 %token FORBIDDEN
@@ -148,8 +151,12 @@ bool increase_level(std::string type);
 %type <std::string> provenance
 %type <std::string> condition_close
 %type <std::string> condition
-%type <std::string> field_ou_char
-%type <std::string> field_ou_char_ou_NB_ou_command
+%type <std::string> colonne
+%type <std::string> colonne_ou_char
+%type <std::string> colonne_ou_char_ou_NB_ou_command
+%type <std::string> group_close
+%type <std::string> colonne_tri 
+%type <std::string> having_close
 
 %locations
 
@@ -158,7 +165,6 @@ initialize:	{
 				/**
 				 * It is an Action in Mid-Rule. We need it to reset variables.  
 				 * */
-				abstraction = 'A';
 				level =0;
 				dic_recurrence_bareme["commentaire"]=0;
 				dic_recurrence_bareme["union"]=0;
@@ -167,9 +173,10 @@ initialize:	{
 			}
 			commands
 			;
+			
 commands:command END
         {
-			std::cout << "coucou" << std::endl;
+			std::cout << $1 << std::endl;
 			YYACCEPT;
         }
         | command COMMENT
@@ -182,7 +189,7 @@ commands:command END
 		}
         ;
 
-command: SELECT selection FROM provenance condition_close
+command: SELECT selection FROM provenance condition_close group_close
 		{
 			$$ = $1 + $2 + $3 + $4 + $5;
 		}
@@ -215,7 +222,7 @@ selection: ssrecherche ',' selection
 		}
         ;
 
-ssrecherche: '(' command ')' AS field_ou_char
+ssrecherche: '(' command ')' AS colonne_ou_char
 		{
 			if(!increase_level("sous")){
 				YYABORT;
@@ -229,11 +236,11 @@ ssrecherche: '(' command ')' AS field_ou_char
 			}
 			$$ = "(" + $2 + ")";
 		}
-        | FIELD AS field_ou_char
+        | colonne AS colonne_ou_char
         {
 			$$ = $1 + $2 + $3;
 		}
-        | FIELD
+        | colonne
         {
 			$$ = $1;
 		}
@@ -243,18 +250,18 @@ ssrecherche: '(' command ')' AS field_ou_char
 		}
         ;
 
-provenance:	'(' command ')' AS FIELD
+provenance:	'(' command ')' AS colonne
 		{
 			if(!increase_level("sous")){
 				YYABORT;
 			}
 			$$ = "(" + $2 + ")" + $4 + $5;
 		}
-        | FIELD AS FIELD
+        | colonne AS colonne
         {
 			$$ = $1 + $2 + $3;
 		}
-        | FIELD
+        | colonne
         {
 			$$ = $1;
 		}
@@ -270,17 +277,15 @@ condition_close:
 		}
         ;
 
-condition: FIELD COMPARAISON field_ou_char_ou_NB_ou_command LOGIQUE condition
+condition: colonne COMPARAISON colonne_ou_char_ou_NB_ou_command LOGIQUE condition
 		{
-			$1 = normalize_field($1); 
 			$$ = $1 + $2 + $3 + $4 + $5;
 			if(!find_tautologies({$1,$2,$3,$4})){
 				YYABORT;
 			}
 		}
-        | FIELD COMPARAISON field_ou_char_ou_NB_ou_command
+        | colonne COMPARAISON colonne_ou_char_ou_NB_ou_command
         {
-			$1 = normalize_field($1);
 			$$ = $1 + $2 + $3;
 			if(!find_tautologies({$1,$2,$3,""})){
 				YYABORT;
@@ -288,9 +293,14 @@ condition: FIELD COMPARAISON field_ou_char_ou_NB_ou_command LOGIQUE condition
 		}
         ;
 
-field_ou_char: FIELD 
+colonne: FIELD
 		{
 			$$ = normalize_field($1);
+		}
+
+colonne_ou_char: colonne 
+		{
+			$$ = $1;
 		}
         | CHAR 
         {
@@ -301,7 +311,7 @@ field_ou_char: FIELD
 		}
         ;
 
-field_ou_char_ou_NB_ou_command: field_ou_char
+colonne_ou_char_ou_NB_ou_command: colonne_ou_char
 		{
 			$$ = $1;
 		}
@@ -317,6 +327,35 @@ field_ou_char_ou_NB_ou_command: field_ou_char
 			$$ = "(" + $2 + ")";
 		}
         ;
+        
+group_close:
+		{
+			$$="";
+		}
+		| GROUP colonne_tri having_close
+		{
+			$$ = $1 + $2;
+		}
+		;
+		
+colonne_tri: colonne
+		{
+			$$ = $1;
+		}
+		| colonne TRI
+		{
+			$$ = $1 + $2;
+		}
+		
+having_close:
+		{
+			$$ = "";
+		}
+		| HAVING condition
+		{
+			$$ = $1 + $2;
+		}
+		
 %%
 
 

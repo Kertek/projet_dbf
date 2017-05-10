@@ -105,6 +105,31 @@ TEST( TestParserCharVide , PositiveCharVide1){
     EXPECT_TRUE(driver.parse("select id from Articles WHERE char=''"));
 }
 
+TEST( TestParserGroupBy , PositiveGroupBy1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE name='toto' GROUP BY age"));
+}
+
+TEST( TestParserGroupBy , PositiveGroupBy2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE name='toto' GROUP BY age ASC"));
+}
+
+TEST( TestParserGroupBy , PositiveGroupBy3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE name='toto' GROUP BY age DESC"));
+}
+
+TEST( TestParserGroupByHaving , PositiveGroupByHaving1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE name='toto' GROUP BY age HAVING id = 50"));
+}
+
+TEST( TestParserGroupByHaving , PositiveGroupByHaving2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE name='toto' GROUP BY age HAVING id = (select a from Articles WHERE a=2)"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
