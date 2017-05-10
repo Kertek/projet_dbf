@@ -92,10 +92,6 @@ TEST( TestParserComplexRequest , PositiveComplexRequest4){
     EXPECT_TRUE(driver.parse("select id from Articles where id=(select id from Articles where id=1)"));
 }
 
-TEST( TestParserCommentary , PositiveCommentary1){
-    CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("select id from Articles -- nimporte quoi apres"));
-}
 
 TEST( TestParserUNION , PositiveUNION1){
     CALC::CALC_Driver driver;
@@ -154,8 +150,17 @@ TEST( TestParserCommentary, NegativeCommentary1){
     EXPECT_FALSE(driver.parse("select -- id from Articles"));
 }
 
+TEST( TestParserCommentary , NegativeCommentary2){
+    /*
+     * Car notre barème interdit les commentaires.
+     */
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles -- nimporte quoi apres"));
+}
+
 TEST( TestParserUNION , NegativeUNION1) {
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("select id ghfd UNION SELECT 'lala'"));
 }
+
 

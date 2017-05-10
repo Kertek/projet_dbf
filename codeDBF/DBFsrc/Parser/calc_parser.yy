@@ -154,24 +154,32 @@ bool increase_level(std::string type);
 %locations
 
 %%
-commands:
-		{
-			/**
-			 * It is an Action in Mid-Rule. We need it to reset variables.  
-			 * */
-			abstraction = 'A';
-			level =0;
-			dic_recurrence_bareme["commentaire"]=0;
-			dic_recurrence_bareme["union"]=0;
-			dic_recurrence_bareme["vide"]=0;
-			dic_recurrence_bareme["sous"]=0;
-			
-		} 
-		command END
+initialize:	{
+				/**
+				 * It is an Action in Mid-Rule. We need it to reset variables.  
+				 * */
+				abstraction = 'A';
+				level =0;
+				dic_recurrence_bareme["commentaire"]=0;
+				dic_recurrence_bareme["union"]=0;
+				dic_recurrence_bareme["vide"]=0;
+				dic_recurrence_bareme["sous"]=0;
+			}
+			commands
+			;
+commands:command END
         {
 			std::cout << "coucou" << std::endl;
 			YYACCEPT;
         }
+        | command COMMENT
+        {
+			std::cout << "commentaire" << std::endl;
+			if(!increase_level("commentaire")){
+				YYABORT;
+			}
+			YYACCEPT;
+		}
         ;
 
 command: SELECT selection FROM provenance condition_close

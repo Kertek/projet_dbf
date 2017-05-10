@@ -52,13 +52,11 @@ yylval = lval;
 "CREATE FUNCTION"			|
 "into dumpfile"				|
 "INTO DUMPFILE"				{return token::FORBIDDEN;}
-"--"						{/* Commentaire */
-                                comment();
-                                /*
+"--"						{	/* Commentaire:
                                  * On retourne END pour dire
                                  * que la suite ne compte pas.
                                  * */
-                                return token::END;
+                                return token::COMMENT;
                             }
                         
 [1-9]+						{yylval->build<std::string>( yytext );return token::NB;}
