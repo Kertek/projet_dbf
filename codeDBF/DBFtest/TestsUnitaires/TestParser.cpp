@@ -97,6 +97,13 @@ TEST( TestParserUNION , PositiveUNION1){
     CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("select id from Articles UNION SELECT 'lala'"));
 }
+/*
+ * Charactère vide.
+ */
+TEST( TestParserCharVide , PositiveCharVide1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE char=''"));
+}
 
 /*
 #######################

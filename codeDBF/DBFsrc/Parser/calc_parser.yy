@@ -188,6 +188,9 @@ command: SELECT selection FROM provenance condition_close
 		}
 		| SELECT CHAR
 		{
+			if($2 == "" && !increase_level("vide")){
+				YYABORT;
+			}
 			$$ = $1 + $2;
 		}
 		| SELECT NB
@@ -289,7 +292,13 @@ field_ou_char: FIELD
 		{
 			$$ = normalize_field($1);
 		}
-        | CHAR {$$ = $1;}
+        | CHAR 
+        {
+			if($1 == "" && !increase_level("vide")){
+				YYABORT;
+			}
+			$$ = $1;
+		}
         ;
 
 field_ou_char_ou_NB_ou_command: field_ou_char

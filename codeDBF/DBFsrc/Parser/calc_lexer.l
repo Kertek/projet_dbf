@@ -63,7 +63,7 @@ yylval = lval;
 [a-zA-Z1-9$_]+				{yylval->build<std::string>( yytext );return token::FIELD;}
 "`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}
-"\'"[a-zA-Z1-9@]+"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
+"\'"[a-zA-Z1-9@]*"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
 '\0'                        {
                                 /*Il faudra verifier que cela 
                                  * n'introduit pas une faille injection 
@@ -81,7 +81,6 @@ yylval = lval;
 ">"		|
 "!="    |
 "<>"    {yylval->build<std::string>( yytext );return token::COMPARAISON;}
-"''"	{return token::FORBIDDEN;}
 [ ]						 {;}
 
 .		{/* Used for all the other characters */
