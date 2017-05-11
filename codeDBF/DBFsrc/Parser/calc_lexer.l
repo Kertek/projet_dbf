@@ -61,6 +61,8 @@ yylval = lval;
 "MAX"						{yylval->build<std::string>( "MAX" );return token::FUNC;}
 "abs"	|
 "ABS"						{yylval->build<std::string>( "ABS" );return token::FUNC;}
+"upper"	|
+"UPPER"						{yylval->build<std::string>( "UPPER" );return token::FUNC;}
 "information_schema.tables"	|
 "user()"					|
 "version()"					|

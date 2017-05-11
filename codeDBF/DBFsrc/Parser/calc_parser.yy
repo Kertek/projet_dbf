@@ -158,6 +158,7 @@ bool increase_level(std::string type);
 %type <std::string> charac
 %type <std::string> sous
 %type <std::string> colonne_ou_char
+%type <std::string> colonne_ou_func_col
 %type <std::string> colonne_ou_func
 %type <std::string> colonne_ou_char_ou_NB_ou_command_ou_func
 %type <std::string> group_close
@@ -235,11 +236,11 @@ ssrecherche: sous AS colonne_ou_char
         {
 			$$ = $1;
 		}
-        | colonne_ou_func AS colonne_ou_char
+        | colonne_ou_func_col AS colonne_ou_char
         {
 			$$ = $1 + $2 + $3;
 		}
-        | colonne_ou_func
+        | colonne_ou_func_col
         {
 			$$ = $1;
 		}
@@ -277,14 +278,14 @@ condition_close:
 		}
         ;
 
-condition: colonne_ou_func COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func LOGIQUE condition
+condition: colonne_ou_func_col COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func LOGIQUE condition
 		{
 			$$ = $1 + $2 + $3 + $4 + $5;
 			if(!find_tautologies({$1,$2,$3,$4})){
 				YYABORT;
 			}
 		}
-        | colonne_ou_func COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func
+        | colonne_ou_func_col COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func
         {
 			$$ = $1 + $2 + $3;
 			if(!find_tautologies({$1,$2,$3,""})){
@@ -334,11 +335,24 @@ colonne_tri: colonne
 		}
 
 
-colonne_ou_func: colonne
+colonne_ou_func_col: colonne
 		{
 			$$ = $1;
 		}
 		| FUNC '(' colonne ')'
+		{
+			$$ = $1 + "(" + $3 + ")";
+		}
+		
+colonne_ou_func: colonne_ou_func_col
+		{
+			$$ = $1;
+		}
+		| FUNC '(' NB ')'
+		{
+			$$ = $1 + "(" + $3 + ")";
+		}
+		| FUNC '(' charac ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
 		}
