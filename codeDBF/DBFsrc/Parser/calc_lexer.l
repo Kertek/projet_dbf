@@ -63,6 +63,8 @@ yylval = lval;
 "ABS"						{yylval->build<std::string>( "ABS" );return token::FUNC;}
 "upper"	|
 "UPPER"						{yylval->build<std::string>( "UPPER" );return token::FUNC;}
+"pow"	|
+"POW"						{yylval->build<std::string>( "POW" );return token::FUNC;}
 "information_schema.tables"	|
 "user()"					|
 "version()"					|

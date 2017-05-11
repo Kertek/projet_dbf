@@ -156,6 +156,8 @@ bool increase_level(std::string type);
 %type <std::string> condition
 %type <std::string> colonne
 %type <std::string> charac
+%type <std::string> characs
+%type <std::string> nbs
 %type <std::string> sous
 %type <std::string> colonne_ou_char
 %type <std::string> colonne_ou_func_col
@@ -298,12 +300,31 @@ colonne: FIELD
 		{
 			$$ = normalize_field($1);
 		}
+		;
 		
 charac: CHAR
 		{
 			if($1 == "" && !increase_level("vide")){
 				YYABORT;
 			}
+			$$ = $1;
+		}
+
+characs: charac ',' characs
+		{
+			$$ = $1 + "," + $3;
+		}
+		| charac
+		{
+			$$ = $1;
+		}
+		
+nbs: 	NB ',' nbs
+		{
+			$$ = $1 + "," + $3;
+		}
+		| NB
+		{
 			$$ = $1;
 		}
 
@@ -348,11 +369,11 @@ colonne_ou_func: colonne_ou_func_col
 		{
 			$$ = $1;
 		}
-		| FUNC '(' NB ')'
+		| FUNC '(' nbs ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
 		}
-		| FUNC '(' charac ')'
+		| FUNC '(' characs ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
 		}

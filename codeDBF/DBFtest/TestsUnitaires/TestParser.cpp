@@ -190,6 +190,11 @@ TEST( TestParserFunction , PositiveFunction6){
     EXPECT_TRUE(driver.parse("SELECT id FROM user WHERE id=UPPER('lala')"));
 }
 
+TEST( TestParserFunction , PositiveFunction7){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT id FROM user WHERE id=POW(5,2)"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
@@ -274,4 +279,9 @@ TEST( TestParserFunction , NegativeFunction1) {
 TEST( TestParserFunction , NegativeFunction2) {
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("SELECT id FROM user where MIN(5)=5"));
+}
+
+TEST( TestParserFunction , NegativeFunction3) {
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("SELECT MIN(id,name) FROM user"));
 }
