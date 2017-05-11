@@ -39,6 +39,8 @@ yylval = lval;
 "ORDER BY" 					{yylval->build<std::string>( "ORDER BY" ); return token::ORDER;}
 "having" |
 "HAVING"					{yylval->build<std::string>( "HAVING" ); return token::HAVING;}
+"limit"  |
+"LIMIT"						{yylval->build<std::string>( "LIMIT" ); return token::LIMIT;}
 "AS"     |
 "as"						{yylval->build<std::string>( yytext );return token::AS;}
 "and"	 |

@@ -141,6 +141,7 @@ bool increase_level(std::string type);
 %token <std::string> UNION
 %token <std::string> TRI
 %token <std::string> HAVING
+%token <std::string> LIMIT
 %token END
 %token COMMENT
 %token FORBIDDEN
@@ -157,6 +158,8 @@ bool increase_level(std::string type);
 %type <std::string> group_close
 %type <std::string> colonne_tri 
 %type <std::string> having_close
+%type <std::string> order_close
+%type <std::string> limit_close
 
 %locations
 
@@ -189,7 +192,7 @@ commands:command END
 		}
         ;
 
-command: SELECT selection FROM provenance condition_close group_close
+command: SELECT selection FROM provenance condition_close group_close order_close limit_close
 		{
 			$$ = $1 + $2 + $3 + $4 + $5;
 		}
@@ -355,7 +358,24 @@ having_close:
 		{
 			$$ = $1 + $2;
 		}
+	
+order_close:
+		{
+			$$ = "";
+		}
+		| ORDER colonne_tri
+		{
+			$$ = $1 + $2;
+		}
 		
+limit_close:
+		{
+			$$ = "";
+		}
+		| LIMIT NB
+		{
+			$$ = $1 + $2;
+		}
 %%
 
 

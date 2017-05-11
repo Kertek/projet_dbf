@@ -130,6 +130,31 @@ TEST( TestParserGroupByHaving , PositiveGroupByHaving2){
     EXPECT_TRUE(driver.parse("select id from Articles WHERE name='toto' GROUP BY age HAVING id = (select a from Articles WHERE a=2)"));
 }
 
+TEST( TestParserOrderBy , PositiveOrderBy1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE id<10 ORDER BY name"));
+}
+
+TEST( TestParserOrderBy , PositiveOrderBy2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE id<10 ORDER BY name ASC"));
+}
+
+TEST( TestParserOrderBy , PositiveOrderBy3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE id<10 ORDER BY name DESC"));
+}
+
+TEST( TestParserLimit , PositiveLimit1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE id<10 LIMIT 3"));
+}
+
+TEST( TestParserLimit , PositiveLimit2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from Articles WHERE id<10 ORDER BY name LIMIT 9"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
@@ -195,4 +220,13 @@ TEST( TestParserUNION , NegativeUNION1) {
     EXPECT_FALSE(driver.parse("select id ghfd UNION SELECT 'lala'"));
 }
 
+/* On n'autorise pas l'indexation des colonnes */
+TEST( TestParserOrderBy , NegativeOrderBy1){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles WHERE id<10 ORDER BY 1"));
+}
 
+TEST( TestParserLimit , NegativeLimit1){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("select id from Articles WHERE id<10 LIMIT lala"));
+}
