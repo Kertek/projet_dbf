@@ -142,6 +142,7 @@ bool increase_level(std::string type);
 %token <std::string> TRI
 %token <std::string> HAVING
 %token <std::string> LIMIT
+%token <std::string> OFFSET
 %token END
 %token COMMENT
 %token FORBIDDEN
@@ -194,7 +195,7 @@ commands:command END
 
 command: SELECT selection FROM provenance condition_close group_close order_close limit_close
 		{
-			$$ = $1 + $2 + $3 + $4 + $5;
+			$$ = $1 + $2 + $3 + $4 + $5 + $6 + $7 + $8;
 		}
 		| SELECT CHAR
 		{
@@ -375,6 +376,10 @@ limit_close:
 		| LIMIT NB
 		{
 			$$ = $1 + $2;
+		}
+		| LIMIT NB OFFSET NB
+		{
+			$$ = $1 + $2 + $3 + $4;
 		}
 %%
 

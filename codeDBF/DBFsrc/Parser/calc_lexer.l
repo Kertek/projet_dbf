@@ -41,6 +41,8 @@ yylval = lval;
 "HAVING"					{yylval->build<std::string>( "HAVING" ); return token::HAVING;}
 "limit"  |
 "LIMIT"						{yylval->build<std::string>( "LIMIT" ); return token::LIMIT;}
+"offset" |
+"OFFSET" 					{yylval->build<std::string>( "OFFSET" ); return token::OFFSET;}
 "AS"     |
 "as"						{yylval->build<std::string>( yytext );return token::AS;}
 "and"	 |

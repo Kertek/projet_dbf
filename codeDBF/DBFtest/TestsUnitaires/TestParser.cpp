@@ -155,6 +155,11 @@ TEST( TestParserLimit , PositiveLimit2){
     EXPECT_TRUE(driver.parse("select id from Articles WHERE id<10 ORDER BY name LIMIT 9"));
 }
 
+TEST( TestParserOFFSET , PositiveOFFSET1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT host,user FROM user ORDER BY host LIMIT 1 OFFSET 1"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
