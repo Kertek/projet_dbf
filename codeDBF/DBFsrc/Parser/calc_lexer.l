@@ -55,6 +55,12 @@ yylval = lval;
 "ASC"						{yylval->build<std::string>( "ASC" );return token::TRI;}
 "desc"	|
 "DESC"						{yylval->build<std::string>( "DESC" );return token::TRI;}
+"min"	|
+"MIN"						{yylval->build<std::string>( "MIN" );return token::FUNC;}
+"max"	|
+"MAX"						{yylval->build<std::string>( "MAX" );return token::FUNC;}
+"abs"	|
+"ABS"						{yylval->build<std::string>( "ABS" );return token::FUNC;}
 "information_schema.tables"	|
 "user()"					|
 "version()"					|

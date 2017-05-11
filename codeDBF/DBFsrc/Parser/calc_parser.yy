@@ -143,6 +143,7 @@ bool increase_level(std::string type);
 %token <std::string> HAVING
 %token <std::string> LIMIT
 %token <std::string> OFFSET
+%token <std::string> FUNC
 %token END
 %token COMMENT
 %token FORBIDDEN
@@ -154,8 +155,11 @@ bool increase_level(std::string type);
 %type <std::string> condition_close
 %type <std::string> condition
 %type <std::string> colonne
+%type <std::string> charac
+%type <std::string> sous
 %type <std::string> colonne_ou_char
-%type <std::string> colonne_ou_char_ou_NB_ou_command
+%type <std::string> colonne_ou_func
+%type <std::string> colonne_ou_char_ou_NB_ou_command_ou_func
 %type <std::string> group_close
 %type <std::string> colonne_tri 
 %type <std::string> having_close
@@ -197,11 +201,8 @@ command: SELECT selection FROM provenance condition_close group_close order_clos
 		{
 			$$ = $1 + $2 + $3 + $4 + $5 + $6 + $7 + $8;
 		}
-		| SELECT CHAR
+		| SELECT charac
 		{
-			if($2 == "" && !increase_level("vide")){
-				YYABORT;
-			}
 			$$ = $1 + $2;
 		}
 		| SELECT NB
@@ -226,25 +227,19 @@ selection: ssrecherche ',' selection
 		}
         ;
 
-ssrecherche: '(' command ')' AS colonne_ou_char
+ssrecherche: sous AS colonne_ou_char
 		{
-			if(!increase_level("sous")){
-				YYABORT;
-			}
-			$$ = "(" + $2 + ")" + $4 + $5;
+			$$ = $1 + $2 + $3;
 		}
-        | '(' command ')'
+        | sous
         {
-			if(!increase_level("sous")){
-				YYABORT;
-			}
-			$$ = "(" + $2 + ")";
+			$$ = $1;
 		}
-        | colonne AS colonne_ou_char
+        | colonne_ou_func AS colonne_ou_char
         {
 			$$ = $1 + $2 + $3;
 		}
-        | colonne
+        | colonne_ou_func
         {
 			$$ = $1;
 		}
@@ -254,12 +249,9 @@ ssrecherche: '(' command ')' AS colonne_ou_char
 		}
         ;
 
-provenance:	'(' command ')' AS colonne
+provenance:	sous AS colonne
 		{
-			if(!increase_level("sous")){
-				YYABORT;
-			}
-			$$ = "(" + $2 + ")" + $4 + $5;
+			$$ = $1 + $2 + $3;
 		}
         | colonne AS colonne
         {
@@ -267,6 +259,10 @@ provenance:	'(' command ')' AS colonne
 		}
         | colonne
         {
+			/*
+			 * On fait comme si une bdd était une colonne pour la 
+			 * normaliser.
+			 * */
 			$$ = $1;
 		}
         ;
@@ -281,14 +277,14 @@ condition_close:
 		}
         ;
 
-condition: colonne COMPARAISON colonne_ou_char_ou_NB_ou_command LOGIQUE condition
+condition: colonne_ou_func COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func LOGIQUE condition
 		{
 			$$ = $1 + $2 + $3 + $4 + $5;
 			if(!find_tautologies({$1,$2,$3,$4})){
 				YYABORT;
 			}
 		}
-        | colonne COMPARAISON colonne_ou_char_ou_NB_ou_command
+        | colonne_ou_func COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func
         {
 			$$ = $1 + $2 + $3;
 			if(!find_tautologies({$1,$2,$3,""})){
@@ -301,21 +297,57 @@ colonne: FIELD
 		{
 			$$ = normalize_field($1);
 		}
-
-colonne_ou_char: colonne 
+		
+charac: CHAR
 		{
-			$$ = $1;
-		}
-        | CHAR 
-        {
 			if($1 == "" && !increase_level("vide")){
 				YYABORT;
 			}
 			$$ = $1;
 		}
-        ;
 
-colonne_ou_char_ou_NB_ou_command: colonne_ou_char
+sous: '(' command ')'
+		{
+			if(!increase_level("sous")){
+				YYABORT;
+			}
+			$$ = "(" + $2 + ")";
+		}
+
+colonne_ou_char: colonne 
+		{
+			$$ = $1;
+		}
+        | charac
+        {
+			$$ = $1;
+		}
+        ;
+        
+colonne_tri: colonne
+		{
+			$$ = $1;
+		}
+		| colonne TRI
+		{
+			$$ = $1 + $2;
+		}
+
+
+colonne_ou_func: colonne
+		{
+			$$ = $1;
+		}
+		| FUNC '(' colonne ')'
+		{
+			$$ = $1 + "(" + $3 + ")";
+		}
+
+colonne_ou_char_ou_NB_ou_command_ou_func: colonne_ou_func
+		{
+			$$ = $1;
+		}
+		| charac
 		{
 			$$ = $1;
 		}
@@ -323,15 +355,12 @@ colonne_ou_char_ou_NB_ou_command: colonne_ou_char
 		{
 			$$ = $1;
 		}
-        | '(' command ')'
+        | sous
         {
-			if(!increase_level("sous")){
-				YYABORT;
-			}
-			$$ = "(" + $2 + ")";
+			$$ = $1;
 		}
         ;
-        
+    
 group_close:
 		{
 			$$="";
@@ -341,15 +370,6 @@ group_close:
 			$$ = $1 + $2;
 		}
 		;
-		
-colonne_tri: colonne
-		{
-			$$ = $1;
-		}
-		| colonne TRI
-		{
-			$$ = $1 + $2;
-		}
 		
 having_close:
 		{

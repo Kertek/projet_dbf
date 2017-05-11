@@ -160,6 +160,26 @@ TEST( TestParserOFFSET , PositiveOFFSET1){
     EXPECT_TRUE(driver.parse("SELECT host,user FROM user ORDER BY host LIMIT 1 OFFSET 1"));
 }
 
+TEST( TestParserFunction , PositiveFunction1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT MAX(id) FROM user"));
+}
+
+TEST( TestParserFunction , PositiveFunction2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT MIN(id) FROM user"));
+}
+
+TEST( TestParserFunction , PositiveFunction3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT id FROM user WHERE ABS(nb)=1"));
+}
+
+TEST( TestParserFunction , PositiveFunction4){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT id FROM user WHERE id=ABS(nb)"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
