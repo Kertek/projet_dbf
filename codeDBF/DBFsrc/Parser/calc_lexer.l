@@ -27,6 +27,9 @@ void comment();
 %{          /** Code executed at the beginning of yylex **/
 yylval = lval;
 %}
+%{
+    /**Exception Tests DVWA **/
+%}
 "DROP DATABASE IF EXISTS dvwa" |
 "CREATE DATABASE dvwa"			|
 "USE dvwa"					|
@@ -35,6 +38,8 @@ yylval = lval;
 "CREATE TABLE guestbook (comment_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, comment varchar(300), name varchar(100), PRIMARY KEY (comment_id))" |
 "INSERT INTO guestbook VALUES ('1','This is a test comment.','test')" |
 "SELECT table_schema, table_name, create_time" {return token::EXCEPTION;}
+
+
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
