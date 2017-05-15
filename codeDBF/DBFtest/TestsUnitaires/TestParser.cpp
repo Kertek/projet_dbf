@@ -218,6 +218,12 @@ TEST( TestExceptionDVWA , PositiveExceptionDVWA2){
 
 }
 
+TEST( TestExceptionDVWA , PositiveExceptionDVWA3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("USE dvwa"));
+
+}
+
 /*
 #######################
 # Ne doit pas marcher #

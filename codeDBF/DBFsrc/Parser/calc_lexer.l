@@ -28,7 +28,8 @@ void comment();
 yylval = lval;
 %}
 "DROP DATABASE IF EXISTS dvwa" |
-"CREATE DATABASE dvwa" {return token::EXCEPTION;}
+"CREATE DATABASE dvwa"			|
+"USE dvwa"					{return token::EXCEPTION;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
