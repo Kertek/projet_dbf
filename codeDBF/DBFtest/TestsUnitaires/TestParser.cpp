@@ -206,6 +206,12 @@ TEST( TestParserSymfony , PositiveSymfony1){
     
 }
 
+TEST( TestExceptionDVWA , PositiveExceptionDVWA1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("DROP DATABASE IF EXISTS dvwa"));
+
+}
+
 /*
 #######################
 # Ne doit pas marcher #

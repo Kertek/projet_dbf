@@ -147,6 +147,7 @@ bool increase_level(std::string type);
 %token END
 %token COMMENT
 %token FORBIDDEN
+%token EXCEPTION
 
 %type <std::string> command
 %type <std::string> selection
@@ -184,6 +185,10 @@ initialize:	{
 				dic_recurrence_bareme["sous"]=0;
 			}
 			commands
+			| EXCEPTION
+			{
+				YYACCEPT;
+			}
 			;
 			
 commands:command END
