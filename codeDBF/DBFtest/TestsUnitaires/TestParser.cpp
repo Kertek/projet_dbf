@@ -31,6 +31,11 @@ TEST( TestParserSimpleSelectFrom , simplePositiveSelectFrom2){
     EXPECT_TRUE(driver.parse("SELECT id FROM Articles"));
 }
 
+TEST( TestParserSimpleSelectFrom , simplePositiveSelectFrom3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select db.id from Articles"));
+}
+
 TEST( TestParserSimpleSelectFrom , simplePositiveSelectFromWithExtendedCharset1){
     CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("select `id+-*/()@` from Articles"));
@@ -193,6 +198,11 @@ TEST( TestParserFunction , PositiveFunction6){
 TEST( TestParserFunction , PositiveFunction7){
     CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("SELECT id FROM user WHERE id=POW(5,2)"));
+}
+
+TEST( TestParserSymfony , PositiveSymfony1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT a0_.id AS id_0, a0_.date AS date_1, a0_.title AS title_2, a0_.body AS body_3 FROM Articles a0_ ORDER BY a0_.id DESC LIMIT 1 OFFSET 0"));
 }
 
 /*

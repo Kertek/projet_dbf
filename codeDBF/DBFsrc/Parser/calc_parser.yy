@@ -154,6 +154,7 @@ bool increase_level(std::string type);
 %type <std::string> provenance
 %type <std::string> condition_close
 %type <std::string> condition
+%type <std::string> db
 %type <std::string> colonne
 %type <std::string> charac
 %type <std::string> characs
@@ -252,20 +253,20 @@ ssrecherche: sous AS colonne_ou_char
 		}
         ;
 
-provenance:	sous AS colonne
+provenance:	sous AS db
 		{
 			$$ = $1 + $2 + $3;
 		}
-        | colonne AS colonne
+        | db AS db
         {
 			$$ = $1 + $2 + $3;
 		}
-        | colonne
+		| db db
+		{
+			$$ = $1 + $2;
+		}
+        | db
         {
-			/*
-			 * On fait comme si une bdd était une colonne pour la 
-			 * normaliser.
-			 * */
 			$$ = $1;
 		}
         ;
@@ -295,6 +296,14 @@ condition: colonne_ou_func_col COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_f
 			}
 		}
         ;
+
+db: 	FIELD
+		{
+			if ($1.find(".") != std::string::npos){
+					YYABORT;
+			} 
+			$$ = normalize_field($1);
+		}
 
 colonne: FIELD
 		{
