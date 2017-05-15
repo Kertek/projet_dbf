@@ -99,7 +99,8 @@ yylval = lval;
 "`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}
 "\'"[a-zA-Z0-9@]*"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
-'\0'                        {
+'\0' |
+";"                         {
                                 /*Il faudra verifier que cela 
                                  * n'introduit pas une faille injection 
                                  * Null byte*/
