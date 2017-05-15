@@ -33,7 +33,8 @@ yylval = lval;
 "CREATE TABLE users (user_id int(6),first_name varchar(15),last_name varchar(15), user varchar(15), password varchar(32),avatar varchar(70), last_login TIMESTAMP, failed_login INT(3), PRIMARY KEY (user_id))" |
 "INSERT INTO users VALUES" |
 "CREATE TABLE guestbook (comment_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, comment varchar(300), name varchar(100), PRIMARY KEY (comment_id))" |
-"INSERT INTO guestbook VALUES ('1','This is a test comment.','test')" {return token::EXCEPTION;}
+"INSERT INTO guestbook VALUES ('1','This is a test comment.','test')" |
+"SELECT table_schema, table_name, create_time" {return token::EXCEPTION;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
