@@ -31,7 +31,8 @@ yylval = lval;
 "CREATE DATABASE dvwa"			|
 "USE dvwa"					|
 "CREATE TABLE users (user_id int(6),first_name varchar(15),last_name varchar(15), user varchar(15), password varchar(32),avatar varchar(70), last_login TIMESTAMP, failed_login INT(3), PRIMARY KEY (user_id))" |
-"INSERT INTO users VALUES" {return token::EXCEPTION;}
+"INSERT INTO users VALUES" |
+"CREATE TABLE guestbook (comment_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, comment varchar(300), name varchar(100), PRIMARY KEY (comment_id))" {return token::EXCEPTION;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
