@@ -29,7 +29,8 @@ yylval = lval;
 %}
 "DROP DATABASE IF EXISTS dvwa" |
 "CREATE DATABASE dvwa"			|
-"USE dvwa"					{return token::EXCEPTION;}
+"USE dvwa"					|
+"CREATE TABLE users (user_id int(6),first_name varchar(15),last_name varchar(15), user varchar(15), password varchar(32),avatar varchar(70), last_login TIMESTAMP, failed_login INT(3), PRIMARY KEY (user_id))" {return token::EXCEPTION;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
