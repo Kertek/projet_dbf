@@ -23,7 +23,7 @@ private:
     bool isRunning;
 
     std::ofstream mFile;
-    std::string mFileName = "../DBFsrc/Monitoring/dbf.log";
+    std::string mFileName = "./dbf.log";
 
     std::vector<std::string> mBuffer;
 public:
