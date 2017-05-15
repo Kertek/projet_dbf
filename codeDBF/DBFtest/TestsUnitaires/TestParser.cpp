@@ -202,7 +202,8 @@ TEST( TestParserFunction , PositiveFunction7){
 
 TEST( TestParserSymfony , PositiveSymfony1){
     CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("SELECT a0_.id AS id_0, a0_.date AS date_1, a0_.title AS title_2, a0_.body AS body_3 FROM Articles a0_ ORDER BY a0_.id DESC LIMIT 1 OFFSET 0"));
+    EXPECT_TRUE(driver.parse("SELECT a0_.id AS id_0, a0_.date AS date_1, a0_.title AS title_2, a0_.body AS body_3 FROM Articles a0_ ORDER BY a0_.id DESC LIMIT 1 OFFSET 0 "));
+    
 }
 
 /*
