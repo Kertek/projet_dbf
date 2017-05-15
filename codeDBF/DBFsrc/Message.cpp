@@ -66,8 +66,9 @@ void Message::determineTypeMessage(unsigned int packetHeader, bool isRequest) {
 }
 
 string Message::extractContent(bool isRequest) {
-    this->determineTypeMessage(this->mContent->data()[4], isRequest);
     if (this->mTypeMessage == TypeMessage::COM_QUERY) {
+        return std::string(&this->mContent->data()[5], this->mContent->size() - 5);
+    } else if (this->mTypeMessage == TypeMessage::ERR_Packet) {
         return std::string(&this->mContent->data()[5], this->mContent->size() - 5);
     } else {
         return "";

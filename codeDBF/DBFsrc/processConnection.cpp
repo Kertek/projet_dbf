@@ -5,6 +5,7 @@
 #include <iostream>
 #include "processConnection.h"
 #include "Monitoring/LogManager.h"
+#include "Parser/calc_driver.h"
 
 processConnection::processConnection(Connection *connection) : mConnection(connection) {}
 
@@ -48,22 +49,37 @@ void processConnection::operator()() {
     this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
 */
 
+    Message *previousMessage;
 
     while (this->mConnection->getMessage()->getTypeMessage() != TypeMessage::COM_QUIT) {
-        int result = this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
-        if (this->mConnection->getMessage()->getTypeMessage() == TypeMessage::ERR_Packet){
+        this->mConnection->getSocketBdd()->receiveMessage(this->mConnection->getMessage(), false);
+        if (this->mConnection->getMessage()->getTypeMessage() == TypeMessage::ERR_Packet) {
+            LogManager::getInstance().addLogMessage(TypeError::DANGER,
+                                                    this->mConnection->getMessage()->extractContent(true));
+            LogManager::getInstance().addLogMessage(TypeError::DANGER,
+                                                    previousMessage->extractContent(true));
             this->mConnection->getMessage()->transformMessageDefaultError();
-            cout << "alert error based injection !" << endl;
         }
 
         this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
 
         this->mConnection->getSocketApplication()->receiveMessage(this->mConnection->getMessage(), true);
+        CALC::CALC_Driver driver;
+        if (this->mConnection->getMessage()->getTypeMessage() == TypeMessage::COM_QUERY
+            && driver.parse(this->mConnection->getMessage()->extractContent(true)) == false) {
+            LogManager::getInstance().addLogMessage(TypeError::DANGER,
+                                                    this->mConnection->getMessage()->extractContent(true));
+            this->mConnection->getMessage()->transformMessageDefaultError();
+            this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
+        }else{
+            this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
+        }
 
-        this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
+
+        previousMessage = this->mConnection->getMessage();
     }
 
-
+    delete previousMessage;
     this->mConnection->~Connection();
 
 }
