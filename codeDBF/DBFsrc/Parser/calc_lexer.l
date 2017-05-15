@@ -31,7 +31,7 @@ yylval = lval;
 "CREATE DATABASE dvwa"			|
 "USE dvwa"					|
 "CREATE TABLE users (user_id int(6),first_name varchar(15),last_name varchar(15), user varchar(15), password varchar(32),avatar varchar(70), last_login TIMESTAMP, failed_login INT(3), PRIMARY KEY (user_id))" |
-"INSERT INTO users VALUES \n ('1','admin','admin','admin',MD5('password'),'http://localhost/DVWA-master/hackable/users/admin.jpg', NOW(), '0'), \n ('2','Gordon','Brown','gordonb',MD5('abc123'),'http://localhost/DVWA-master/hackable/users/gordonb.jpg', NOW(), '0'), \n ('3','Hack','Me','1337',MD5('charley'),'http://localhost/DVWA-master/hackable/users/1337.jpg', NOW(), '0'), \n ('4','Pablo','Picasso','pablo',MD5('letmein'),'http://localhost/DVWA-master/hackable/users/pablo.jpg', NOW(), '0'), \n ('5','Bob','Smith','smithy',MD5('password'),'http://localhost/DVWA-master/hackable/users/smithy.jpg', NOW(), '0')" {return token::EXCEPTION;}
+"INSERT INTO users VALUES" {return token::EXCEPTION;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
