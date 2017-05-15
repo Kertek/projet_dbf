@@ -212,6 +212,12 @@ TEST( TestExceptionDVWA , PositiveExceptionDVWA1){
 
 }
 
+TEST( TestExceptionDVWA , PositiveExceptionDVWA2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("CREATE DATABASE dvwa"));
+
+}
+
 /*
 #######################
 # Ne doit pas marcher #

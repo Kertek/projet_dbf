@@ -27,7 +27,8 @@ void comment();
 %{          /** Code executed at the beginning of yylex **/
 yylval = lval;
 %}
-"DROP DATABASE IF EXISTS dvwa" {return token::EXCEPTION;}
+"DROP DATABASE IF EXISTS dvwa" |
+"CREATE DATABASE dvwa" {return token::EXCEPTION;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
