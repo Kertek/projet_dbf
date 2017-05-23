@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<project name="Projet Database Firewall" company="" manager="" phase="Etat de l'art" project-start="20170206T000000Z" mrproject-version="2" calendar="2">
+  <properties/>
+  <phases>
+    <phase name="Etat de l'art"/>
+    <phase name="D&#xE9;veloppement de l'outil et int&#xE9;gration"/>
+    <phase name="Evaluation de l'outil"/>
+  </phases>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Travaill&#xE9;" description="Un jour de travail normal"/>
+      <day-type id="1" name="Ch&#xF4;m&#xE9;" description="Un jour ch&#xF4;m&#xE9; normal"/>
+      <day-type id="2" name="Utiliser la base" description="Utilise un jour du calendrier de base"/>
+    </day-types>
+    <calendar id="1" name="D&#xE9;faut">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1130"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+      <calendar id="2" name="Calendrier Cassiopee">
+        <default-week mon="2" tue="2" wed="2" thu="2" fri="2" sat="2" sun="2"/>
+        <overridden-day-types>
+          <overridden-day-type id="0">
+            <interval start="0800" end="1130"/>
+          </overridden-day-type>
+        </overridden-day-types>
+        <days>
+          <day date="20170310" type="day-type" id="1"/>
+          <day date="20170331" type="day-type" id="1"/>
+          <day date="20170501" type="day-type" id="1"/>
+          <day date="20170410" type="day-type" id="1"/>
+          <day date="20170330" type="day-type" id="1"/>
+          <day date="20170309" type="day-type" id="1"/>
+          <day date="20170329" type="day-type" id="1"/>
+          <day date="20170328" type="day-type" id="1"/>
+          <day date="20170508" type="day-type" id="1"/>
+          <day date="20170327" type="day-type" id="1"/>
+          <day date="20170526" type="day-type" id="1"/>
+          <day date="20170414" type="day-type" id="1"/>
+          <day date="20170525" type="day-type" id="1"/>
+          <day date="20170413" type="day-type" id="1"/>
+          <day date="20170412" type="day-type" id="1"/>
+          <day date="20170411" type="day-type" id="1"/>
+        </days>
+      </calendar>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="[JALON] Lancement du projet" note="" work="0" start="20170206T000000Z" end="20170206T000000Z" work-start="20170206T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work"/>
+    <task id="2" name="Etat de l'art" note="" work="252000" start="20170206T000000Z" end="20170224T090000Z" work-start="20170206T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20170201T000000Z"/>
+      <task id="3" name="Fonctionnement des parsers" note="" work="144000" start="20170206T000000Z" end="20170221T093000Z" work-start="20170206T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="1" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="4" name="Fonctionnement des autres DBFs" note="" work="72000" start="20170206T000000Z" end="20170213T103000Z" work-start="20170206T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="1" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="5" name="M&#xE9;thode de d&#xE9;tections d'intrusions" note="" work="36000" start="20170221T093000Z" end="20170224T090000Z" work-start="20170221T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="3" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="6" name="[JALON] R&#xE9;union 1" note="" work="0" start="20170223T000000Z" end="20170223T000000Z" work-start="20170223T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170223T000000Z"/>
+      </task>
+    </task>
+    <task id="7" name="Pr&#xE9;-&#xE9;tude de d&#xE9;veloppement" note="" work="144000" start="20170224T090000Z" end="20170314T090000Z" work-start="20170224T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+      <task id="8" name="D&#xE9;finition format traitement/analyse" note="" work="36000" start="20170224T090000Z" end="20170227T103000Z" work-start="20170224T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="9" name="Fonctionnement du protocole MySQL" note="" work="72000" start="20170227T103000Z" end="20170307T093000Z" work-start="20170227T103000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="8" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="10" name="[JALON] R&#xE9;union 2" note="" work="0" start="20170307T000000Z" end="20170307T000000Z" work-start="20170307T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170307T000000Z"/>
+      </task>
+      <task id="11" name="Fonctionnement et mise en oeuvre d'un proxy " note="" work="36000" start="20170307T093000Z" end="20170314T090000Z" work-start="20170307T093000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="9" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="12" name="D&#xE9;veloppement de l'outil" note="" work="738000" start="20170314T090000Z" end="20170529T113000Z" work-start="20170314T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="7" type="FS"/>
+      </predecessors>
+      <task id="13" name="[LIVRAISON] Revue 1 de projet" note="" work="0" start="20170317T000000Z" end="20170317T000000Z" work-start="20170317T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170317T000000Z"/>
+      </task>
+      <task id="14" name="Dev client/serveur int&#xE9;grant &#xE9;changes SQL" note="" work="180000" start="20170314T090000Z" end="20170417T100000Z" work-start="20170314T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="7" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="15" name="[JALON] R&#xE9;union 3" note="" work="0" start="20170324T000000Z" end="20170324T000000Z" work-start="20170324T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170324T000000Z"/>
+      </task>
+      <task id="16" name="Dev parseur" note="" work="180000" start="20170314T090000Z" end="20170417T100000Z" work-start="20170314T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20170223T000000Z"/>
+        <predecessors>
+          <predecessor id="1" predecessor-id="7" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="17" name="[JALON] R&#xE9;union 4" note="" work="0" start="20170420T000000Z" end="20170420T000000Z" work-start="20170420T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170420T000000Z"/>
+      </task>
+      <task id="18" name="Tests Unitaires" note="" work="54000" start="20170417T100000Z" end="20170419T103000Z" work-start="20170417T100000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="16" type="FS"/>
+          <predecessor id="1" predecessor-id="14" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="19" name="[JALON] R&#xE9;union 5" note="" work="0" start="20170504T000000Z" end="20170504T000000Z" work-start="20170504T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170504T000000Z"/>
+      </task>
+      <task id="20" name="Dev analyseur" note="" work="288000" start="20170419T103000Z" end="20170524T100000Z" work-start="20170419T103000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="18" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="21" name="[JALON] R&#xE9;union 6" note="" work="0" start="20170523T000000Z" end="20170523T000000Z" work-start="20170523T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+        <constraint type="must-start-on" time="20170523T000000Z"/>
+      </task>
+      <task id="22" name="Tests d'int&#xE9;grations" note="" work="36000" start="20170524T100000Z" end="20170529T113000Z" work-start="20170524T100000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="20" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="23" name="Evaluation de l'outil" note="" work="36000" start="20170529T113000Z" end="20170530T110000Z" work-start="20170530T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="12" type="FS"/>
+      </predecessors>
+      <task id="24" name="Test performance en temps" note="" work="14400" start="20170529T113000Z" end="20170530T100000Z" work-start="20170530T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="25" name="Test performance s&#xE9;curit&#xE9;" note="" work="21600" start="20170529T113000Z" end="20170530T110000Z" work-start="20170530T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="26" name="Am&#xE9;lioration " note="" work="126000" start="20170530T110000Z" end="20170601T113000Z" work-start="20170530T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="23" type="FS"/>
+      </predecessors>
+      <task id="27" name="Optimisation de la rapidit&#xE9;" note="" work="36000" start="20170530T110000Z" end="20170601T090000Z" work-start="20170530T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="28" name="Diminution des faux positifs" note="" work="36000" start="20170530T110000Z" end="20170601T090000Z" work-start="20170530T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="29" name="Diminution des faux n&#xE9;gatifs" note="" work="54000" start="20170530T110000Z" end="20170601T113000Z" work-start="20170530T110000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="30" name="[LIVRAISON] Revue 2 de projet" note="" work="0" duration="0" start="20170531T000000Z" end="20170531T000000Z" work-start="20170531T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-duration">
+      <constraint type="must-start-on" time="20170531T000000Z"/>
+    </task>
+    <task id="31" name="R&#xE9;-&#xE9;valuation de l'outil" note="" work="36000" start="20170601T113000Z" end="20170602T110000Z" work-start="20170602T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="26" type="FS"/>
+      </predecessors>
+      <task id="32" name="Re Test performance en temps" note="" work="14400" start="20170601T113000Z" end="20170602T100000Z" work-start="20170602T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="33" name="Re Test performance en s&#xE9;curit&#xE9;" note="" work="21600" start="20170601T113000Z" end="20170602T110000Z" work-start="20170602T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="34" name="[JALON] R&#xE9;union 7" note="" work="0" start="20170606T000000Z" end="20170606T000000Z" work-start="20170606T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20170606T000000Z"/>
+    </task>
+    <task id="35" name="[LIVRAISON] Poster + Rapport de synth&#xE8;se" note="" work="0" duration="0" start="20170606T000000Z" end="20170606T000000Z" work-start="20170606T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-duration">
+      <constraint type="must-start-on" time="20170606T000000Z"/>
+    </task>
+    <task id="36" name="[LIVRAISON] Planning d&#xE9;taill&#xE9; + Rapport" note="&#10;" work="0" duration="0" start="20170615T000000Z" end="20170615T000000Z" work-start="20170615T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-duration">
+      <constraint type="must-start-on" time="20170615T000000Z"/>
+    </task>
+    <task id="37" name="[JALON] R&#xE9;union 8" note="" work="0" start="20170620T000000Z" end="20170620T000000Z" work-start="20170620T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20170620T000000Z"/>
+    </task>
+    <task id="38" name="[LIVRAISON] Database Firewall v1" note="" work="0" start="20170620T000000Z" end="20170620T000000Z" work-start="20170620T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20170620T000000Z"/>
+    </task>
+    <task id="39" name="[JALON] Soutenance publique" note="" work="0" duration="0" start="20170621T000000Z" end="20170621T000000Z" work-start="20170621T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-duration">
+      <constraint type="must-start-on" time="20170621T000000Z"/>
+    </task>
+    <task id="40" name="[JALON] Remise des prix" note="" work="0" duration="0" start="20170623T000000Z" end="20170623T000000Z" work-start="20170623T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-duration">
+      <constraint type="must-start-on" time="20170623T000000Z"/>
+    </task>
+  </tasks>
+  <resource-groups>
+    <group id="1" name="Client" admin-name="Gr&#xE9;gory Blanc" admin-phone="/" admin-email=""/>
+    <group id="2" name="El&#xE8;ve" admin-name="Aucun" admin-phone="/" admin-email="/"/>
+  </resource-groups>
+  <resources>
+    <resource group="2" id="1" name="Gr&#xE9;goire Menguy" short-name="Gr&#xE9;goire" type="1" units="0" email="gregoire.menguy@telecom-sudparis.eu" note="" std-rate="1" calendar="2"/>
+    <resource group="2" id="2" name="Baptiste Polv&#xE9;" short-name="Baptiste" type="1" units="0" email="baptiste.polve@telecom-sudparis.eu" note="" std-rate="1" calendar="2"/>
+    <resource group="1" id="3" name="Gr&#xE9;gory Blanc" short-name="Client" type="1" units="0" email="gregory.blanc@telecom-sudparis.eu" note="" std-rate="0" calendar="2"/>
+  </resources>
+  <allocations>
+    <allocation task-id="29" resource-id="1" units="100"/>
+    <allocation task-id="28" resource-id="1" units="100"/>
+    <allocation task-id="27" resource-id="1" units="100"/>
+    <allocation task-id="33" resource-id="1" units="100"/>
+    <allocation task-id="32" resource-id="1" units="100"/>
+    <allocation task-id="31" resource-id="1" units="100"/>
+    <allocation task-id="38" resource-id="1" units="100"/>
+    <allocation task-id="1" resource-id="1" units="100"/>
+    <allocation task-id="16" resource-id="1" units="100"/>
+    <allocation task-id="25" resource-id="1" units="100"/>
+    <allocation task-id="24" resource-id="1" units="100"/>
+    <allocation task-id="13" resource-id="1" units="100"/>
+    <allocation task-id="3" resource-id="1" units="100"/>
+    <allocation task-id="5" resource-id="1" units="100"/>
+    <allocation task-id="23" resource-id="1" units="100"/>
+    <allocation task-id="22" resource-id="1" units="100"/>
+    <allocation task-id="18" resource-id="1" units="100"/>
+    <allocation task-id="20" resource-id="1" units="60"/>
+    <allocation task-id="12" resource-id="1" units="100"/>
+    <allocation task-id="8" resource-id="1" units="100"/>
+    <allocation task-id="7" resource-id="1" units="100"/>
+    <allocation task-id="2" resource-id="1" units="100"/>
+    <allocation task-id="39" resource-id="1" units="100"/>
+    <allocation task-id="40" resource-id="1" units="100"/>
+    <allocation task-id="36" resource-id="1" units="100"/>
+    <allocation task-id="35" resource-id="1" units="100"/>
+    <allocation task-id="30" resource-id="1" units="100"/>
+    <allocation task-id="37" resource-id="1" units="100"/>
+    <allocation task-id="34" resource-id="1" units="100"/>
+    <allocation task-id="21" resource-id="1" units="100"/>
+    <allocation task-id="17" resource-id="1" units="100"/>
+    <allocation task-id="19" resource-id="1" units="100"/>
+    <allocation task-id="15" resource-id="1" units="100"/>
+    <allocation task-id="10" resource-id="1" units="100"/>
+    <allocation task-id="6" resource-id="1" units="100"/>
+    <allocation task-id="29" resource-id="2" units="100"/>
+    <allocation task-id="28" resource-id="2" units="100"/>
+    <allocation task-id="27" resource-id="2" units="100"/>
+    <allocation task-id="33" resource-id="2" units="100"/>
+    <allocation task-id="32" resource-id="2" units="100"/>
+    <allocation task-id="31" resource-id="2" units="100"/>
+    <allocation task-id="38" resource-id="2" units="100"/>
+    <allocation task-id="1" resource-id="2" units="100"/>
+    <allocation task-id="25" resource-id="2" units="100"/>
+    <allocation task-id="24" resource-id="2" units="100"/>
+    <allocation task-id="11" resource-id="2" units="100"/>
+    <allocation task-id="9" resource-id="2" units="100"/>
+    <allocation task-id="4" resource-id="2" units="100"/>
+    <allocation task-id="23" resource-id="2" units="100"/>
+    <allocation task-id="22" resource-id="2" units="100"/>
+    <allocation task-id="18" resource-id="2" units="100"/>
+    <allocation task-id="20" resource-id="2" units="40"/>
+    <allocation task-id="14" resource-id="2" units="100"/>
+    <allocation task-id="12" resource-id="2" units="100"/>
+    <allocation task-id="8" resource-id="2" units="100"/>
+    <allocation task-id="7" resource-id="2" units="100"/>
+    <allocation task-id="2" resource-id="2" units="100"/>
+    <allocation task-id="39" resource-id="2" units="100"/>
+    <allocation task-id="40" resource-id="2" units="100"/>
+    <allocation task-id="36" resource-id="2" units="100"/>
+    <allocation task-id="35" resource-id="2" units="100"/>
+    <allocation task-id="30" resource-id="2" units="100"/>
+    <allocation task-id="13" resource-id="2" units="100"/>
+    <allocation task-id="37" resource-id="2" units="100"/>
+    <allocation task-id="34" resource-id="2" units="100"/>
+    <allocation task-id="21" resource-id="2" units="100"/>
+    <allocation task-id="17" resource-id="2" units="100"/>
+    <allocation task-id="19" resource-id="2" units="100"/>
+    <allocation task-id="15" resource-id="2" units="100"/>
+    <allocation task-id="10" resource-id="2" units="100"/>
+    <allocation task-id="6" resource-id="2" units="100"/>
+    <allocation task-id="6" resource-id="3" units="100"/>
+    <allocation task-id="1" resource-id="3" units="100"/>
+    <allocation task-id="37" resource-id="3" units="100"/>
+    <allocation task-id="34" resource-id="3" units="100"/>
+    <allocation task-id="21" resource-id="3" units="100"/>
+    <allocation task-id="17" resource-id="3" units="100"/>
+    <allocation task-id="19" resource-id="3" units="100"/>
+    <allocation task-id="15" resource-id="3" units="100"/>
+    <allocation task-id="10" resource-id="3" units="100"/>
+  </allocations>
+</project>
