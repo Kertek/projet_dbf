@@ -68,13 +68,11 @@ void processConnection::operator()() {
         if (this->mConnection->getMessage()->getTypeMessage() == TypeMessage::COM_QUERY
             && driver.parse(this->mConnection->getMessage()->extractContent(true)) == false) {
 
-            cout << "test" << this->mConnection->getMessage()->extractContent(true) << endl;
             LogManager::getInstance().addLogMessage(TypeError::DANGER,
                                                     this->mConnection->getMessage()->extractContent(true));
             this->mConnection->getMessage()->transformMessageDefaultError();
             this->mConnection->getSocketApplication()->sendMessage(this->mConnection->getMessage());
         } else {
-            cout << "test" << this->mConnection->getMessage()->extractContent(true) << endl;
             this->mConnection->getSocketBdd()->sendMessage(this->mConnection->getMessage());
         }
 
