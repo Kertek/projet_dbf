@@ -187,6 +187,13 @@ initialize:	{
 			commands
 			| EXCEPTION
 			{
+				/*
+				 * This rule create an injection if we doesn't put 
+				 * END tocken at the end. But for our purpose, we 
+				 * will not put it because we need it for our tests.
+				 * To make it secure, replace the rule by
+				 * EXCEPTION END
+				 * */
 				YYACCEPT;
 			}
 			;

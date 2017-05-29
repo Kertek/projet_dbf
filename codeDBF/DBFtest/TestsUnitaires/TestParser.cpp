@@ -207,6 +207,7 @@ TEST( TestParserSymfony , PositiveSymfony1){
 }
 
 TEST( TestExceptionDVWA , PositiveExceptionDVWA1){
+
     CALC::CALC_Driver driver;
     EXPECT_TRUE(driver.parse("DROP DATABASE IF EXISTS dvwa"));
 
@@ -313,4 +314,9 @@ TEST( TestParserFunction , NegativeFunction2) {
 TEST( TestParserFunction , NegativeFunction3) {
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("SELECT MIN(id,name) FROM user"));
+}
+
+TEST( TestWhiteList, NegativeWhiteList1){
+    CALC::CALC_Driver driver;
+    EXPECT_FALSE(driver.parse("DROP DATABASE IF EXISTS dvwa coucou"));
 }
