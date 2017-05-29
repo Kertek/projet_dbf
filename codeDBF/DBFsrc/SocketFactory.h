@@ -19,7 +19,7 @@ class SocketFactory {
     friend class SocketDbf;
 
 private:
-    const int PEOPLE_AT_SAME_TIME = 1000;
+    const int PEOPLE_AT_SAME_TIME = 100;
 
     SocketFactory() { initSocketFactory(); }
 
