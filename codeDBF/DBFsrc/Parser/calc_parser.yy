@@ -126,6 +126,8 @@ bool increase_level(std::string type);
 %define parse.assert
 
 
+%token <std::string> INSERT
+%token <std::string> VALUES
 %token <std::string> SELECT
 %token <std::string> WILD
 %token <std::string> NB
@@ -157,9 +159,12 @@ bool increase_level(std::string type);
 %type <std::string> condition
 %type <std::string> db
 %type <std::string> colonne
+%type <std::string> colonnes
 %type <std::string> charac
 %type <std::string> characs
 %type <std::string> nbs
+%type <std::string> charac_ou_nb
+%type <std::string> characs_ou_nbs
 %type <std::string> sous
 %type <std::string> colonne_ou_char
 %type <std::string> colonne_ou_func_col
@@ -170,6 +175,7 @@ bool increase_level(std::string type);
 %type <std::string> having_close
 %type <std::string> order_close
 %type <std::string> limit_close
+%type <std::string> insertion
 
 %locations
 
@@ -196,11 +202,15 @@ initialize:	{
 				 * */
 				YYACCEPT;
 			}
+			| insertion END
+			{
+				YYACCEPT;
+			}
 			;
 			
 commands:command END
         {
-			std::cout << $1 << std::endl;
+			//std::cout << $1 << std::endl;
 			YYACCEPT;
         }
         | command COMMENT
@@ -319,10 +329,20 @@ db: 	FIELD
 
 colonne: FIELD
 		{
+			std::cout << $1 << std::endl;
 			$$ = normalize_field($1);
 		}
 		;
-		
+
+colonnes: colonne ',' colonnes
+		{
+			$$= $1 + "," + $3;
+		}
+		| colonne
+		{
+			$$ = $1;
+		}
+
 charac: CHAR
 		{
 			if($1 == "" && !increase_level("vide")){
@@ -348,6 +368,24 @@ nbs: 	NB ',' nbs
 		{
 			$$ = $1;
 		}
+
+charac_ou_nb: charac
+			{
+				$$=$1;
+			}
+			| NB
+			{
+				$$ = $1;
+			}
+
+characs_ou_nbs: charac_ou_nb ',' characs_ou_nbs
+			{
+				$$ = $1 + "," + $3;
+			}
+			| charac_ou_nb
+			{
+				$$ = $1;
+			}
 
 sous: '(' command ')'
 		{
@@ -456,6 +494,11 @@ limit_close:
 		| LIMIT NB OFFSET NB
 		{
 			$$ = $1 + $2 + $3 + $4;
+		}
+		
+insertion: INSERT db '(' colonnes ')' VALUES '(' characs_ou_nbs ')'
+		{
+			$$ = $1 + $2 + "(" + $4 + ")" + $6 + "(" + $8 + ")";
 		}
 %%
 

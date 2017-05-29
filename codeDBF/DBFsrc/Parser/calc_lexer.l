@@ -49,6 +49,10 @@ yylval = lval;
 "SELECT table_schema, table_name, create_time" {return token::EXCEPTION;}
 
 
+"INSERT INTO" |
+"insert into" 				{yylval->build<std::string>( yytext ); return token::INSERT;}
+"VALUES"	  |
+"values"					{yylval->build<std::string>( yytext ); return token::VALUES;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
@@ -120,9 +124,9 @@ yylval = lval;
 [0-9]+						{yylval->build<std::string>( yytext );return token::NB;}
 [a-zA-Z0-9$_]+				|
 [a-zA-Z0-9$_]+"."[a-zA-Z0-9$_]+		{yylval->build<std::string>( yytext );return token::FIELD;}
-"`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
+`[\x01-\x7F]+`			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}
-"\'"[a-zA-Z0-9@%]*"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
+'[a-zA-Z0-9@%]*'		{yylval->build<std::string>( yytext );return token::CHAR;}
 '\0' |
 ";"                         {
                                 /*Il faudra verifier que cela 

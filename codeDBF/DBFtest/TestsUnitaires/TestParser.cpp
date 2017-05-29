@@ -231,6 +231,21 @@ TEST( TestExceptionDVWA , PositiveExceptionDVWA3){
 
 }
 
+TEST( TestInsertion , PositiveInsertion1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("INSERT INTO lala (toto, titi) VALUES (1 , 'gtr')"));
+}
+
+TEST( TestInsertion , PositiveInsertion2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("INSERT INTO `lala` (toto, titi) VALUES (1 , 'gtr')"));
+}
+
+TEST( TestInsertion , PositiveInsertion3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("INSERT INTO `lala` (lala.toto, lala.titi) VALUES (1 , 'gtr')"));
+}
+
 /*
 #######################
 # Ne doit pas marcher #
