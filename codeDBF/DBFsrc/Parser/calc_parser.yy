@@ -205,7 +205,7 @@ commands:command END
         }
         | command COMMENT
         {
-			std::cout << "commentaire" << std::endl;
+			//std::cout << "commentaire" << std::endl;
 			if(!increase_level("commentaire")){
 				YYABORT;
 			}
@@ -508,7 +508,7 @@ std::string normalize_field(std::string field){
 }
 
 bool increase_level(std::string type){
-	std::cout << "coucou" << std::endl;
+	//std::cout << "coucou" << std::endl;
 	if(dic_bareme.find(type) == dic_bareme.end()){
 		return false; // Cas impossible.
 	}
@@ -520,13 +520,13 @@ bool increase_level(std::string type){
 	if(dic_recurrence_bareme.find(type) == dic_recurrence_bareme.end()){
 		return false;
 	}
-	std::cout << "coucou" << std::endl;
+	//std::cout << "coucou" << std::endl;
 	if(dic_bareme[type].find(dic_recurrence_bareme[type]) == dic_bareme[type].end()){
 		return false;
 	}
-	std::cout << "!!!" << level << "!!!" << std::endl;
+	//std::cout << "!!!" << level << "!!!" << std::endl;
 	level += dic_bareme[type][dic_recurrence_bareme[type]];
-	std::cout << "!!!" << level << "!!!" << std::endl;
+	//std::cout << "!!!" << level << "!!!" << std::endl;
 	return(level<100);
 }
 

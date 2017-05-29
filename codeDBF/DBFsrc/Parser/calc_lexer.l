@@ -97,13 +97,23 @@ yylval = lval;
                                  * */
                                 return token::COMMENT;
                             }
+
+"=" 	|
+"<=" 	|
+">="	|
+"<" 	|
+">"		|
+"!="    |
+"<>"    |                     
+"LIKE"	|
+"like"	{yylval->build<std::string>( yytext );return token::COMPARAISON;}
                         
 [0-9]+						{yylval->build<std::string>( yytext );return token::NB;}
 [a-zA-Z0-9$_]+				|
 [a-zA-Z0-9$_]+"."[a-zA-Z0-9$_]+		{yylval->build<std::string>( yytext );return token::FIELD;}
 "`"[\x01-\x7F]+"`"			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}
-"\'"[a-zA-Z0-9@]*"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
+"\'"[a-zA-Z0-9@%]*"\'"		{yylval->build<std::string>( yytext );return token::CHAR;}
 '\0' |
 ";"                         {
                                 /*Il faudra verifier que cela 
@@ -115,13 +125,6 @@ yylval = lval;
 "("							{return *yytext;}
 ")"							{return *yytext;}
 
-"=" 	|
-"<=" 	|
-">="	|
-"<" 	|
-">"		|
-"!="    |
-"<>"    {yylval->build<std::string>( yytext );return token::COMPARAISON;}
 [ ]						 {;}
 
 .		{/* Used for all the other characters */

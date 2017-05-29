@@ -206,6 +206,12 @@ TEST( TestParserSymfony , PositiveSymfony1){
     
 }
 
+TEST( TestParserSymfony , PositiveSymfony2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT a0_.id AS id_0, a0_.date AS date_1, a0_.title AS title_2, a0_.body AS body_3 FROM Articles a0_ WHERE a0_.id LIKE '%1%' OR a0_.title LIKE '%1%' OR a0_.body LIKE '%1%' ORDER BY a0_.id DESC"));
+
+}
+
 TEST( TestExceptionDVWA , PositiveExceptionDVWA1){
 
     CALC::CALC_Driver driver;
