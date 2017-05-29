@@ -81,6 +81,6 @@ void processConnection::operator()() {
     }
 
     delete previousMessage;
-    this->mConnection->~Connection();
+    delete this->mConnection;
 
 }
