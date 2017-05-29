@@ -38,6 +38,15 @@ yylval = lval;
 "CREATE TABLE guestbook (comment_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, comment varchar(300), name varchar(100), PRIMARY KEY (comment_id))" |
 "INSERT INTO guestbook VALUES ('1','This is a test comment.','test')" |
 "SELECT table_schema, table_name, create_time" {return token::EXCEPTION;}
+%{
+    /**Exception Tests Performance **/
+%}
+"DROP SCHEMA IF EXISTS `mysqlslap`" |
+"CREATE SCHEMA `mysqlslap`" |
+"CREATE TABLE `t1` (intcol1 INT(32) ,charcol1 VARCHAR(128))" |
+"INSERT INTO t1 VALUES " |
+"SELECT intcol1,charcol1 FROM t1" |
+"SELECT table_schema, table_name, create_time" {return token::EXCEPTION;}
 
 
 "SELECT" |
@@ -128,14 +137,11 @@ yylval = lval;
 [ ]						 {;}
 
 .		{/* Used for all the other characters */
-			std::cout << "Forbbiden char" << std::endl;
+			//std::cout << "Forbbiden char" << std::endl;
 			return token::FORBIDDEN;
 		}
 
 %%
 
-void comment(){
-    std::cout << "Il y a un commentaire" << std::endl;
-}
 
 
