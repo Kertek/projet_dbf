@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 #include "../../DBFsrc/Parser/calc_driver.h"
 
-TEST( TestPerformance , test1){
+/*TEST( TestPerformance , test1){
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("SELECT @@version"));
 }
@@ -202,5 +202,5 @@ TEST( TestPerformance , test39){
 TEST( TestPerformance , test40){
     CALC::CALC_Driver driver;
     EXPECT_FALSE(driver.parse("SELECT @@datadir"));
-}
+}*/
 

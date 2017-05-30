@@ -1,3 +1,4 @@
+/*
 //
 // Created by baptiste on 18/04/17.
 //
@@ -102,3 +103,4 @@ TEST( TestInjectionFunction , falseCreateFunction){
     EXPECT_FALSE(driver.parse("SELECT lala FROM toto WHERE id=5 UNION CREATE FUNCTION tests RETURNS STRING SONAME libtest.so"));
 }
 
+*/

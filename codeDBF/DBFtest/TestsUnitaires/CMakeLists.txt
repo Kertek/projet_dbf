@@ -5,7 +5,7 @@ add_executable(projet_dbf_test
         MainTests.cpp
         TestParser.cpp
         TestInjection.cpp
-        TestPerformance.cpp)
+        TestPerformance.cpp TestRequetesMalveillantes.cpp TestRequetesLegitimes.cpp)
 
 target_link_libraries(projet_dbf_test gtest gtest_main)
 target_link_libraries(projet_dbf_test DBFsrc)
