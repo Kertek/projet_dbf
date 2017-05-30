@@ -104,7 +104,8 @@ yylval = lval;
 "CREATE FUNCTION"			|
 "into dumpfile"				|
 "INTO DUMPFILE"				{return token::FORBIDDEN;}
-"--"						{	/* Commentaire:
+"--"						|
+"#"                         {	/* Commentaire:
                                  * On retourne END pour dire
                                  * que la suite ne compte pas.
                                  * */
