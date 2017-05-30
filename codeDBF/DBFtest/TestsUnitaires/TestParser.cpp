@@ -246,6 +246,209 @@ TEST( TestInsertion , PositiveInsertion3){
     EXPECT_TRUE(driver.parse("INSERT INTO `lala` (lala.toto, lala.titi) VALUES (1 , 'gtr')"));
 }
 
+TEST( TestTrue , PositiveTrue1){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select * from Articles where id <10 order by name DESC"));
+}
+
+TEST( TestTrue , PositiveTrue2){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT user,password from users WHERE user='toto' and password='pass'"));
+}
+
+TEST( TestTrue , PositiveTrue3){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT fz.ta from fz where za<8 GROUP BY name HAVING zb>10 UNION SELECT toto from ri"));
+}
+
+TEST( TestTrue , PositiveTrue4){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT MIN(tr),MAX(te) from hgfd"));
+}
+
+TEST( TestTrue , PositiveTrue5){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT if(1=2,col1,col2) from trez"));
+}
+
+TEST( TestTrue , PositiveTrue6){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT COUNT(*) from trez"));
+}
+
+TEST( TestTrue , PositiveTrue7){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT aze, grez,hgf,hger from rterzb where fzeffzfz = 1"));
+}
+
+TEST( TestTrue , PositiveTrue8){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT (select id from gfd UNION select lala from toto) AS id from hgfd"));
+}
+
+TEST( TestTrue , PositiveTrue9){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT ABS(x) from u where x < 10"));
+}
+
+TEST( TestTrue , PositiveTrue10){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select user from users where user=UPPER('lala')"));
+}
+
+TEST( TestTrue , PositiveTrue11){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select user from users where user=LOWER('LaLa')"));
+}
+
+TEST( TestTrue , PositiveTrue12){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT gf, bfe from gre group by gf having toto<'gfd'"));
+}
+
+TEST( TestTrue , PositiveTrue13){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select user from users where user='lala'+'user'"));
+}
+
+TEST( TestTrue , PositiveTrue14){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select pow(fdds,gfd) from gfs"));
+}
+
+TEST( TestTrue , PositiveTrue15){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select users.data from users where user=UPPER('name')"));
+}
+
+TEST( TestTrue , PositiveTrue16){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select users.data from users where note < 10 and note > -10"));
+}
+
+TEST( TestTrue , PositiveTrue17){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select COUNT(DISTINCT user) from users"));
+}
+
+TEST( TestTrue , PositiveTrue18){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select ll, re,gfd from tre where hgf = fds"));
+}
+
+TEST( TestTrue , PositiveTrue19){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select users from lala where i = 1+2"));
+}
+
+TEST( TestTrue , PositiveTrue20){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from users where POW(id,2)<19"));
+}
+
+TEST( TestTrue , PositiveTrue21){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select id from users where id<POW(5,2)"));
+}
+
+TEST( TestTrue , PositiveTrue22){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT AVG(user_editcount) FROM wiki1_user;"));
+}
+
+TEST( TestTrue , PositiveTrue23){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT SUM(user_editcount) FROM wiki1_user;"));
+}
+
+TEST( TestTrue , PositiveTrue24){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT CAST(20130101 AS date);"));
+}
+
+TEST( TestTrue , PositiveTrue25){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT CONVERT (20130101, date)"));
+}
+
+TEST( TestTrue , PositiveTrue26){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT id from (select hgf from gfd ORDER BY gre) as gf"));
+}
+
+TEST( TestTrue , PositiveTrue27){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z from abcde"));
+}
+
+TEST( TestTrue , PositiveTrue28){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("select * from (select lala from toto group by name having ABS(id)>15) as l"));
+}
+
+TEST( TestTrue , PositiveTrue29){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT 'user','lala'"));
+}
+
+TEST( TestTrue , PositiveTrue30){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT lala,'toto' from hgfd"));
+}
+
+TEST( TestTrue , PositiveTrue31){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into users (username , password) VALUES ('lala' , 'pass1234')"));
+}
+
+TEST( TestTrue , PositiveTrue32){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into users (id, username , password) VALUES (312 ,'lala' , 'pass1234')"));
+}
+
+TEST( TestTrue , PositiveTrue33){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into `users` (username , password) VALUES ('lala' , 'pass1234')"));
+}
+
+TEST( TestTrue , PositiveTrue34){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into users (`username` , password) VALUES ('lala' , 'pass1234')"));
+}
+
+TEST( TestTrue , PositiveTrue35){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into `users` (`username` , `password`) VALUES ('lala' , 'pass1234')"));
+}
+
+TEST( TestTrue , PositiveTrue36){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into users (username , password) VALUES ('lala' , 'pass1234')"));
+}
+
+TEST( TestTrue , PositiveTrue37){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into users (username , password) VALUES (1 , 2)"));
+}
+
+TEST( TestTrue , PositiveTrue38){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("insert into users (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z) VALUES (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26)"));
+}
+
+TEST( TestTrue , PositiveTrue39){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("INSERT INTO lala (lalajhgf) VALUES ('lala')"));
+}
+
+TEST( TestTrue , PositiveTrue40){
+    CALC::CALC_Driver driver;
+    EXPECT_TRUE(driver.parse("SELECT 1"));
+}
+
+
+
+
 /*
 #######################
 # Ne doit pas marcher #
