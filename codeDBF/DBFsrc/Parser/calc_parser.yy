@@ -147,6 +147,9 @@ bool increase_level(std::string type);
 %token <std::string> LIMIT
 %token <std::string> OFFSET
 %token <std::string> FUNC
+%token <std::string> OPERATION
+%token <std::string> JOIN
+%token <std::string> ON
 %token END
 %token COMMENT
 %token FORBIDDEN
@@ -158,7 +161,10 @@ bool increase_level(std::string type);
 %type <std::string> provenance
 %type <std::string> condition_close
 %type <std::string> condition
+%type <std::string> operation
+%type <std::string> condition_join
 %type <std::string> db
+%type <std::string> dbs
 %type <std::string> colonne
 %type <std::string> colonnes
 %type <std::string> charac
@@ -246,7 +252,12 @@ command: SELECT selection FROM provenance condition_close group_close order_clos
 			if(!increase_level("union")){
 				YYABORT;
 			}
+			$$ = $1 + $2 + $3;
 		}
+		| command JOIN dbs ON condition_join
+		{
+			$$ = $1 + $2 + $3 + $4 + $5;
+		} 
         ;
 
 selection: ssrecherche ',' selection 
@@ -309,14 +320,14 @@ condition_close:
 		}
         ;
 
-condition: colonne_ou_func_col COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func LOGIQUE condition
+condition: colonne_ou_func_col COMPARAISON operation LOGIQUE condition
 		{
 			$$ = $1 + $2 + $3 + $4 + $5;
 			if(!find_tautologies({$1,$2,$3,$4})){
 				YYABORT;
 			}
 		}
-        | colonne_ou_func_col COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_func
+        | colonne_ou_func_col COMPARAISON operation
         {
 			$$ = $1 + $2 + $3;
 			if(!find_tautologies({$1,$2,$3,""})){
@@ -325,12 +336,44 @@ condition: colonne_ou_func_col COMPARAISON colonne_ou_char_ou_NB_ou_command_ou_f
 		}
         ;
 
+operation: colonne_ou_char_ou_NB_ou_command_ou_func OPERATION operation
+		{
+			$$ = $1 + $2 + $3;
+		}
+		| colonne_ou_char_ou_NB_ou_command_ou_func
+		{
+			$$ = $1;
+		}
+
+condition_join: colonne COMPARAISON condition_join
+		{
+			$$ = $1 + $2 + $3;
+		}
+		| '(' condition_join ')'
+		{
+			$$ = "(" + $2 + ")";
+		}
+		| colonne
+		{
+			$$ = $1;
+		}
+		;
+		
 db: 	FIELD
 		{
 			if ($1.find(".") != std::string::npos){
 					YYABORT;
 			} 
 			$$ = normalize_field($1);
+		}
+
+dbs: 	db ',' dbs
+		{
+			$$ = $1 + ',' + $3;
+		}
+		| db
+		{
+			$$ = $1;
 		}
 
 colonne: FIELD

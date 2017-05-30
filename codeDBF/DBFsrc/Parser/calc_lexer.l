@@ -58,7 +58,9 @@ yylval = lval;
 "delete"	|
 "DELETE"					{yylval->build<std::string>( "DELETE" ); return token::DELETE;}
 "SELECT" |
-"select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
+"select"					{yylval->build<std::string>( "SELECT" ); return token::SELECT;}
+"select distinct" |
+"SELECT DISTINCT"			{yylval->build<std::string>( "SELECT DISTINCT" ); return token::SELECT;}
 "FROM" 	 |
 "from" 						{yylval->build<std::string>( yytext );return token::FROM;}
 "WHERE"  |
@@ -81,6 +83,18 @@ yylval = lval;
 "OR"	 					{yylval->build<std::string>( "OR" );return token::LOGIQUE;}
 "UNION"	 |
 "union"  					{yylval->build<std::string>( "UNION" );return token::UNION;}
+"join"	|
+"JOIN"	|
+"inner join" |
+"INNER JOIN" |
+"left join" |
+"LEFT JOIN" |
+"right join" |
+"RIGHT JOIN" |
+"full join" |
+"FULL JOIN" 				{yylval->build<std::string>( yytext );return token::JOIN;}
+"on"    |
+"ON"						{yylval->build<std::string>( "ON" );return token::ON;}
 "asc"	|
 "ASC"						{yylval->build<std::string>( "ASC" );return token::TRI;}
 "desc"	|
@@ -138,9 +152,9 @@ yylval = lval;
 "-"[0-9]+			{yylval->build<std::string>( yytext );return token::NB;}
 [a-zA-Z0-9$_]+				|
 [a-zA-Z0-9$_]+"."[a-zA-Z0-9$_]+		{yylval->build<std::string>( yytext );return token::FIELD;}
-`[\x01-\x7F]+`			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
+`[\x01-\x7F]+`				{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}
-'[a-zA-Z0-9@%]*'		{yylval->build<std::string>( yytext );return token::CHAR;}
+'[a-zA-Z0-9@%]*'			{yylval->build<std::string>( yytext );return token::CHAR;}
 
 ";"							{;}
 <<EOF>> 					{
@@ -152,8 +166,13 @@ yylval = lval;
 ","							{return *yytext;}
 "("							{return *yytext;}
 ")"							{return *yytext;}
+"+" |
+"-" |
+"*" |
+"/" |
+"%" 						{yylval->build<std::string>( yytext );return token::OPERATION;}
 
-[ ]						 {;}
+[ ]						 	{;}
 
 .		{/* Used for all the other characters */
 			//std::cout << "Forbbiden char" << std::endl;
