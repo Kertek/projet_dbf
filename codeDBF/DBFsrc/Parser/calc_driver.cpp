@@ -19,6 +19,14 @@ CALC::CALC_Driver::~CALC_Driver()
 bool
 CALC::CALC_Driver::parse(std::string String)
 {
+    /*
+    int i=0;
+    while(String[i] != ';' or String[i] != '\0'){
+        i++;
+    }
+    if(String != String.substr(0,(size_t )i+1)){
+        //return false;
+    }*/
     std::istringstream in(String);
     if( ! in.good() )
     {

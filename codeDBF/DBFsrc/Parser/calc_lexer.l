@@ -50,9 +50,13 @@ yylval = lval;
 
 
 "INSERT INTO" |
-"insert into" 				{yylval->build<std::string>( yytext ); return token::INSERT;}
+"insert into" 				{yylval->build<std::string>( "INSERT INTO" ); return token::INSERT;}
 "VALUES"	  |
 "values"					{yylval->build<std::string>( yytext ); return token::VALUES;}
+"delete from"	|
+"DELETE FROM"				{yylval->build<std::string>( "DELETE FROM" ); return token::DELETE;}
+"delete"	|
+"DELETE"					{yylval->build<std::string>( "DELETE" ); return token::DELETE;}
 "SELECT" |
 "select"					{yylval->build<std::string>( yytext ); return token::SELECT;}
 "FROM" 	 |
@@ -89,8 +93,16 @@ yylval = lval;
 "ABS"						{yylval->build<std::string>( "ABS" );return token::FUNC;}
 "upper"	|
 "UPPER"						{yylval->build<std::string>( "UPPER" );return token::FUNC;}
+"lower" |
+"LOWER"						{yylval->build<std::string>( "LOWER" );return token::FUNC;}
 "pow"	|
 "POW"						{yylval->build<std::string>( "POW" );return token::FUNC;}
+"count" |
+"COUNT"						{yylval->build<std::string>( "COUNT" );return token::FUNC;}
+"avg"	|
+"AVG"						{yylval->build<std::string>( "AVG" );return token::FUNC;}
+"sum"	|
+"SUM"						{yylval->build<std::string>( "SUM" );return token::FUNC;}
 "information_schema".*		|
 "user()"					|
 "version()"					|
@@ -122,14 +134,16 @@ yylval = lval;
 "LIKE"	|
 "like"	{yylval->build<std::string>( yytext );return token::COMPARAISON;}
                         
-[0-9]+						{yylval->build<std::string>( yytext );return token::NB;}
+[0-9]+ | 
+"-"[0-9]+			{yylval->build<std::string>( yytext );return token::NB;}
 [a-zA-Z0-9$_]+				|
 [a-zA-Z0-9$_]+"."[a-zA-Z0-9$_]+		{yylval->build<std::string>( yytext );return token::FIELD;}
 `[\x01-\x7F]+`			{yylval->build<std::string>( yytext );return token::FIELD; /** pour les charset etendu **/}
 "*"                         {yylval->build<std::string>( yytext );return token::WILD;}
 '[a-zA-Z0-9@%]*'		{yylval->build<std::string>( yytext );return token::CHAR;}
-'\0' |
-";"                         {
+
+";"							{;}
+<<EOF>> 					{
                                 /*Il faudra verifier que cela 
                                  * n'introduit pas une faille injection 
                                  * Null byte*/

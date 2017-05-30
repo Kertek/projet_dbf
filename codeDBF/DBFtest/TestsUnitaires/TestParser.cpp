@@ -4,9 +4,11 @@
 //
 //#include "gtest/gtest.h"
 //#include "../../DBFsrc/Parser/calc_driver.h"
-/////*################
+////
+////################
 ////# Doit marcher #
-////################*/
+////################
+//
 //
 //
 //
@@ -36,11 +38,12 @@
 //    EXPECT_TRUE(driver.parse("select db.id from Articles"));
 //}
 //
-///*TEST( TestParserSimpleSelectFrom , simplePositiveSelectFromWithExtendedCharset1){
+//
+//TEST( TestParserSimpleSelectFrom , simplePositiveSelectFromWithExtendedCharset1){
 //    CALC::CALC_Driver driver;
-//    EXPECT_TRUE(driver.parse("select `id+-
-//()@` from Articles"));
-//}*/
+//    EXPECT_TRUE(driver.parse("select `id+-()@` from Articles"));
+//}
+//
 //
 //TEST( TestParserSelectAsFrom , PositiveSelectAsFrom1){
 //    CALC::CALC_Driver driver;

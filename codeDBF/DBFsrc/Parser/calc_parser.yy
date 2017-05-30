@@ -127,6 +127,7 @@ bool increase_level(std::string type);
 
 
 %token <std::string> INSERT
+%token <std::string> DELETE
 %token <std::string> VALUES
 %token <std::string> SELECT
 %token <std::string> WILD
@@ -176,6 +177,7 @@ bool increase_level(std::string type);
 %type <std::string> order_close
 %type <std::string> limit_close
 %type <std::string> insertion
+%type <std::string> suppression
 
 %locations
 
@@ -206,6 +208,10 @@ initialize:	{
 			{
 				YYACCEPT;
 			}
+			| suppression END
+			{
+				YYACCEPT;
+			}
 			;
 			
 commands:command END
@@ -227,7 +233,7 @@ command: SELECT selection FROM provenance condition_close group_close order_clos
 		{
 			$$ = $1 + $2 + $3 + $4 + $5 + $6 + $7 + $8;
 		}
-		| SELECT charac
+		| SELECT characs
 		{
 			$$ = $1 + $2;
 		}
@@ -419,7 +425,11 @@ colonne_ou_func_col: colonne
 		{
 			$$ = $1;
 		}
-		| FUNC '(' colonne ')'
+		| FUNC '(' colonnes ')'
+		{
+			$$ = $1 + "(" + $3 + ")";
+		}
+		| FUNC '(' WILD ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
 		}
@@ -500,6 +510,11 @@ insertion: INSERT db '(' colonnes ')' VALUES '(' characs_ou_nbs ')'
 		{
 			$$ = $1 + $2 + "(" + $4 + ")" + $6 + "(" + $8 + ")";
 		}
+		
+suppression: DELETE colonne WHERE condition
+			{
+				$$ = $1 + $2 + $3 + $4;
+			}
 %%
 
 
