@@ -448,7 +448,7 @@ TEST(TestTrue, PositiveTrue40) {
 
 TEST(TestTrue, PositiveTrue41) {
     CALC::CALC_Driver driver;
-    EXPECT_TRUE(driver.parse("SELECT '*'"));
+    EXPECT_TRUE(driver.parse("SELECT DISTINCT ville FROM entrepot WHERE lala IN (1,'2')"));
 }
 
 

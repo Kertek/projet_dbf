@@ -146,7 +146,11 @@ yylval = lval;
 "!="    |
 "<>"    |                     
 "LIKE"	|
-"like"	{yylval->build<std::string>( yytext );return token::COMPARAISON;}
+"like"	|
+'in'	|
+"IN"	|
+"not in" |
+"NOT IN" 					{yylval->build<std::string>( yytext );return token::COMPARAISON;}
                         
 [0-9]+ | 
 "-"[0-9]+			{yylval->build<std::string>( yytext );return token::NB;}

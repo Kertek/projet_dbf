@@ -177,6 +177,8 @@ bool increase_level(std::string type);
 %type <std::string> colonne_ou_func_col
 %type <std::string> colonne_ou_func
 %type <std::string> colonne_ou_char_ou_NB_ou_command_ou_func
+%type <std::string> colonne_ou_char_ou_NB_ou_command_ou_func_s
+%type <std::string> colonne_ou_char_ou_NB_ou_command_ou_func_ou_list
 %type <std::string> group_close
 %type <std::string> colonne_tri 
 %type <std::string> having_close
@@ -336,11 +338,11 @@ condition: colonne_ou_func_col COMPARAISON operation LOGIQUE condition
 		}
         ;
 
-operation: colonne_ou_char_ou_NB_ou_command_ou_func OPERATION operation
+operation: colonne_ou_char_ou_NB_ou_command_ou_func_ou_list OPERATION operation
 		{
 			$$ = $1 + $2 + $3;
 		}
-		| colonne_ou_char_ou_NB_ou_command_ou_func
+		| colonne_ou_char_ou_NB_ou_command_ou_func_ou_list
 		{
 			$$ = $1;
 		}
@@ -507,7 +509,26 @@ colonne_ou_char_ou_NB_ou_command_ou_func: colonne_ou_func
 			$$ = $1;
 		}
         ;
-    
+        
+colonne_ou_char_ou_NB_ou_command_ou_func_s: colonne_ou_char_ou_NB_ou_command_ou_func ',' colonne_ou_char_ou_NB_ou_command_ou_func_s
+		{
+			$$ = $1 + "," + $3;
+		}
+		| colonne_ou_char_ou_NB_ou_command_ou_func
+		{
+			$$ = $1;
+		}
+		
+		
+colonne_ou_char_ou_NB_ou_command_ou_func_ou_list: '(' colonne_ou_char_ou_NB_ou_command_ou_func_s ')'
+		{
+			$$ = "(" + $2 + ")";
+		}
+		| colonne_ou_char_ou_NB_ou_command_ou_func
+		{
+			$$ = $1;
+		}
+
 group_close:
 		{
 			$$="";
