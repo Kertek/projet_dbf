@@ -157,6 +157,7 @@ bool increase_level(std::string type);
 
 %type <std::string> command
 %type <std::string> selection
+%type <std::string> selection_from
 %type <std::string> from
 %type <std::string> ssrecherche
 %type <std::string> provenance
@@ -240,8 +241,16 @@ commands:command END
 		}
         ;
 
-command: SELECT selection from
+command: SELECT selection
 		{
+			$$ = $1 + $2;
+		} 
+		| SELECT selection_from from
+		{
+			/* Selection quand un from suit: on autorise 
+			 * que de selectionner des colonnes ou des function sur les colonnes
+			 * Cela permet de ne pas pouvoir ajouter des colonnes inutilses dans
+			 * les UNION based injections pour avoir les bonnes dimensions */
 			$$ = $1 + $2 + $3;
 		}
 		| command UNION command
@@ -257,6 +266,15 @@ command: SELECT selection from
 		} 
         ;
 
+selection_from: ssrecherche ',' selection_from
+		{
+			$$ = $1 + "," + $3;
+		}
+		| ssrecherche
+		{
+			$$ = $1;
+		}
+
 from: 
 		{
 			$$ = "";
@@ -265,13 +283,21 @@ from:
 		{
 			$$ = $1 + $2 + $3 + $4 + $5 + $6;
 		}
-	
 
-selection: ssrecherche ',' selection 
+
+selection: selection ',' selection 
 		{
 			$$ = $1 + "," + $3;
 		}
 		| ssrecherche
+		{
+			$$ = $1;
+		}
+		| CHAR
+		{
+			$$ = $1;
+		}
+		| NB
 		{
 			$$ = $1;
 		}
@@ -295,14 +321,6 @@ ssrecherche: sous AS colonne_ou_char
 		}
         | WILD
         {
-			$$ = $1;
-		}
-		| CHAR
-		{
-			$$ = $1;
-		}
-		| NB
-		{
 			$$ = $1;
 		}
         ;
