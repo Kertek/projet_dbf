@@ -157,6 +157,7 @@ bool increase_level(std::string type);
 
 %type <std::string> command
 %type <std::string> selection
+%type <std::string> from
 %type <std::string> ssrecherche
 %type <std::string> provenance
 %type <std::string> condition_close
@@ -174,6 +175,8 @@ bool increase_level(std::string type);
 %type <std::string> characs_ou_nbs
 %type <std::string> sous
 %type <std::string> colonne_ou_char
+%type <std::string> colonne_ou_char_ou_nb
+%type <std::string> colonne_ou_char_ou_nb_s
 %type <std::string> colonne_ou_func_col
 %type <std::string> colonne_ou_func
 %type <std::string> colonne_ou_char_ou_NB_ou_command_ou_func
@@ -237,17 +240,9 @@ commands:command END
 		}
         ;
 
-command: SELECT selection FROM provenance condition_close group_close order_close limit_close
+command: SELECT selection from
 		{
-			$$ = $1 + $2 + $3 + $4 + $5 + $6 + $7 + $8;
-		}
-		| SELECT characs
-		{
-			$$ = $1 + $2;
-		}
-		| SELECT NB
-		{
-			$$ = $1 + $2;
+			$$ = $1 + $2 + $3;
 		}
 		| command UNION command
 		{
@@ -261,6 +256,16 @@ command: SELECT selection FROM provenance condition_close group_close order_clos
 			$$ = $1 + $2 + $3 + $4 + $5;
 		} 
         ;
+
+from: 
+		{
+			$$ = "";
+		}
+		| FROM provenance condition_close group_close order_close limit_close
+		{
+			$$ = $1 + $2 + $3 + $4 + $5 + $6;
+		}
+	
 
 selection: ssrecherche ',' selection 
 		{
@@ -290,6 +295,14 @@ ssrecherche: sous AS colonne_ou_char
 		}
         | WILD
         {
+			$$ = $1;
+		}
+		| CHAR
+		{
+			$$ = $1;
+		}
+		| NB
+		{
 			$$ = $1;
 		}
         ;
@@ -470,26 +483,49 @@ colonne_ou_func_col: colonne
 		{
 			$$ = $1;
 		}
-		| FUNC '(' colonnes ')'
+		| FUNC '(' colonne ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
+		}
+		| FUNC '(' colonne ',' colonne_ou_char_ou_nb_s ')'
+		{
+			$$ = $1 + "(" + $3 + "," + $5 + ")";
 		}
 		| FUNC '(' WILD ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
 		}
-		
-colonne_ou_func: colonne_ou_func_col
+
+colonne_ou_char_ou_nb: colonne_ou_char
 		{
 			$$ = $1;
 		}
-		| FUNC '(' nbs ')'
+		| NB
+		{
+			$$ = $1;
+		}
+
+colonne_ou_char_ou_nb_s: colonne_ou_char_ou_nb ',' colonne_ou_char_ou_nb_s
+		{
+			$$ = $1 + "," + $3;
+		}
+		| colonne_ou_char_ou_nb
+		{
+			$$ = $1;
+		}
+
+colonne_ou_func: colonne_ou_func_col
+		{
+			/* Si fonction, on oblige qu'il y ai au moins une colonne en argument */
+			$$ = $1;
+		}
+		| FUNC '(' colonne_ou_char_ou_nb_s ')'
 		{
 			$$ = $1 + "(" + $3 + ")";
 		}
-		| FUNC '(' characs ')'
+		| FUNC '(' ')'
 		{
-			$$ = $1 + "(" + $3 + ")";
+			$$ = $1 +"()";
 		}
 
 colonne_ou_char_ou_NB_ou_command_ou_func: colonne_ou_func
