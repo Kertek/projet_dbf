@@ -20,9 +20,9 @@
       <w>96</w>
       <h>48</h>
     </coordinates>
-    <panel_attributes>get packet
-from
-WEB APP
+    <panel_attributes>*get packet*
+*from*
+*WEB APP*
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -46,8 +46,7 @@ bg=green</panel_attributes>
       <w>136</w>
       <h>512</h>
     </coordinates>
-    <panel_attributes>Proxy
-</panel_attributes>
+    <panel_attributes>*Proxy*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -58,9 +57,9 @@ bg=green</panel_attributes>
       <w>96</w>
       <h>48</h>
     </coordinates>
-    <panel_attributes>send packet
-to
-MySQL server
+    <panel_attributes>*send packet*
+*to*
+*MySQL server*
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -95,8 +94,8 @@ bg=red</panel_attributes>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-from 
-WEB APP</panel_attributes>
+*from *
+*WEB APP*</panel_attributes>
     <additional_attributes>120.0;20.0;10.0;20.0;10.0;50.0</additional_attributes>
   </element>
   <element>
@@ -108,8 +107,8 @@ WEB APP</panel_attributes>
       <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-[connection
-ou déconnection]
+*[connection*
+*ou déconnection]*
 </panel_attributes>
     <additional_attributes>10.0;70.0;130.0;70.0;130.0;10.0</additional_attributes>
   </element>
@@ -132,7 +131,7 @@ ou déconnection]
       <w>112</w>
       <h>128</h>
     </coordinates>
-    <panel_attributes>Parser</panel_attributes>
+    <panel_attributes>*Parser*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -143,7 +142,7 @@ ou déconnection]
       <w>80</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Parsing
+    <panel_attributes>*Parsing*
 bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
@@ -156,7 +155,7 @@ bg=blue</panel_attributes>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-request</panel_attributes>
+*request*</panel_attributes>
     <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
@@ -179,10 +178,10 @@ bg=green</panel_attributes>
       <w>96</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>send standard
-error message
-to
-WEB APP
+    <panel_attributes>*send standard*
+*error message*
+*to*
+*WEB APP*
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -202,11 +201,12 @@ bg=red</panel_attributes>
     <coordinates>
       <x>584</x>
       <y>160</y>
-      <w>304</w>
+      <w>216</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-[does not respect MySQL grammar]</panel_attributes>
+*[does not respect*
+*MySQL grammar]*</panel_attributes>
     <additional_attributes>20.0;180.0;110.0;180.0;110.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
@@ -228,7 +228,7 @@ bg=red</panel_attributes>
       <w>112</w>
       <h>128</h>
     </coordinates>
-    <panel_attributes>Analyzer</panel_attributes>
+    <panel_attributes>*Analyzer*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -239,7 +239,7 @@ bg=red</panel_attributes>
       <w>80</w>
       <h>32</h>
     </coordinates>
-    <panel_attributes>analyze
+    <panel_attributes>*analyze*
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -252,7 +252,7 @@ bg=yellow</panel_attributes>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-OK</panel_attributes>
+*OK*</panel_attributes>
     <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
@@ -272,11 +272,11 @@ bg=green</panel_attributes>
     <coordinates>
       <x>592</x>
       <y>152</y>
-      <w>384</w>
+      <w>392</w>
       <h>184</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-[is an attack]</panel_attributes>
+*[is an attack]*</panel_attributes>
     <additional_attributes>10.0;210.0;370.0;210.0;370.0;10.0;300.0;10.0</additional_attributes>
   </element>
   <element>
@@ -299,7 +299,7 @@ bg=green</panel_attributes>
       <h>96</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-[is not an attack]</panel_attributes>
+*[is not an attack]*</panel_attributes>
     <additional_attributes>10.0;100.0;680.0;100.0;680.0;10.0</additional_attributes>
   </element>
   <element>
@@ -322,9 +322,9 @@ bg=green</panel_attributes>
       <w>96</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>get packet
-from
-MySQL server
+    <panel_attributes>*get packet*
+*from*
+*MySQL server*
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -337,8 +337,8 @@ bg=red</panel_attributes>
       <h>336</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-from 
-MySQL server</panel_attributes>
+*from*
+*MySQL server*</panel_attributes>
     <additional_attributes>120.0;390.0;10.0;390.0;10.0;10.0</additional_attributes>
   </element>
   <element>
@@ -360,9 +360,9 @@ MySQL server</panel_attributes>
       <w>96</w>
       <h>56</h>
     </coordinates>
-    <panel_attributes>send packet
-to
-WEB APP
+    <panel_attributes>*send packet*
+*to*
+*WEB APP*
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -394,12 +394,12 @@ bg=green</panel_attributes>
     <coordinates>
       <x>440</x>
       <y>320</y>
-      <w>304</w>
+      <w>320</w>
       <h>200</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-[is an error
-message]</panel_attributes>
+*[is an error*
+*message]*</panel_attributes>
     <additional_attributes>200.0;10.0;290.0;10.0;290.0;230.0;10.0;230.0</additional_attributes>
   </element>
   <element>
@@ -411,8 +411,8 @@ message]</panel_attributes>
       <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-[is not an error
-message]</panel_attributes>
+*[is not an error*
+*message]*</panel_attributes>
     <additional_attributes>10.0;20.0;200.0;20.0;200.0;110.0</additional_attributes>
   </element>
   <element>
@@ -434,7 +434,7 @@ message]</panel_attributes>
       <w>112</w>
       <h>96</h>
     </coordinates>
-    <panel_attributes>logs systems</panel_attributes>
+    <panel_attributes>*logs systems*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -445,8 +445,8 @@ message]</panel_attributes>
       <w>88</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>write 
-log in file
+    <panel_attributes>*write *
+*log in file*
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
